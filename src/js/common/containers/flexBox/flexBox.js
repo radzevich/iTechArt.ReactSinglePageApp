@@ -1,44 +1,22 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SideNavigation from '../../components/sideNavigation/sideNavigation';
-import NewSurveyPage from '../../../pages/newSurveyPage/containers/newSurveyPage';
-import MySurveysPage from '../../../pages/mySurveysPage/containers/mySurveysPage';
-import SurveyTemplatesPage from '../../../pages/surveyTemplatesPage/containers/surveyTemplatesPage';
 import '../../../../styles/flex-box/flex-box.css';
 
-class FlexBox extends Component {
-
-	render() {
-		const sideNavigationItemsMeta = [
-			{
-				title: 'Новый опрос',
-				linkTo: '/newSurvey',
-				component: {NewSurveyPage},
-			},
-			{
-				title: 'Мои опросы',
-				linkTo: '/mySurveys',
-				component: {MySurveysPage},
-			},
-			{
-				title: 'Шаблоны опросов',
-				linkTo: '/surveyTemplates',
-				component: {SurveyTemplatesPage},
-			},
-		];
-		return (
-			<div className="flex-box">
-				<Router>
-					<SideNavigation navigationItemsMeta={sideNavigationItemsMeta} />
-					{/*{sideNavigationItemsMeta.map((navigationItem) =>
-											{<Route path={navigationItem.linkTo} 
-												   component={navigationItem.component}
-											/>
-										)}*/}
-				</Router>
-			</div>
-		);
-	}
+function FlexBox(props) {	
+	return (
+		<div className="flex-box">
+			<SideNavigation navigationItemsMeta={props.navigationItemsMeta} />
+			{props.navigationItemsMeta.map((navigationItem) =>
+				<div className="page">
+					<Route key={navigationItem.title}
+						   path={navigationItem.linkTo} 
+						   component={navigationItem.component}
+					/>
+				</div>
+			)}
+		</div>
+	);
 }
 
 export default FlexBox;

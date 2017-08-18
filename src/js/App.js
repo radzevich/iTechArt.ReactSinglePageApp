@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from './common/components/header/header';
-import FlexBox from './common/containers/flexBox/flexBox';
+import Router from './router/router';
 
 class App extends Component {
   render() {
@@ -9,7 +9,7 @@ class App extends Component {
         <div className="header">
           <Header />
         </div>
-          <FlexBox />
+          <Router />
       </div>
     );
   }
