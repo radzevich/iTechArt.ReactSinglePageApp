@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Header from './components/header/header';
-import FlexBox from './components/body/flexBox';
+import Header from './common/components/header/header';
+import FlexBox from './common/containers/flexBox/flexBox';
 
 class App extends Component {
   render() {

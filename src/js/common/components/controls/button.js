@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../../style/common/button/button.css'
-import '../../style/common/button/_style/button_style_bordered.css'
+import '../../../../styles/common/controls/button/button.css'
+import '../../../../styles/common/controls/button/_style/button_style_bordered.css'
 
 function Button(props) {
 	return (
