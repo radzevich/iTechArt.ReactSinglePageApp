@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../../../styles/common/controls/button/button.css'
 import '../../../../styles/common/controls/button/_style/button_style_bordered.css'
 
-function Button(props) {
+function BorderedButton(props) {
 	return (
 		<div className="button button_style_bordered ">
 			<span>{props.title}</span>
@@ -10,4 +10,4 @@ function Button(props) {
 	);
 }
 
-export default Button
+export default BorderedButton

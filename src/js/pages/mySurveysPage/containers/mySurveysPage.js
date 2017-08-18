@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 function MySurveysPage() {
 	return (
-		<div className="my-surveys-page">
+		<div className="page page_content_my-surveys">
 			
 		</div>
 	);

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PageHeader from '../../common/containers/pageHeader'
 
 function SurveyTemplatesPage() {
 	return (
-		<div className="survey-template-page">
-			
+		<div className="page page_content_survey-templates">
+			<PageHeader />
 		</div>
 	);
 }

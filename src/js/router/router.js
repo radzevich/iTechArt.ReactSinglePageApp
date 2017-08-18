@@ -16,17 +16,17 @@ class Router extends Component {
 			{
 				title: 'Новый опрос',
 				linkTo: '/newSurvey',
-				component: {NewSurveyPage},
+				component: NewSurveyPage,
 			},
 			{
 				title: 'Мои опросы',
 				linkTo: '/mySurveys',
-				component: {MySurveysPage},
+				component: MySurveysPage,
 			},
 			{
 				title: 'Шаблоны опросов',
 				linkTo: '/surveyTemplates',
-				component: {SurveyTemplatesPage},
+				component: SurveyTemplatesPage,
 			},
         ];
         

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavigationItem from './navigationItem';
-import '../../../../styles/flex-box/side-navigation/side-navigation.css';
+import '../../../../styles/common/side-navigation/side-navigation.css';
 
 function SideNavigation(props) {
 	const linkTitlePairs = props.navigationItemsMeta;

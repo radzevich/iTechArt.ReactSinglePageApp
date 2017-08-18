@@ -9,7 +9,7 @@ class App extends Component {
         <div className="header">
           <Header />
         </div>
-          <Router />
+        <Router />
       </div>
     );
   }

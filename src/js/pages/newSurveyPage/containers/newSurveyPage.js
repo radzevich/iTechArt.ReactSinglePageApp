@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 function NewSurveyPage() {
 	return (
-		<div className="new-survey-page">
-			
+		<div className="page page_content_new-survey">
+
 		</div>
 	);
 }
