@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <div className="appHeader">
+        <div className="header">
           <Header />
         </div>
           <FlexBox />
