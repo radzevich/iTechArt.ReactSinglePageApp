@@ -1,3 +1,7 @@
 .wrapper_status_active {
     background: #DCDCDC;
 }
+
+.wrapper_status_active .template-item__edit-buttons {
+    opacity: 1;
+}

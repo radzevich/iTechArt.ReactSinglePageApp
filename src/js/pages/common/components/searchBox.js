@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome';
+import {Icon} from 'react-fa';
 import '../../../../styles/common/controls/search-box/search-box.css';
 
 class SearchBox extends Component {
@@ -11,10 +11,7 @@ class SearchBox extends Component {
     render() {
         return (
             <div className='search-box'>
-                <FontAwesome
-                    className='fa fa-search'
-                    name='rocket'
-                />
+                <Icon name='search' />
                 <input className='search-box__input'
                     type='search'
                     placeholder='Search...' 

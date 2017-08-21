@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PageHeader from '../../common/containers/pageHeader';
-import TemplateItem from '../../common/components/templateItem';
+import TemplateItem from '../components/templateItem';
 
 class SurveyTemplatesPage extends Component {
 	constructor(props) {
