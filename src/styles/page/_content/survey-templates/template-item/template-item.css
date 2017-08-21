@@ -1,0 +1,12 @@
+.template-item {
+    float: left;
+}
+
+.template-item:focus {
+    background: #DCDCDC;
+    outline: none;
+}
+
+.template-item__content {
+    cursor: pointer;
+}

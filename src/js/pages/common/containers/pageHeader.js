@@ -7,8 +7,8 @@ import '../../../../styles/page/__header/page__header.css'
 function PageHeader(props) {
 	return (
 		<div className="page__header">
-			<PageTitle text="Шаблоны"/>
-			<BorderedButton title="Новый шаблон"/>
+			<PageTitle text={props.pageTitle}/>
+			<BorderedButton title={props.buttonText}/>
 			<SearchBox />
 		</div>
 	);

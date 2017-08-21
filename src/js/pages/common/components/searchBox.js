@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import FontAwesom from 'react-fontawesome';
-import '../../../../styles/common/controls/search-box/search-box.css'
+import FontAwesome from 'react-fontawesome';
+import '../../../../styles/common/controls/search-box/search-box.css';
 
 class SearchBox extends Component {
     constructor(props) {
@@ -11,10 +11,14 @@ class SearchBox extends Component {
     render() {
         return (
             <div className='search-box'>
-                <FontAwesom className='fa fa-search' />
+                <FontAwesome
+                    className='fa fa-search'
+                    name='rocket'
+                />
                 <input className='search-box__input'
                     type='search'
-                    placeholder='Search...' />
+                    placeholder='Search...' 
+                />
             </div>
         );
     }
