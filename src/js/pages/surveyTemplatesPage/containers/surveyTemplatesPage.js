@@ -5,6 +5,12 @@ import TemplateItem from '../../common/components/templateItem';
 class SurveyTemplatesPage extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {selectedItemIndex: null};
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	handleClick(clickedItemIndex) {
+		this.setState({selectedItemIndex: clickedItemIndex});
 	}
 
 	render() {
@@ -32,16 +38,18 @@ class SurveyTemplatesPage extends Component {
 					pagesCount: 2,
 				},
 			},
-		]
-		return (
+		];		
+
+		return (			
 			<div className="page page_content_survey-templates">
 				<PageHeader pageTitle="Шаблоны"
 							buttonText="Новый шаблон"/>
-				{templateItems.map((item) =>
+				{templateItems.map((item, index) =>
 					<TemplateItem title={item.title}
 								  info={item.info}	
-								  key={item.title}		
-					/>
+								  isSelected={this.state.selectedItemIndex === index ? true : false}
+								  onClick={() => this.handleClick(index)}
+								  key={index} />
 				)}
 			</div>
 		);
