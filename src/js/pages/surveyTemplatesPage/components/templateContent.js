@@ -11,13 +11,17 @@ class TemplateContent extends Component {
             title: props.title,
             questionsCount: props.info.questionsCount,
             pagesCount: props.info.pagesCount,
+            description: props.description,
         }
     }
     render() {
+        console.log(this.props.description);
         return (
             <div className="template-item__content">
                 <h2 className="template-item__title">{this.state.title}</h2>
-                <div className="template-item__text"></div>    
+                <div className="template-item__text">
+                    <p>{this.state.description}</p>
+                </div>    
                 <div className="template-item__info">
                     <span className="template-item__info_count_questions">Вопросов: {this.state.questionsCount}</span>
                     <span className="template-item__info_count_pages">Страниц: {this.state.pagesCount}</span>
