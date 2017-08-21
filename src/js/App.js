@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './common/components/header/header';
+import Footer from './common/components/footer/footer';
 import Router from './router/router';
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
           <Header />
         </div>
         <Router />
+        <Footer />
       </div>
     );
   }
