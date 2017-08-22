@@ -1,0 +1,17 @@
+.side-navigation {
+    list-style-type: none;
+    margin: 0;
+}
+
+.side-navigation a {
+    text-decoration: none;
+    color: #000000;
+} 
+
+.side-navigation .button {
+    margin-top: 20px;
+}
+
+.side-navigation .button:focus {
+    background: #DCDCDC;
+}

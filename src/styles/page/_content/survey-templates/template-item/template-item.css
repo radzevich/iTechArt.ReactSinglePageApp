@@ -1,0 +1,37 @@
+.template-item {
+    float: left;
+}
+
+.template-item:focus {
+    background: #DCDCDC;
+    outline: none;
+}
+
+.template-item__content {
+    cursor: pointer;
+}
+
+.template-item__title {
+    width: 380px;
+    white-space: nowrap;  
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.template-item .button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 2px 3px 2px;
+    font-size: 18px;
+}
+
+
+.template-item__edit-buttons {
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.template-item:focus .template-item__edit-buttons {
+    opacity: 1;
+}

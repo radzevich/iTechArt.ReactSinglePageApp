@@ -1,0 +1,8 @@
+.template-item__content {
+    width: 420px;
+    height: 320px;
+    padding: 5px 15px;
+    background: #FFFFFF;
+    border: 3px solid #000000;
+}
+

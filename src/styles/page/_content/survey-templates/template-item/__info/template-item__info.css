@@ -1,0 +1,16 @@
+.template-item__info {
+    height: 30px;
+    padding-top: 5px;
+    font-size: 18px;
+    text-align: left;
+}
+
+.template-item__info_count_pages {
+    float: right;
+    width: 50%;        
+}
+
+.template-item__info_count_questions {
+    float: left;
+    width: 50%;
+}

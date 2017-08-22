@@ -1,0 +1,8 @@
+.template-item__edit-buttons {
+    text-align: right;
+    font-size: 25px;
+}
+
+.template-item__edit-buttons .fa {
+    width: 25px;
+}

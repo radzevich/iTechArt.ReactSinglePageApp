@@ -1,0 +1,13 @@
+.flex-box {
+    display: flex;
+    text-align: center   
+}
+
+.side-navigation {
+    min-width: 220px;
+    box-sizing: border-box;
+    border-bottom-style: solid;
+    border-right-style: solid;
+    border-width: 4px;
+    padding: 10px;  
+}

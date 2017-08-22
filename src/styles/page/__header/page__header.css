@@ -1,0 +1,30 @@
+.page__header {
+    height: 40px;
+    min-width: 620px;
+    padding: 30px 20px 10px 40px;
+}
+
+.page__header .button {
+    float: left;
+    margin-left: 20px;
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.page__header .button:active {
+    background-color: #DCDCDC;
+}
+
+.page__header .search-box {
+    float: right;
+    margin-right: 50px;
+}
+
+.page__header .page__title, 
+.page__header .button {
+    float: left;
+}
+
+.page__header .page__title .title__text {
+    margin: 0;
+}

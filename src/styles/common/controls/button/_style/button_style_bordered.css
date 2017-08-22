@@ -1,0 +1,5 @@
+.button_style_bordered {
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 5px #000000;
+    box-sizing: border-box;
+}

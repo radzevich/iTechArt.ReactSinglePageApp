@@ -1,0 +1,6 @@
+.template-item__text {
+    height: 128px;
+    overflow: auto;
+    line-height: 22px;
+    padding: 0px 3px 0px 3px;   
+}
