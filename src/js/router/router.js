@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import FlexBox from '../common/containers/flexBox/flexBox'
-import NewSurveyPage from '../pages/newSurveyPage/containers/newSurveyPage';
-import MySurveysPage from '../pages/mySurveysPage/containers/mySurveysPage';
-import SurveyTemplatesPage from '../pages/surveyTemplatesPage/containers/surveyTemplatesPage';
+import FlexBox from '../common/components/flexBox/flexBox'
+import NewSurveyPage from '../pages/newSurveyPage/components/newSurveyPage';
+import MySurveysPage from '../pages/mySurveysPage/components/mySurveysPage';
+import SurveyTemplatesPage from '../pages/surveyTemplatesPage/components/surveyTemplatesPage';
 
 class Router extends Component {
     constructor(props) {

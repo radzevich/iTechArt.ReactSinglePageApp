@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import SideNavigation from '../../components/sideNavigation/sideNavigation';
+import SideNavigation from '../sideNavigation/sideNavigation';
 import '../../../../styles/common/flex-box/flex-box.css';
 import '../../../../styles/page/page.css';
 

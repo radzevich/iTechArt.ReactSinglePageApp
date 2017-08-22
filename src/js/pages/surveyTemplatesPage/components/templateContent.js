@@ -15,7 +15,6 @@ class TemplateContent extends Component {
         }
     }
     render() {
-        console.log(this.props.description);
         return (
             <div className="template-item__content">
                 <h2 className="template-item__title">{this.state.title}</h2>
