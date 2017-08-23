@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavigationItem from './navigationItem';
+import PropTypes from 'prop-types';
 import '../../../../styles/common/side-navigation/side-navigation.css';
 
 function SideNavigation(props) {
@@ -14,6 +15,14 @@ function SideNavigation(props) {
 			)}
 		</ul>
 	);
+}
+
+
+SideNavigation.PropTypes = {
+	navigationItemsMeta: PropTypes.arrayOf(PropTypes.shape({
+		title: PropTypes.string.isRequired,
+		linkTo: PropTypes.string.isRequired,
+	})),
 }
 
 export default SideNavigation
