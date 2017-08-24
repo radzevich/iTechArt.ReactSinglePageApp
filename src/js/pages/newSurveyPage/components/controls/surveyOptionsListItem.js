@@ -1,29 +1,32 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function SurveyParamsListItem(props) {
-    const id = props.id;
+function SurveyOptionsListItem(props) {
     const inputType = 'checkbox';
     return (
         <li>
-            <input type={inputType}
-                   onClick={() => props.onClick(id)}
+            <input id={props.id}
+                   type={inputType}
+                   onClick={() => props.onToggle()}
                    name={props.name}
-                   id={id}
+                   
             />
             <label for={props.id}>{props.text}</label>
         </li>
     );
 }
 
-SurveyParamsListItem.PropTypes = {
-    onClick: PropTypes.func.isRequired,
+SurveyOptionsListItem.PropTypes = {
+    onToggle: PropTypes.func.isRequired,
     name: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
     ]).isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]).isRequired,
     text: PropTypes.string.isRequired,
 }
 
-export default SurveyParamsListItem;
+export default SurveyOptionsListItem;

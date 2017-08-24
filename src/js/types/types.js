@@ -14,7 +14,9 @@ export default TOGGLE_REQUIRED_STATUS = 'TOGGLE_REQUIRED_STATUS';
 
 export default DEFAULT_SURVEY_NAME = 'Опрос №';
 export default DEFAULT_PAGE_NAME = 'Страница';
-export default DEFAULT_ANSWER_TEXT = 'Ответ'
+export default DEFAULT_ANSWER_TEXT = 'Ответ';
+
+export default SURVEY_OPTIONS_BOARD_TITLE = 'Тип вопроса';
 
 export default questionTypesName = {
     SINGLE: 'single',
@@ -76,6 +78,15 @@ export default questionTypesText = typeName => {
             return 'Вопрос-шкала';
     }
 };
+
+export default questionOptionsText = {
+    ANON_STATUS_TEXT: 'Анонимный опрос',
+    QUESTION_ORDER_TEXT: 'Случайный порядок вопросов',
+    SHOW_PAGE_NUMS_TEXT: 'Номера страниц',
+    SHOW_PROGRESS_BAR_TEXT: 'Индикатор выполнения',
+    SHOW_QUESTION_NUMS_TEXT: 'Номера вопросов',
+    SHOW_REQUIRED_QUESTION_MARK_TEXT: 'Звёздочки обязателных вопросов',
+}
 
 const DEFAULT_ANSWERS_NUM = 3;
 

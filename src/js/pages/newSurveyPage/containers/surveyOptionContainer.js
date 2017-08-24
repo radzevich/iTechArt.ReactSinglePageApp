@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { toggleSurveyOption } from '../../actions/surveyAction';
-import SurveyParamsListItem from '../components/surveyParamsBoard';
+import SurveyOptionsListItem from '../components/surveyOptionsListItem';
+import questionOptions from '../../../types/types';
 
 const mapDispatchToProps = dispatch => {
     return {
