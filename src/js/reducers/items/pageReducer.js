@@ -1,4 +1,8 @@
 import {
+    RENAME_PAGE,
+    ADD_QUESTION,
+} from '../../types/types';
+import {
     pageInitialState,
     questionInitialState,
  } from '../initialState';
