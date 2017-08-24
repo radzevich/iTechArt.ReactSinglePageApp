@@ -6,13 +6,44 @@ export default TOGGLE_SHOW_PROGRESS_BAR = 'TOGGLE_SHOW_PROGRESS_BAR';
 export default TOGGLE_SHOW_QUESTION_NUMS = 'TOGGLE_SHOW_QUESTION_NUMS';
 export default TOGGLE_SHOW_REQUIRED_QUESTION_MARK = 'TOGGLE_SHOW_REQUIRED_QUESTION_MARK';
 
+export default DEFAULT_SURVEY_NAME = 'Опрос №';
 export default DEFAULT_PAGE_NAME = 'Страница';
+export default DEFAULT_ANSWER_TEXT = 'Ответ'
 
-export default questionTypes = {
-    SINGLE = 'single',
-    MULTI = 'multi',
-    TEXT = 'text',
-    FILE = 'file',
-    RATING = 'rating',
-    RANGE = 'range',
+export default questionTypesName = {
+    SINLE: 'single',
+    MULTI: 'multi',
+    TEXT: 'text',
+    FILE: 'file',
+    RATING: 'rating',
+    RANGE: 'range',
+}
+
+export default questionTypesText = typeName => {
+    switch(typeName) {
+        case SINLE: 
+            return 'Вопрос с одним ответом';
+        case MULTI: 
+            return 'Вопрос с несколькими ответами';
+        case TEXT: 
+            return 'Вопрос с текстовым ответом';
+        case FILE: 
+            return 'Вопрос-файл';
+        case RATING: 
+            return 'Вопрос-рейтинг';
+        case RANGE: 
+            return 'Вопрос-шкала';
+    }
+};
+
+const DEFAULT_ANSWERS_NUM = 3;
+
+export default questionTypesAnswersCount = typeName => {
+    switch(typeName) {
+        case SINGLE: 
+        case MULTI: 
+            return DEFAULT_ANSWERS_NUM;
+        default:
+            return 0;
+    }
 }

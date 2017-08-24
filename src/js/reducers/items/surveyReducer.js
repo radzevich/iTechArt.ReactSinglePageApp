@@ -12,7 +12,7 @@ import {
     TOGGLE_SHOW_REQUIRED_QUESTION_MARK,
 } from '../../types/types';
 
-function surveys(state = surveyInitialState, action) {
+function surveyReducer(state = surveyInitialState, action) {
     switch (action.type) {
         case TOGGLE_ANON_STATUS:
             return Object.assign(...state, {
@@ -40,10 +40,11 @@ function surveys(state = surveyInitialState, action) {
             });
         case ADD_PAGE: 
             const pageNum = state.pages.length + 1;
+            const newPageToAdd = pageInitialState(pageNum);
             return Object.assign({}, state, {
                 pages: [
                     ...state.pages,
-                    pageInitialState(pageNum),
+                    newPageToAdd,
                 ]
             })
         default:
