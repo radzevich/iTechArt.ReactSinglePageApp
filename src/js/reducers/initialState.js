@@ -1,3 +1,5 @@
+import questionTypes from '../../types/types';
+
 export const initialState = {
     users: [],
     survey: [],
@@ -11,4 +13,9 @@ export const surveyInitialState = {
     showRequiredQuestionsMarks: false,
     showProgressBar: true,
     pages: [],
+}
+
+export const questionInitialState = {
+    type: questionTypes.SINGLE,
+
 }
