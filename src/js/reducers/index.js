@@ -1,8 +1,14 @@
-import { combineReducers } from 'redux'
-import templateItems from './items/templateItems.js'
+import initialState from './initialState';
+import surveys from './items/surveys.js';
 
 const rootReducer = combineReducers({
-    templateItems,
+    surveys,
 })
+
+function rootReducer(state = initialState, action) {
+    return {
+
+    }
+}
 
 export default rootReducer

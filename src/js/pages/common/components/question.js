@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import QuestionWrapper from './questionTemplates/questionWrapper';
+import SingleAnswerQuestion from './questionTemplates/singleAnswerQuestion';
 
 class Question extends Component {
     render() {
-        const answers = questionType => {
+        const answers = (questionType, answers) => {
             switch(questionType) {
                 case 'single':
-                    return null;
+                    return (<SingleAnswerQuestion answers={answers}/>);
                 case 'multy':
                     return null;
                 case 'text':
@@ -20,7 +22,13 @@ class Question extends Component {
             }
         }
         return (
-            
+            <QuestionWrapper 
+                id={this.props.id}
+                title={this.props.title}
+                type={this.props.type}
+                isRequired={this.props.isRequired}
+                answers={answers(this.props.type, this.props.answers)}
+            />
         );
     }
 }
