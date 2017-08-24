@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { addQuestion } from '../../../actions/pageActions';
 import QuestionTypesOption from '../components/controls/questionTypesOption';
-import questionTypesTitle from '../../../types/types';
+import { questionTypesTitle } from '../../../types/types';
 
 const mapDispatchToProps = dispatch  => {
     return {
@@ -16,9 +16,9 @@ const mapStateToProps = (state, ownProps) => {
     return Object.assign({}, questionTitle, ownProps);
 }
 
-const QuestionTypeOptionContainer = connect(
+const QuestionTypesOptionContainer = connect(
     mapDispatchToProps,
-    masStateToProps
+    mapStateToProps
 )(QuestionTypesOption);
   
 export default QuestionTypesOptionContainer;

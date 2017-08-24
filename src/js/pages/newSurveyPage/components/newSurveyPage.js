@@ -1,7 +1,7 @@
 import React from 'react';
 import EditBoard from './editBoard';
-import QuestionTypesBoard from './questionTypesBoard';
-import SurveyParamsBoard from './surveyParamsBoard';
+import QuestionTypesBoardContainer from '../containers/questionTypesBoardContainer';
+import SurveyOptionsBoardContainer from '../containers/surveyOptionsBoardContainer';
 import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 
 function NewSurveyPage() {
@@ -9,8 +9,8 @@ function NewSurveyPage() {
 		<div className='page page_content_new-survey'>
 			<EditBoard />
 			<div className='new-survey__options-boards'>
-				<QuestionTypesBoard />
-				<SurveyParamsBoard />
+				<QuestionTypesBoardContainer />
+				<SurveyOptionsBoardContainer />
 			</div>
 		</div>
 	);

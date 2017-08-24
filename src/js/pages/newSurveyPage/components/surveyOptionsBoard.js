@@ -3,8 +3,8 @@ import SurveyOptionListItem from './controls/surveyOptionsListItem';
 
 class SurveyOptionsBoard extends Component {
     render() {
-        const title = props.title;
-        const options = props.options;
+        const title = this.props.title;
+        const options = this.props.options;
         return (
             <div className='survey-params-board'>
                 <div className='survey-params-board__title'>
@@ -12,11 +12,11 @@ class SurveyOptionsBoard extends Component {
                 </div>
                 <ul>
                     {options.map((option, index) => 
-                        <SurveyOption
+                        <SurveyOptionListItem
                             name={title}
                             id={index}
-                            text={props.text}
-                            key={props.text}
+                            text={this.props.text}
+                            key={this.props.text}
                         />
                     )}
                 </ul>

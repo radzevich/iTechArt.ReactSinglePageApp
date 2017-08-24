@@ -2,9 +2,10 @@ import {
     DEFAULT_PAGE_NAME, 
     DEFAULT_SURVEY_NAME,
     DEFAULT_ANSWER_TEXT,
-    questionTypes,
+    questionTypesName,
     questionTypesAnswersCount,
-} from '../../types/types';
+    questionTypesText,
+} from '../types/types';
 
 export const initialState = {
     users: [],
@@ -32,8 +33,7 @@ export const pageInitialState = pageNum => {
 }
 
 export const questionInitialState = questionType => {
-    const answersCount = questionTypesAnswersCount(questionType);
-    const questionText = questionDefaultText(questionType);
+    const questionText = questionTypesText(questionType);
     const answersCount = questionTypesAnswersCount(questionType);
     return {
         type: questionType,
@@ -45,15 +45,16 @@ export const questionInitialState = questionType => {
 
 export const answerInitialState = (answersNum) => {
     return {
-        text: DEFAULT_ANSWER_TEXT + ' ' + answeNum, 
+        text: DEFAULT_ANSWER_TEXT + ' ' + answersNum, 
         isChecked: '',
     }
 }
 
-createAnswerArrayHelper(answersNum) {
+const createAnswerArrayHelper = answersNum => {
     const answers = [];
     for (let i = 0; i < answersNum; i++) {
         const answer = answerInitialState(i)
         answers.push(answer);
     }
+    return answers;
 }

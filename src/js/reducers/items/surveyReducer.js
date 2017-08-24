@@ -16,27 +16,27 @@ function surveyReducer(state = surveyInitialState, action) {
     switch (action.type) {
         case TOGGLE_ANON_STATUS:
             return Object.assign(...state, {
-                isAnon = !state.isAnon,
+                isAnon: !state.isAnon,
             });
         case TOGGLE_SHOW_QUESTION_NUMS:
             return Object.assign(...state, {
-                showQuestionNums = !state.showQuestionNums,
+                showQuestionNums: !state.showQuestionNums,
             });
         case TOGGLE_SHOW_PAGE_NUMS:
             return Object.assign(...state, {
-                showPageNums = !state.showPageNums,
+                showPageNums: !state.showPageNums,
             });
         case TOGGLE_QUESTION_ORDER:
             return Object.assign(...state, {
-                isQuestionOrderRandom = !state.isQuestionOrderRandom,
+                isQuestionOrderRandom: !state.isQuestionOrderRandom,
             });
         case TOGGLE_SHOW_REQUIRED_QUESTION_MARK:
             return Object.assign(...state, {
-                showRequiredQuestionsMarks = !state.showRequiredQuestionsMarks,
+                showRequiredQuestionsMarks: !state.showRequiredQuestionsMarks,
             });
         case TOGGLE_SHOW_PROGRESS_BAR:
             return Object.assign(...state, {
-                showProgressBar = !state.showProgressBar,
+                showProgressBar: !state.showProgressBar,
             });
         case ADD_PAGE: 
             const pageNum = state.pages.length + 1;
@@ -52,4 +52,4 @@ function surveyReducer(state = surveyInitialState, action) {
     }
 }
 
-export default surveys;
+export default surveyReducer;

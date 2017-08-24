@@ -28,3 +28,5 @@ function pageReducer(state = pageInitialState, action) {
         }
     }
 }
+
+export default pageReducer;

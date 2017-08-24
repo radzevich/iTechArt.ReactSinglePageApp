@@ -1,10 +1,14 @@
 import { connect } from 'react-redux';
-import { toggleSurveyOption } from '../../actions/surveyAction';
+import { toggleSurveyOption } from '../../../actions/surveyActions';
 import QuestionTypesBoard from '../components/questionTypesBoard';
-import questionTypesName from '../../../types/types';
+import { questionTypesName } from '../../../types/types';
 
 const quetionTypes = {
     types: Object.values(questionTypesName)
 };
 
-connect(questionTypes)(QuestionTypesBoard);
+const QuestionTypesBoardContainer = connect(
+    quetionTypes
+)(QuestionTypesBoard);
+
+export default QuestionTypesBoardContainer;

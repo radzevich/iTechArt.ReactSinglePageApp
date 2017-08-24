@@ -1,7 +1,12 @@
-import surveys from './items/surveys.js';
+import { combineReducers } from 'redux';
+import surveyReducer from './items/pageReducer';
+import pageReducer from './items/surveyReducer';
+import questionReducer from './items/questionReducer';
 
 const rootReducer = combineReducers({
-    surveys,
+    pageReducer,
+    questionReducer,
+    surveyReducer,
 })
 
 export default rootReducer

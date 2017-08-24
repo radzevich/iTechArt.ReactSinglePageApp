@@ -20,10 +20,10 @@ class QuestionTypesBoard extends Component {
                     <h2>{title}</h2>
                 </div>
                 <ul>
-                {props.types.map(type => 
+                {this.props.types.map(type => 
                     <li>
                         <QuestionTypesOptionContainer id={type}
-                                                     key={option.title}
+                                                      key={type}
                         />
                     </li>
                 )}
