@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import QuestionTypeOption from './controls/questionTypeOption'
+import QuestionTypesOptionContainer from '../containers/questionTypesOptionContainer'
 
 class QuestionTypesBoard extends Component {
     constructor(props) {
@@ -13,32 +13,6 @@ class QuestionTypesBoard extends Component {
     
     render() {
         const title = 'Тип вопроса';
-        const options = [
-            {
-                title: 'Варианты ответа (один)',
-                iconName: 'list-ul', 
-            },
-            {
-                title: 'Варианты ответа (несколько)',
-                iconName: 'list-ol', 
-            },
-            {
-                title: 'Текст',
-                iconName: 'font', 
-            },
-            {
-                title: 'Файл',
-                iconName: 'file', 
-            },
-            {
-                title: 'Рейтинг в звёздах',
-                iconName: 'star-o', 
-            },
-            {
-                title: 'Шкала',
-                iconName: 'battery-three-quarters ', 
-            },
-        ]
 
         return (
             <div className='question-types-board'>
@@ -46,14 +20,11 @@ class QuestionTypesBoard extends Component {
                     <h2>{title}</h2>
                 </div>
                 <ul>
-                {options.map((option, index) => 
+                {props.types.map(type => 
                     <li>
-                        <QuestionTypeOption id={index}
-                                            text={option.title}
-                                            iconName={option.iconName}
-                                            onClick={() => this.handleClick(index)}
-                                            key={option.title}
-                                            />
+                        <QuestionTypesOptionContainer id={type}
+                                                     key={option.title}
+                        />
                     </li>
                 )}
                 </ul>

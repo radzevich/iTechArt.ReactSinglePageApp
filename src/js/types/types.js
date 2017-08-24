@@ -25,6 +25,41 @@ export default questionTypesName = {
     RANGE: 'range',
 }
 
+export default questionTypesTitle = typeName => {
+    switch(typeName) {
+        case SINGLE: 
+            return {
+                title: 'Варианты ответа (один)',
+                iconName: 'list-ul', 
+            };
+        case MULTI: 
+            return {
+                title: 'Варианты ответа (несколько)',
+                iconName: 'list-ol', 
+            };
+        case TEXT: 
+            return {
+                title: 'Текст',
+                iconName: 'font', 
+            };
+        case FILE: 
+            return  {
+                title: 'Файл',
+                iconName: 'file', 
+            };
+        case RATING: 
+            return {
+                title: 'Рейтинг в звёздах',
+                iconName: 'star-o', 
+            };
+        case RANGE: 
+            return {
+                title: 'Шкала',
+                iconName: 'battery-three-quarters ', 
+            };
+    }
+}
+
 export default questionTypesText = typeName => {
     switch(typeName) {
         case SINGLE: 

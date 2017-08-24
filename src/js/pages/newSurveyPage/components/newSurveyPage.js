@@ -16,4 +16,4 @@ function NewSurveyPage() {
 	);
 }
 
-export default NewSurveyPage
+export default NewSurveyPage;
