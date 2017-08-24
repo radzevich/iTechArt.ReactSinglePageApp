@@ -1,4 +1,7 @@
-import surveyInitialState from '../initialState';
+import {
+    surveyInitialState,
+    pageInitialState,
+ } from '../initialState';
 import {
     ADD_PAGE,
     TOGGLE_ANON_STATUS,
@@ -36,15 +39,11 @@ function surveys(state = surveyInitialState, action) {
                 showProgressBar = !state.showProgressBar,
             });
         case ADD_PAGE: 
-            const newPageNum = state.pages.length + 1;
+            const pageNum = state.pages.length + 1;
             return Object.assign({}, state, {
                 pages: [
                     ...state.pages,
-                    {
-                        pageNum: newPageNum,
-                        pageTitle: action.title,
-                        question: [],
-                    }
+                    pageInitialState(pageNum),
                 ]
             })
         default:

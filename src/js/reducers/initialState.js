@@ -1,4 +1,8 @@
-import questionTypes from '../../types/types';
+import questionDefaultText from '../defaultValues';
+import { 
+    DEFAULT_PAGE_NAME, 
+    questionTypes
+} from '../../types/types';
 
 export const initialState = {
     users: [],
@@ -15,7 +19,16 @@ export const surveyInitialState = {
     pages: [],
 }
 
+export const pageInitialState = pageNum => {
+    return {
+        pageTitle: DEFAULT_PAGE_NAME + ' ' + pageNum,
+        questions: [],
+    }
+}
+
 export const questionInitialState = {
     type: questionTypes.SINGLE,
-
+    text: questionDefaultText(questionTypes.SINGLE),
+    isRequired: false,
+    answers: [],
 }
