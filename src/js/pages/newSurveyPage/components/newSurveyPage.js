@@ -6,9 +6,9 @@ import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 
 function NewSurveyPage() {
 	return (
-		<div className="page page_content_new-survey">
+		<div className='page page_content_new-survey'>
 			<EditBoard />
-			<div className="new-survey__options">
+			<div className='new-survey__options-boards'>
 				<QuestionTypesBoard />
 				<SurveyParamsBoard />
 			</div>

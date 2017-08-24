@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SurveyOption from '../containers/surveyOption';
 
 class SurveyParamsBoard extends Component {
     render() {
@@ -31,15 +32,13 @@ class SurveyParamsBoard extends Component {
                     <h2>{title}</h2>
                 </div>
                 <ul>
-                    {options.map((option, index) => 
-                        <li key={option.text}>
-                            <input type={inputType}
-                                onClick={() => null}
-                                name={title}
-                                id={index}
-                            />
-                            <label for={index}>{option.text}</label>
-                        </li>
+                    {options.map(option => 
+                        <SurveyOption
+                            name={title}
+                            id={props.id}
+                            text={props.text}
+                            key={props.id}
+                        />
                     )}
                 </ul>
             </div>

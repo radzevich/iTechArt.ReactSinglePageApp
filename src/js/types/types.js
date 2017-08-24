@@ -17,7 +17,7 @@ export default DEFAULT_PAGE_NAME = 'Страница';
 export default DEFAULT_ANSWER_TEXT = 'Ответ'
 
 export default questionTypesName = {
-    SINLE: 'single',
+    SINGLE: 'single',
     MULTI: 'multi',
     TEXT: 'text',
     FILE: 'file',
@@ -27,7 +27,7 @@ export default questionTypesName = {
 
 export default questionTypesText = typeName => {
     switch(typeName) {
-        case SINLE: 
+        case SINGLE: 
             return 'Вопрос с одним ответом';
         case MULTI: 
             return 'Вопрос с несколькими ответами';
