@@ -6,7 +6,7 @@ import {
     TOGGLE_SHOW_QUESTION_NUMS,
     TOGGLE_SHOW_REQUIRED_QUESTION_MARK,
     ADD_PAGE,
-} from '../../types/types';
+} from '../types/types';
 
 export const toggleAnonStatus = () => {
     return {
@@ -44,9 +44,10 @@ export const toggleShowRequiredQuestionMark = () => {
     }
 }
 
-export const addPage = (page) => {
+export const addPage = page => {
     return {
         type: ADD_PAGE,
         page,
     }
 }
+
