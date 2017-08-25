@@ -10,14 +10,13 @@ function RadioButtonWithLabel(props) {
     const inputHash = Sha1(inputType + inputName + inputId);
 
     return (
-        <input type={inputType}
-               name={inputName}
-               id={inputId}
-               hash={inputHash}
-               isChecked={isChecked ? 'true' : ''}
-        >
-            <label for={inputId}>props.content</label>
-        </input>
+        <div>
+            <input type={inputType}
+                   name={inputName}
+                   id={inputId}
+            />
+            <label htmlFor={inputId}>props.content</label>
+        </div>
     );
 }
 

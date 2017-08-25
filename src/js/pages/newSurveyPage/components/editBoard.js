@@ -41,7 +41,6 @@ class EditBoard extends Component {
                     id={question.id}
                     type={question.type}
                     title={question.type}
-                    isRequired={question.isRequired}
                     answers={question.answers}
                 />
             </div>

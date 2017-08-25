@@ -13,8 +13,6 @@ function CheckboxWithLabel(props) {
         <input type={inputType}
                name={inputName}
                id={inputId}
-               hash={inputHash}
-               isChecked={this.props.isChecked ? 'true' : ''}
         >
             <label for={inputId}>props.content</label>
         </input>
