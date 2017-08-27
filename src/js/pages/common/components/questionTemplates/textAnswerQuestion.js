@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Sha1 from 'js-sha1';
 
 class TextAnswerQuestion extends Component {
     render() {
         const inputType = 'text';
-        const inputName = this.props.info.questionId;
-        const answerHash = Sha1(inputType + inputName);
+        const questionId = this.questionId;
         return (
             <div>
                 <input type={inputType}
-                       name={inputName}
-                       hash={answerHash}
+                       name={questionId}
                 />
             </div>
         );
     }
 }
 
-SingleAnswerQuestion.PropTypes = {
-    info: PropTypes.shape({
-        questionId: PropTypes.number.isRequired,
-        isChecked: PropTypes.bool,
-    })
+TextAnswerQuestion.propTypes = {
+    questionId: PropTypes.number.isRequired,
+}
+
+TextAnswerQuestion.propTypes = {
+    questionId: 0,
 }
 
 export default TextAnswerQuestion;

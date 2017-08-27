@@ -1,38 +1,55 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Sha1 from 'js-sha1';
+import CheckboxWithLabel from '../../../../common/components/controls/checkboxWithLabel';
 
-class MultyAnswerQuestion extends Component {
+class MultiAnswerQuestion extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        const inputType = 'checkbox';
-        const inputName = this.props.info.questionId;
-        const inputId = this.props.info.id;
-        const isChecked = this.props.info.isChecked;
-        const answerHash = Sha1(inputType + inputName + inputId);
+        const questionId = this.props.questionId;
         return (
-            <div>
-                <input className='survey-input__checkbox'
-                       type={inputType}
-                       name={inputName}
-                       id={inputId}
-                       hash={answerHash}
-                       isChecked={this.props.isChecked ? 'true' : ''}
-                />
-                <label class="survey-input__label">
-                    {this.props.info.text}
-                </label>
+            <div className='answers'>
+                {this.props.answers.map((item, index) =>
+                    <CheckboxWithLabel id={index}
+                                        name={questionId}
+                                        isChecked={item.IsChecked}
+                                        content={item.text}
+                                        key={item.text}
+                    />
+                )}
             </div>
         );
     }
 }
 
-MultyAnswerQuestion.PropTypes = {
-    info: PropTypes.shape({
-        questionId: PropTypes.number.isRequired,
-        id: PropTypes.number.isRequired,
-        isChecked: PropTypes.bool,
-        text: PropTypes.string.isRequired,
-    })
+MultiAnswerQuestion.PropTypes = {
+    questionId: PropTypes.number.isRequired,
+    answers: PropTypes.arrayOf(
+        PropTypes.shape({
+            isChecked: PropTypes.bool,
+            text: PropTypes.string.isRequired,
+        })
+    )
 }
 
-export default MultyAnswerQuestion;
+MultiAnswerQuestion.defaultProps = {
+    questionId: -1,
+    answers: [
+        {
+            isChecked: false,
+            text: 'Ответ 1',
+        },
+        {
+            isChecked: false,
+            text: 'Ответ 2',
+        },
+        {
+            isChecked: false,
+            text: 'Ответ 3',
+        },
+    ],
+}
+
+export default MultiAnswerQuestion;

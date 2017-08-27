@@ -15,7 +15,7 @@ function RadioButtonWithLabel(props) {
                    name={inputName}
                    id={inputId}
             />
-            <label htmlFor={inputId}>props.content</label>
+            <label htmlFor={inputId}>{props.content}</label>
         </div>
     );
 }

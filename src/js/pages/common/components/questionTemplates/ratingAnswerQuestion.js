@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Sha1 from 'js-sha1';
 
 class RatingAnswerQuestion extends Component {
-    renderStar() {
+    render() {
         const modificator = (this.props.index % 2 == 0) ? 'full' : 'half';
         const starId = this.props.starIndex + modificator;
 
@@ -25,10 +25,6 @@ class RatingAnswerQuestion extends Component {
                 />    
             </div>    
         );
-    }
-
-    render() {
-        return renderStar();
     }
 }
 

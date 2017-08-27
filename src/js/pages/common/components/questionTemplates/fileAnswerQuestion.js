@@ -6,10 +6,7 @@ class FileAnswerQuestion extends Component {
     render() {
         const inputType = 'file';
         const inputName = this.props.info.questionId;
-        const inputValue = this.props.info.value;
-        const inputMin = this.props.info.min;
-        const inputMax = this.props.info.max;
-        const answerHash = Sha1(inputType + inputName + inputMin + inputMax);
+        const answerHash = Sha1(inputType + inputName);
         return (
             <div>
                 <input type={inputType}
@@ -21,7 +18,7 @@ class FileAnswerQuestion extends Component {
     }
 }
 
-SingleAnswerQuestion.PropTypes = {
+FileAnswerQuestion.PropTypes = {
     info: PropTypes.shape({
         questionId: PropTypes.number.isRequired,
         isChecked: PropTypes.bool,

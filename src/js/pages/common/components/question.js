@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import QuestionWrapper from './questionTemplates/questionWrapper';
 import SingleAnswerQuestion from './questionTemplates/singleAnswerQuestion';
+import MultiAnswerQuestion from './questionTemplates/multiAnswerQuestion';
+import TextAnswerQuestion from './questionTemplates/textAnswerQuestion';
+import FileAnswerQuestion from './questionTemplates/fileAnswerQuestion';
+import StarRatingAnswerQuestion from './questionTemplates/ratingAnswerQuestion';
+import RangeAnswerQuestion from './questionTemplates/rangeAnswerQuestion';
 
 // TODO: add hash validation for each control.
 class Question extends Component {
@@ -10,16 +15,16 @@ class Question extends Component {
             switch(questionType) {
                 case 'single':
                     return (<SingleAnswerQuestion answers={answers}/>);
-                case 'multy':
-                    return null;
+                case 'multi':
+                    return (<MultiAnswerQuestion answers={answers}/>);
                 case 'text':
-                    return null;
+                    return (<TextAnswerQuestion answers={answers}/>);
                 case 'file':
-                    return null;
+                    return (<FileAnswerQuestion answers={answers}/>);
                 case 'starRating':
-                    return null;
-                case 'scale':
-                    return null;
+                    return (<StarRatingAnswerQuestion answers={answers}/>);
+                case 'range':
+                    return (<RangeAnswerQuestion answers={answers}/>);
             }
         }
         return (
