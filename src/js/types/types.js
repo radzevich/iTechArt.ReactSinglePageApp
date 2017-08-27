@@ -1,3 +1,9 @@
+export const SAVE_CHANGES_IN_SURVEY = 'SAVE_CHANGES_IN_TEMPLATE';
+export const SAVE_AS_TEMPLATE = 'SAVE_AS_TEMPLATE';
+export const STATE_BACKUP = 'STATE_BACKUP';
+export const NEW_TEMPLATE = 'NEW_TEMPLATE';
+
+export const ADD_SURVEY = 'ADD_TEMPLATE';
 export const ADD_PAGE = 'ADD_PAGE';
 export const TOGGLE_ANON_STATUS = 'TOGGLE_ANON_STATUS';
 export const TOGGLE_QUESTION_ORDER = 'TOGGLE_QUESTION_ORDER';
@@ -12,11 +18,9 @@ export const ADD_QUESTION = 'ADD_QUESTION';
 export const CHANGE_QUESTION_TEXT = 'CHANGE_QUESTION_TEXT';
 export const TOGGLE_REQUIRED_STATUS = 'TOGGLE_REQUIRED_STATUS';
 
-export const DEFAULT_SURVEY_NAME = 'Опрос №';
-export const DEFAULT_PAGE_NAME = 'Страница';
-export const DEFAULT_ANSWER_TEXT = 'Ответ';
+export const DEFAULT_QUESTION_TYPE = 0;
 
-export const SURVEY_OPTIONS_BOARD_TITLE = 'Тип вопроса';
+export const TEMPLATE_OPTIONS_BOARD_TITLE = 'Тип вопроса';
  
 export const questionTypesName = {
     SINGLE: 'single',

@@ -20,24 +20,22 @@ class EditPanel extends Component {
                                    questionsCount={12}
                     />
                     <div className='edit-panel__manage-buttons'>
-                        <BorderedButton title='Сохранить' onSaveClick={() => console.log('сохранить')} />
-                        <BorderedButton title='Сохранить как шаблон' onSaveAsTemplateClick={() => console.log('сохранить как шаблон')} />
-                        <BorderedButton title='Отмена' onCancelClick={() => console.log('отмена')} />
-                        <BorderedButton title='Новая страница' onNewPageClick={() => console.log('сохранить')} />
+                        <BorderedButton onClick={() => this.props.onSaveClick()} />
+                        <BorderedButton onClick={() => this.props.onSaveAsTemplateClick()} />
+                        <BorderedButton onClick={() => this.props.onCancelClick()} />
+                        <BorderedButton onClick={() => this.props.onNewPageClick()} />
                     </div>
                 </form>
                 <Tabs selectedIndex={this.state.tabIndex} 
                       onSelect={tabIndex => this.setState({ tabIndex })}>
                     <TabList>
                         <Tab>Title 1</Tab>
-                        <Tab>Title 2</Tab>
                     </TabList>
                     <TabPanel>
                         <Question id={0}
                                   title='Вопрос'
                                   type='text'/>
                     </TabPanel>
-                    <TabPanel><h2>WORLD</h2></TabPanel>
                 </Tabs>
             </div>
         );

@@ -18,13 +18,13 @@ class Question extends Component {
                 case 'multi':
                     return (<MultiAnswerQuestion answers={answers}/>);
                 case 'text':
-                    return (<TextAnswerQuestion answers={answers}/>);
+                    return (<TextAnswerQuestion/>);
                 case 'file':
-                    return (<FileAnswerQuestion answers={answers}/>);
+                    return (<FileAnswerQuestion/>);
                 case 'starRating':
-                    return (<StarRatingAnswerQuestion answers={answers}/>);
+                    return (<StarRatingAnswerQuestion/>);
                 case 'range':
-                    return (<RangeAnswerQuestion answers={answers}/>);
+                    return (<RangeAnswerQuestion/>);
             }
         }
         return (

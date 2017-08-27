@@ -7,24 +7,24 @@ function EditPanelStat(props) {
     const delimiter = ',';
 
     const questionsCount = props.questionsCount;
-    const answersCount = props.answersCount;
+    const pagesCount = props.pagesCount;
 
     return (
         <div className='edit-panel__stat'>
             <span>{questionsText + questionsCount + delimiter + ' '}</span>
-            <span>{answersText + answersCount}</span>
+            <span>{answersText + pagesCount}</span>
         </div>
     );
 };
 
 EditPanelStat.propTypes  = {
-    questionsCount: PropTypes.number,
-    answersCount: PropTypes.number,
+    questionsCount: PropTypes.number.isRequired,
+    pagesCount: PropTypes.number.isRequired,
 };
 
 EditPanelStat.defaultProps = {
     questionsCount: 0,
-    answersCount: 0,
+    pagesCount: 0,
 };
 
 export default EditPanelStat;

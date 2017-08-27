@@ -1,23 +1,37 @@
-const GET_TEMPLATE_ITEMS = 'GET_TEMPLATE_ITEMS'
-const TEPMALATE_ITEMS_RECEIVED = 'TEMPLATE_ITEMS_RECEIVED'
-const TOGGLE_TEMPLATE_ITEM_SELECTION = 'TOGGLE_TEMPLATE_ITEM_SELECTION'
+import {
+    SAVE_CHANGES_IN_SURVEY,
+    SAVE_AS_TEMPLATE,
+    STATE_BACKUP,
+    NEW_TEMPLATE,
+} from '../types/types';
 
-export const getTemplateItems = () => {
+export const saveChangesInSurvey = {
+    type: SAVE_CHANGES_IN_SURVEY,
+}
+
+export const saveAsTemplate = templateToSave => {
     return {
-        type: GET_TEMPLATE_ITEMS,
+        type: SAVE_AS_TEMPLATE,
+        template: templateToSave,
     }
 }
 
-export const temlateItemsReceived = payload => {
+export const saveChangesInSurvey = changedSurvey => {
     return {
-        type: TEPMALATE_ITEMS_RECEIVED,
-        payload,
+        type: SAVE_CHANGES_IN_SURVEY,
+        survey: changedSurvey,
     }
 }
 
-export const toggleTemplateItem = id => {
+export const backupState = template => {
     return {
-        type: TOGGLE_TEMPLATE_ITEM_SELECTION,
-        id,
+        type: STATE_BACKUP,
+    }
+}
+
+export const createNewTemplate = newTemplate => {
+    return {
+        type: NEW_TEMPLATE,
+        newTemplate: template,
     }
 }

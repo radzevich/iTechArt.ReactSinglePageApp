@@ -7,20 +7,10 @@ class TextAnswerQuestion extends Component {
         const questionId = this.questionId;
         return (
             <div>
-                <input type={inputType}
-                       name={questionId}
-                />
+                <input type={inputType} />
             </div>
         );
     }
-}
-
-TextAnswerQuestion.propTypes = {
-    questionId: PropTypes.number.isRequired,
-}
-
-TextAnswerQuestion.propTypes = {
-    questionId: 0,
 }
 
 export default TextAnswerQuestion;
