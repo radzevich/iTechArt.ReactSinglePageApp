@@ -1,5 +1,5 @@
 import React from 'react';
-import EditBoard from './editBoard';
+import EditPanel from './editPanel';
 import QuestionTypesBoardContainer from '../containers/questionTypesBoardContainer';
 import SurveyOptionsBoardContainer from '../containers/surveyOptionsBoardContainer';
 import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
@@ -7,10 +7,10 @@ import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 function NewSurveyPage() {
 	return (
 		<div className='page page_content_new-survey'>
-			<EditBoard />
+			<EditPanel />
 			<div className='new-survey__options-boards'>
-				<QuestionTypesBoardContainer />
-				<SurveyOptionsBoardContainer />
+				{/* <QuestionTypesBoardContainer />
+				<SurveyOptionsBoardContainer /> */}
 			</div>
 		</div>
 	);
