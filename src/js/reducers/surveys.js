@@ -2,12 +2,6 @@ import pageReducer from './pageReducer';
 import {
     ADD_SURVEY,
     SAVE_CHANGES_IN_SURVEY,
-    TOGGLE_ANON_STATUS,
-    TOGGLE_QUESTION_ORDER,
-    TOGGLE_SHOW_PAGE_NUMS,
-    TOGGLE_SHOW_PROGRESS_BAR,
-    TOGGLE_SHOW_QUESTION_NUMS,
-    TOGGLE_SHOW_REQUIRED_QUESTION_MARK,
     ADD_PAGE,
     RENAME_PAGE,
     ADD_QUESTION,
@@ -34,48 +28,7 @@ function surveys(state = {}, action) {
             }
             return Object.assign(...state, action.newState);
         }
-        case TOGGLE_ANON_STATUS:
-            if (state.id !== action.id) {
-                return state;
-            }
-            return Object.assign(...state, {
-                isAnon: !state.isAnon,
-            });
-        case TOGGLE_SHOW_QUESTION_NUMS:
-            if (state.id !== action.id) {
-                return state;
-            }
-            return Object.assign(...state, {
-                showQuestionNums: !state.showQuestionNums,
-            });
-        case TOGGLE_SHOW_PAGE_NUMS:
-            if (state.id !== action.id) {
-                return state;
-            }
-            return Object.assign(...state, {
-                showPageNums: !state.showPageNums,
-            });
-        case TOGGLE_QUESTION_ORDER:
-            if (state.id !== action.id) {
-                return state;
-            }
-            return Object.assign(...state, {
-                isQuestionOrderRandom: !state.isQuestionOrderRandom,
-            });
-        case TOGGLE_SHOW_REQUIRED_QUESTION_MARK:
-            if (state.id !== action.id) {
-                return state;
-            }
-            return Object.assign(...state, {
-                showRequiredQuestionsMarks: !state.showRequiredQuestionsMarks,
-            });
-        case TOGGLE_SHOW_PROGRESS_BAR:
-            if (state.id !== action.id) {
-                return state;
-            }
-            return Object.assign(...state, {
-                showProgressBar: !state.showProgressBar,
-            });
+        
         case ADD_PAGE: 
             return Object.assign({}, state, {
                 pages: [

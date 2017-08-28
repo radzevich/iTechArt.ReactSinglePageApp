@@ -5,21 +5,28 @@ import {
     saveChangesInSurvey,
     backupState,
     createNewPage,
-} from '../../actions/index';
+} from '../../../actions/index';
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSaveAsClick: {
-            saveAsTemplate()
+        onSaveAsClick: () => {
+            dispatch(saveAsTemplate())
         },
-        onSaveChangesClick: {
-            saveChangesInSurvey()
+        onSaveChangesClick: () => {
+            dispatch(saveChangesInSurvey())
         },
-        onCancelClick: {
-            backupState()
+        onCancelClick: () => {
+            dispatch(backupState())
         },
-        onCreateClick: {
-            createNewPage()
+        onCreateClick: () => {
+            dispatch(createNewPage())
         },
     };
 }
+
+
+const EditPanelContainer = connect(
+    mapDispatchToProps,
+)(EditPanel);
+
+export default EditPanelContainer;

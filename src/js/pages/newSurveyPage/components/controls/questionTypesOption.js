@@ -13,7 +13,7 @@ function QuestionTypesOption(props) {
 }
 
 QuestionTypesOption.PropTypes = {
-    // iconName: PropTypes.string.isRequired,
+    iconName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
 }
