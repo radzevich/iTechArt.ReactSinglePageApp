@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import surveys from './surveys';
+import surveyToCreateReducer from './surveyToCreateReducer';
 import {
     SAVE_CHANGES_IN_SURVEY,
     SAVE_AS_TEMPLATE,
@@ -16,6 +16,8 @@ import {
     ADD_QUESTION,
     CHANGE_QUESTION_TEXT,
     TOGGLE_REQUIRED_STATUS,
+
+    CREATE_SURVEY,
 } from '../types/types';
 
 // function rootReducer(state = {}, action) {
@@ -65,13 +67,13 @@ import {
 
 function rootReducer(state = {}, action) {
     switch (action.type) {
-        case ADD_SURVEY: 
-            const newSurvey = surveys(undefined, action);
+        case CREATE_SURVEY: 
+            const newSurvey = surveyToCreateReducer(undefined, action);
             return Object.assign({}, state, {
-                newSurvey: surveys(undefined, action),
+                surveyToCreate: newSurvey,
             });
         case SAVE_AS_TEMPLATE: {
-            if (!state.newSurvey) {
+            if (!state.surveyToCreate) {
                 return state;
             }
             return Object.assign({}, state, {
@@ -79,13 +81,32 @@ function rootReducer(state = {}, action) {
                     ...state.templates,
                     state.newSurvey,
                 ],
-                newSurvey: null,
+                surveyToCreate: null,
             });
+        }
+        case SAVE_CHANGES_IN_SURVEY: {
+            if (!state.surveyToCreate) {
+                return state;
+            }
+            return Object.assign({}, state, [
+                ...state.surveys,
+                state.surveyToCreate,
+            ])
         }
         case STATE_BACKUP:
             return Object.assign({}, state, {
-                newSurvey: null,
+                surveyToCreate: null,
             });
+        case TOGGLE_ANON_STATUS:
+        case TOGGLE_QUESTION_ORDER:
+        case TOGGLE_SHOW_PAGE_NUMS:
+        case TOGGLE_SHOW_PROGRESS_BAR:
+        case TOGGLE_SHOW_QUESTION_NUMS:
+        case TOGGLE_SHOW_REQUIRED_QUESTION_MARK:
+        case ADD_PAGE:
+            return Object.assign({}, state,
+                surveyToCreateReducer(state.surveyToCreate, action)
+            )
         default:
             return state;
     }

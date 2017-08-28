@@ -6,15 +6,6 @@ import {
  } from '../../../types/types';
 
 class QuestionTypesBoard extends Component {
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(clickedItemIndex) {
-        // this.setState({selectedItemIndex: clickedItemIndex});
-    }
-
     renderQuestionTypeOption(type) {
         const title = questionTypesTitle[type].title;
         const iconName = questionTypesTitle[type].iconName;
@@ -38,7 +29,7 @@ class QuestionTypesBoard extends Component {
                 <ul>
                 {questionTypes.map(type => 
                     <li>
-                        {renderQuestionTypeOption(type)}
+                        {this.renderQuestionTypeOption(type)}
                     </li>
                 )}
                 </ul>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import FlexBox from '../common/components/flexBox/flexBox'
-import NewSurveyPage from '../pages/newSurveyPage/components/newSurveyPage';
+import NewSurveyPageContainer from '../pages/newSurveyPage/containers/newSurveyPageContainer';
 import MySurveysPage from '../pages/mySurveysPage/components/mySurveysPage';
 import SurveyTemplatesPage from '../pages/surveyTemplatesPage/components/surveyTemplatesPage';
 
@@ -16,17 +16,20 @@ class Router extends Component {
 			{
 				title: 'Новый опрос',
 				linkTo: '/newSurvey',
-				component: NewSurveyPage,
+				component: NewSurveyPageContainer,
+				onClick: () => this.props.onNewSurveyClick(),
 			},
 			{
 				title: 'Мои опросы',
 				linkTo: '/mySurveys',
 				component: MySurveysPage,
+				onClick: () => {},
 			},
 			{
 				title: 'Шаблоны опросов',
 				linkTo: '/surveyTemplates',
 				component: SurveyTemplatesPage,
+				onClick: () => {},
 			},
         ];
         

@@ -1,52 +1,43 @@
-import { 
-    connect 
-} from 'react-redux';
-import { 
-    TOGGLE_ANON_STATUS,
-    TOGGLE_QUESTION_ORDER,
-    TOGGLE_SHOW_PAGE_NUMS,
-    TOGGLE_SHOW_PROGRESS_BAR,
-    TOGGLE_SHOW_QUESTION_NUMS,
-    TOGGLE_SHOW_REQUIRED_QUESTION_MARK,
-    questionTypesName,
-    questionTypesTitle, 
-} from '../../../types/types'; 
-import NewSurveyPage from '../components';
+import { connect } from 'react-redux';
+import NewSurveyPage from '../components/newSurveyPage';
+import {
+    createSurvey,
+    saveAsTemplate,
+    saveChangesInSurvey,
+    backupState,
+    createNewPage,
+} from '../../../actions/index';
 
-const mapStateToProps = (ownProps, state) => {
-    const currentSurveyId = ownProps.id;
-    const currentSurvey = state.surveys[currentSurveyId];
+const mapStateToProps = state => {
+    const surveyToCreate = state.surveyToCreate;
     return {
         editPanelProps: Object.assign({}, {
-            pages: [...[], 
-                currentSurvey.pages
+            pages: [
+                ...[], 
+                surveyToCreate.pages,
             ],
-            pagesCount: currentSurvey.pagesCount,
-            questionsCount: currentSurvey.questionsCount,
+            pagesCount: surveyToCreate.pagesCount,
+            questionsCount: surveyToCreate.questionsCount,
         }),
-        questionsTypesPanel: 
-        // surveyOptionsPanel: 
+        // questionsTypesPanel: 
+        // // surveyOptionsPanel: 
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         questionsTypesPanelEvents: {
-            onSaveAsClick: templateId => {
-                // dispatch(saveAsTemplate(templateId));
-                console.log('saveAs');
+            onSaveAsClick: () => {
+                dispatch(saveAsTemplate());
             },
-            onSaveChangesClick: templateId => {
-                // saveChangesInSurvey(templateId)
-                console.log('save');
+            onSaveChangesClick: () => {
+                dispatch(saveChangesInSurvey());
             },
-            onCancelClick: templateId => {
-                // backupState(templateId)
-                console.log('cancel');
+            onCancelClick: () => {
+                dispatch(backupState());
             },
-            onCreateClick: templateId => {
-                // createNewPage(templateId)
-                console.log('create');
+            onCreateClick: () => {
+                dispatch(createNewPage());
             },
         },
     };

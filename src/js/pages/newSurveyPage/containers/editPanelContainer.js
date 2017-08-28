@@ -24,7 +24,6 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
-
 const EditPanelContainer = connect(
     mapDispatchToProps,
 )(EditPanel);

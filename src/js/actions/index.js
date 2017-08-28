@@ -1,9 +1,14 @@
 import {
+    CREATE_SURVEY,
     SAVE_CHANGES_IN_SURVEY,
     SAVE_AS_TEMPLATE,
     STATE_BACKUP,
     ADD_PAGE,
 } from '../types/types';
+
+export const createSurvey = {
+    type: CREATE_SURVEY,
+}
 
 export const saveAsTemplate = {
     type: SAVE_AS_TEMPLATE,

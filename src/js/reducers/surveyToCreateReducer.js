@@ -1,15 +1,23 @@
 import {
+    CREATE_SURVEY,
     TOGGLE_ANON_STATUS,
     TOGGLE_QUESTION_ORDER,
     TOGGLE_SHOW_PAGE_NUMS,
     TOGGLE_SHOW_PROGRESS_BAR,
     TOGGLE_SHOW_QUESTION_NUMS,
     TOGGLE_SHOW_REQUIRED_QUESTION_MARK,
+    CREATE_PAGE,
+    ADD_PAGE,
 } from  '../types/types';
+import pageReducer from './pageReducer';
 
-function newSurveyReducer(state = {}, action) {
+function surveyToCreateReducer(state = {}, action) {
     switch (action.type) {
-        case ADD_SURVEY: 
+        case CREATE_SURVEY: 
+            const pageToCreate = pageReducer({
+                type: action.type,
+                id: 1,
+            })
             return {
                 isAnon: true,
                 showQuestionNums: true,
@@ -17,8 +25,11 @@ function newSurveyReducer(state = {}, action) {
                 isQuestionOrderRandom: false,
                 showRequiredQuestionsMarks: false,
                 showProgressBar: true,
-                pages: [],
-                pagesCount: 0,
+                pages: [
+                    pageToCreate,
+                ],
+                activePageId: pageToCreate.id,
+                pagesCount: 1,
                 questionsCount: 0,
             }
         case TOGGLE_ANON_STATUS:
@@ -45,9 +56,21 @@ function newSurveyReducer(state = {}, action) {
             return Object.assign(...state, {
                 showProgressBar: !state.showProgressBar,
             });
+        case ADD_PAGE:
+            const pageToAdd = pageReducer({
+                type: action.type,
+                id: state.pages.length + 1,
+            })
+            return Object.assign({}, state, {
+                pages: [
+                    ...state.pages,
+                    pageToAdd,
+                ],
+                pagesCount: state.pagesCount + 1,
+            })
         default:
             return state;
     }
 }
 
-export default newSurveyReducer;
+export default surveyToCreateReducer;

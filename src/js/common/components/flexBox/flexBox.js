@@ -14,6 +14,7 @@ class FlexBox extends Component {
 					<Route key={navigationItem.title}
 						   path={navigationItem.linkTo} 
 						   component={navigationItem.component}
+						   onClick={() => this.props.onClick()}
 					/>
 				)}
 			</div>

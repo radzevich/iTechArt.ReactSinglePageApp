@@ -10,8 +10,7 @@ function NewSurveyPage() {
 		<div className='page page_content_new-survey'>
 			<EditPanelContainer />
 			<div className='new-survey__options-boards'>
-				<QuestionTypesBoardContainer actions={createQuestionActions}
-											 onClick={(action) => console.log(action)}/>
+				<QuestionTypesBoard onClick={(action) => console.log(action)}/>
 				<SurveyOptionsBoard />
 			</div>
 		</div>

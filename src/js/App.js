@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './common/components/header/header';
 import Footer from './common/components/footer/footer';
-import Router from './router/router';
+import RouterContainer from './router/routerContainer';
 
 class App extends Component {
   render() {
@@ -10,7 +10,7 @@ class App extends Component {
         <div className="header">
           <Header />
         </div>
-        <Router />
+        <RouterContainer />
         <Footer />
       </div>
     );
