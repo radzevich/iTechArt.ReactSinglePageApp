@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function QuestionTypesOption(props) {
     return (
         <div className="question-type-option"
-             onClick={() => props.onSelectorClick(props.id)}>
+             onClick={() => props.onClick()}>
             <Icon name={props.iconName} />
             <span className="question-type-option__text">{props.title}</span>
         </div>
@@ -13,8 +13,7 @@ function QuestionTypesOption(props) {
 }
 
 QuestionTypesOption.PropTypes = {
-    id: PropTypes.number.isRequired,
-    iconName: PropTypes.string.isRequired,
+    // iconName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
 }

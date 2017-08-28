@@ -13,7 +13,7 @@ import {
     ADD_QUESTION,
     CHANGE_QUESTION_TEXT,
     TOGGLE_REQUIRED_STATUS,
-} from '../../types/types';
+} from '../types/types';
 
 function surveys(state = {}, action) {
     switch (action.type) {

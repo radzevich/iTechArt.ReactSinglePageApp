@@ -3,7 +3,7 @@ import {
     CHANGE_QUESTION_TEXT,
     TOGGLE_REQUIRED_STATUS,
     DEFAULT_QUESTION_TYPE,
-} from '../../types/types';
+} from '../types/types';
 
 function questionReducer(state = {}, action) {
     switch (action.type) {

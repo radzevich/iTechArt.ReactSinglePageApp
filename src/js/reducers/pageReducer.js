@@ -4,7 +4,7 @@ import {
     ADD_QUESTION,
     CHANGE_QUESTION_TEXT,
     TOGGLE_REQUIRED_STATUS,
-} from '../../types/types';
+} from '../types/types';
 import questionReducer from './questionReducer';
 
 function pageReducer(state = {}, action) {

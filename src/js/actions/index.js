@@ -2,7 +2,6 @@ import {
     SAVE_CHANGES_IN_SURVEY,
     SAVE_AS_TEMPLATE,
     STATE_BACKUP,
-    NEW_TEMPLATE,
 } from '../types/types';
 
 export const saveChangesInSurvey = {
@@ -29,9 +28,6 @@ export const backupState = template => {
     }
 }
 
-export const createNewTemplate = newTemplate => {
-    return {
-        type: NEW_TEMPLATE,
-        newTemplate: template,
-    }
+export const createNewPage = {
+    type: ADD_PAGE,
 }

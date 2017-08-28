@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import QuestionTypesOptionContainer from '../containers/questionTypesOptionContainer'
+import QuestionTypesOption from '../components/controls/questionTypesOption';
 
 class QuestionTypesBoard extends Component {
     constructor(props) {
@@ -13,7 +13,11 @@ class QuestionTypesBoard extends Component {
     
     render() {
         const title = 'Тип вопроса';
-
+        const types = [
+            {
+                type: 'SINGLE'
+            }
+        ]
         return (
             <div className='question-types-board'>
                 <div className='question-types-board__title'>
@@ -22,8 +26,9 @@ class QuestionTypesBoard extends Component {
                 <ul>
                 {this.props.types.map(type => 
                     <li>
-                        <QuestionTypesOptionContainer id={type}
-                                                      key={type}
+                        <QuestionTypesOption key={type}
+                                             title={this.props.title}
+                                             onClick={() => this.props.onClick(type)}
                         />
                     </li>
                 )}

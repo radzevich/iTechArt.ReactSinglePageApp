@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
-import templateReducer from './templateReducer';
+import surveys from './surveys';
 import {
     SAVE_CHANGES_IN_SURVEY,
     SAVE_AS_TEMPLATE,
     STATE_BACKUP,
-    ADD_TEMPLATE,
     ADD_SURVEY,
-    SAVE_CHANGES_IN_SURVEY,
     TOGGLE_ANON_STATUS,
     TOGGLE_QUESTION_ORDER,
     TOGGLE_SHOW_PAGE_NUMS,
@@ -22,28 +20,23 @@ import {
 
 function rootReducer(state = {}, action) {
     switch (action.type) {
-        case SAVE_CHANGES_IN_SURVEY: 
-            state.history = [];
-            return state.templates.map(template => templateReducer(template, action));
         case SAVE_AS_TEMPLATE:
             return Object.assign({}, state, {
                 templates: [
                     ...state.templates,
                     action.template,  
                 ]}
-            )
+            );
         case STATE_BACKUP: {
-            const previousStateIndex = history.length - 1;
-            const previousState = state.history[previousStateIndex];
+            const previousState = state.previousState;
             return Object.assign({}, state, {
                 templates: [
                     ...state.surveys,
                     previousState,  
                 ],
-                history: state.history.slice(0, previousStateIndex),
             });
         }
-        case ADD_TEMPLATE:
+        case SAVE_CHANGES_IN_SURVEY: 
         case ADD_SURVEY:
         case SAVE_CHANGES_IN_SURVEY:
         case TOGGLE_ANON_STATUS:
@@ -57,8 +50,11 @@ function rootReducer(state = {}, action) {
         case ADD_QUESTION:
         case CHANGE_QUESTION_TEXT:
         case TOGGLE_REQUIRED_STATUS:
-            state.history.push(state.surveys);
-            state.surveys.map(survey, action);
+            const nextSurveyState = state.surveys.map(survey => surveys(survey, action));
+            return Object.assign({}, state, {
+                surveys: nextSurveyState,
+                history: nextSurveyState,                
+            });
         default: 
             return state;
     }

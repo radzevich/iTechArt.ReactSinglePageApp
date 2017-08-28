@@ -4,7 +4,7 @@ import rootReducer from '../reducers/index'
 const initialState = {
     templateReducer: [],
     surveys: [],
-    history: [],
+    previousState: {},
 };
 
 export default function configureStore() {

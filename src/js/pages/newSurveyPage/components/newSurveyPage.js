@@ -2,6 +2,7 @@ import React from 'react';
 import EditPanel from './editPanel';
 import QuestionTypesBoard from './questionTypesBoard';
 import SurveyOptionsBoard from './surveyOptionsBoard';
+import questionTypesName from '../../../types/types';
 import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 
 function NewSurveyPage() {
@@ -17,9 +18,9 @@ function NewSurveyPage() {
 		<div className='page page_content_new-survey'>
 			<EditPanel />
 			<div className='new-survey__options-boards'>
-				{/* <QuestionTypesBoard actions={createQuestionActions}
+				<QuestionTypesBoard actions={createQuestionActions}
 									onClick={(action) => console.log(action)}/>
-				<SurveyOptionsBoard /> */}
+				<SurveyOptionsBoard />
 			</div>
 		</div>
 	);

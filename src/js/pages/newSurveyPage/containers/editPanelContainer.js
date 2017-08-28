@@ -4,7 +4,7 @@ import {
     saveAsTemplate,
     saveChangesInSurvey,
     backupState,
-    createNewTemplate,
+    createNewPage,
 } from '../../actions/index';
 
 const mapDispatchToProps = dispatch => {
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => {
             backupState()
         },
         onCreateClick: {
-            createNewTemplate()
+            createNewPage()
         },
     };
 }
