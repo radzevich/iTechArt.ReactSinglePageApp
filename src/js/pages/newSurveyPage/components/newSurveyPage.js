@@ -19,10 +19,11 @@ class NewSurveyPage extends Component {
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
+		this.handleEdit = this.handleEdit.bind(this);
 	}
 
 	getSurveyCurrentState() {
-		const currentStateIndex = this.history.length;
+		const currentStateIndex = this.state.history.length;
 		return Object.assign({}, this.state.history[currentStateIndex]);
 	}
 
@@ -43,6 +44,20 @@ class NewSurveyPage extends Component {
 		}
 	}
 
+	handleEdit(changedSurvey) {
+		const surveyCurrentState = this.getSurveyCurrentState();
+		const surveyNextState = Object.assign({}, 
+			surveyCurrentState,
+			changedSurvey,
+		)
+		this.setState(Object.assign({}, this.state, {
+			history: [
+				...this.state.history,
+				surveyNextState,
+			]
+		}));
+	}
+
 	render() {
 		const currentSurveyToEditState = this.getSurveyCurrentState();
 		return (
@@ -51,6 +66,7 @@ class NewSurveyPage extends Component {
 						   onSaveClick={() => this.handleSaveCLick()}
 						   onSaveAsTemplateClick={() => this.handleSaveAsTemplateClick()}
 						   onCancelClick={() => this.handleCancelClick()}
+						   onEdit={() => this.handleEdit()}
 				/>
 				<div className='new-survey__options-boards'>
 					{/* <QuestionTypesBoard onClick={(action) => console.log(action)}/>

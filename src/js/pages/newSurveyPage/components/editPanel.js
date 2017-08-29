@@ -7,10 +7,21 @@ import 'react-tabs/style/react-tabs.css';
 import Question from '../../common/components/question';
 
 class EditPanel extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { tabIndex: 0 };
+        
     }
+
+    handleEdit() {
+        this.props.onEdit();
+    }
+
+    handleCreatePageClick() {
+        this.surveyToEdit.pages 
+        handleEdit()
+    }
+
     render() {
         const surveyToEdit = this.props.surveyToEdit;
         return (
