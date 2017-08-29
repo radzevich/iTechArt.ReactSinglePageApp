@@ -13,7 +13,7 @@ class NewSurveyPage extends Component {
 				? Object.assign({}, this.props.surveyToEdit)
 				: Object.assign({}, this.props.createNewSurvey())
 		}
-		this.history = initHistory();
+		this.history = this.initHistory();
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
@@ -28,7 +28,7 @@ class NewSurveyPage extends Component {
 
 	handleSaveCLick() {
 		this.props.onSaveChangesClick(this.state.surveyToEdit);
-		this.history = initHistory();
+		this.history = this.initHistory();
 	}
 
 	handleSaveAsTemplateClick() {
