@@ -1,7 +1,18 @@
 import {
     RENAME_PAGE,
     ADD_QUESTION,
+    CREATE_PAGE,
 } from '../types/types';
+
+let id = 1;
+export const createPage = pageToCreate => {
+    const idToSet = ++id;
+    return {
+        type: CREATE_PAGE,
+        pageToCreate,
+        id: idToSet,
+    }
+}
 
 export const renamePage = newTitle => {
     return {
@@ -16,3 +27,4 @@ export const addQuestion = questionType => {
         questionType,
     }
 }
+

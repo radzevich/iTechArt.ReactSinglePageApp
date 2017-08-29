@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 function BorderedButton(props) {
 	return (
-		<div className="button button_style_bordered ">
+		<div className="button button_style_bordered" onClick={() => props.onClick()}>
 			<span>{props.title}</span>
 		</div>
 	);

@@ -15,7 +15,7 @@ function surveyToCreateReducer(state = {}, action) {
     switch (action.type) {
         case CREATE_SURVEY: 
             const pageToCreate = pageReducer(undefined, {
-                type: ADD_PAGE,
+                type: CREATE_PAGE,
                 id: 1,
             })
             return {
@@ -26,9 +26,9 @@ function surveyToCreateReducer(state = {}, action) {
                 showRequiredQuestionsMarks: false,
                 showProgressBar: true,
                 pages: [
+                    ...[],
                     pageToCreate,
                 ],
-                activePageId: pageToCreate.id,
                 pagesCount: 1,
                 questionsCount: 0,
             }
@@ -57,7 +57,7 @@ function surveyToCreateReducer(state = {}, action) {
                 showProgressBar: !state.showProgressBar,
             });
         case ADD_PAGE:
-            const pageToAdd = pageReducer({
+            const pageToAdd = pageReducer(undefined, {
                 type: action.type,
                 id: state.pages.length + 1,
             })

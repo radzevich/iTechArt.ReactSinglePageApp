@@ -2,8 +2,7 @@ import {
     CREATE_SURVEY,
     SAVE_CHANGES_IN_SURVEY,
     SAVE_AS_TEMPLATE,
-    STATE_BACKUP,
-    ADD_PAGE,
+    CREATE_PAGE,
 } from '../types/types';
 
 export const createSurvey = surveyToCreate => ({
@@ -21,10 +20,4 @@ export const saveChangesInSurvey = changedSurveyToStave => ({
     surveyToSave: changedSurveyToStave,
 })
 
-export const backupState = () => ({
-    type: STATE_BACKUP,
-})
 
-export const createNewPage = () => ({
-    type: ADD_PAGE,
-})

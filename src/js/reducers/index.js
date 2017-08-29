@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import surveyToCreateReducer from './surveyToCreateReducer';
+import pageReducer from './pageReducer';
 import {
     SAVE_CHANGES_IN_SURVEY,
     SAVE_AS_TEMPLATE,
@@ -18,6 +19,7 @@ import {
     TOGGLE_REQUIRED_STATUS,
 
     CREATE_SURVEY,
+    CREATE_PAGE,
 } from '../types/types';
 
 function rootReducer(state = {}, action) {
@@ -25,6 +27,10 @@ function rootReducer(state = {}, action) {
         case CREATE_SURVEY: 
             const newSurvey = surveyToCreateReducer(undefined, action);  
             Object.assign(action.surveyToCreate, newSurvey);
+            return state; 
+        case CREATE_PAGE: 
+            const newPage = pageReducer(undefined, action);  
+            Object.assign(action.pageToCreate, newPage);
             return state; 
         case SAVE_AS_TEMPLATE: {
             if (!state.surveyToCreate) {

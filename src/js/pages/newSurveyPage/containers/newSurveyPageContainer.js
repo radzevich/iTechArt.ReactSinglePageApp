@@ -5,12 +5,10 @@ import {
     saveAsTemplate,
     saveChangesInSurvey,
     backupState,
-    createNewPage,
 } from '../../../actions/index';
-
-const mapStateToProps = state => ({
-    surveyToCreate: state.surveyToCreate,
-})
+import {
+    createPage,
+} from '../../../actions/pageActions';
 
 const createNewSurvey = dispatch => {
     const surveyToCreate = {};
@@ -18,20 +16,25 @@ const createNewSurvey = dispatch => {
     return surveyToCreate;
 }
 
+const createNewPage = dispatch => {
+    const pageToCreate = {};
+    dispatch(createPage(pageToCreate));
+    return pageToCreate;
+}
+
 const mapDispatchToProps = dispatch => ({
-    onSaveAsClick: () => {
-        dispatch(saveAsTemplate());
-    },
-    onSaveChangesClick: () => {
-        dispatch(saveChangesInSurvey());
-    },
-    createNewSurvey: () => {
-        createNewSurvey(dispatch)
-    },
+    onSaveAsClick: () =>
+        dispatch(saveAsTemplate()),
+    onSaveChangesClick: () => 
+        dispatch(saveChangesInSurvey()),
+    createNewSurvey: () => 
+        createNewSurvey(dispatch),
+    createNewPage: () =>
+        createNewPage(dispatch)
 });
 
 const NewSurveyPageContainer = connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps,
 )(NewSurveyPage);
 

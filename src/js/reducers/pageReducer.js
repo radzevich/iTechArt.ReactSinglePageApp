@@ -1,5 +1,5 @@
 import {
-    ADD_PAGE,
+    CREATE_PAGE,
     RENAME_PAGE,
     ADD_QUESTION,
     CHANGE_QUESTION_TEXT,
@@ -9,9 +9,10 @@ import questionReducer from './questionReducer';
 
 function pageReducer(state = {}, action) {
     switch(action.type) {
-        case ADD_PAGE: {
+        case CREATE_PAGE: {
             return {
                 id: action.id,
+                title: action.title,
                 questions: [],
             }
         }

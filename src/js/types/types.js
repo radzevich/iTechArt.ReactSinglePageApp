@@ -5,6 +5,8 @@ export const NEW_TEMPLATE = 'NEW_TEMPLATE';
 
 export const CREATE_SURVEY = 'CREATE_SURVEY';
 export const ADD_PAGE = 'ADD_PAGE';
+export const CREATE_PAGE = 'CREATE_PAGE';
+
 export const TOGGLE_ANON_STATUS = 'TOGGLE_ANON_STATUS';
 export const TOGGLE_QUESTION_ORDER = 'TOGGLE_QUESTION_ORDER';
 export const TOGGLE_SHOW_PAGE_NUMS = 'TOGGLE_SHOW_PAGE_NUMS';
@@ -21,6 +23,7 @@ export const TOGGLE_REQUIRED_STATUS = 'TOGGLE_REQUIRED_STATUS';
 export const DEFAULT_QUESTION_TYPE = 0;
 
 export const TEMPLATE_OPTIONS_BOARD_TITLE = 'Тип вопроса';
+export const DEFAULT_PAGE_TITLE = 'Страница';
  
 export const questionTypesName = {
     SINGLE: 'single',

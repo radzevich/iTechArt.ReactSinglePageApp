@@ -1,28 +1,45 @@
-import React, { PureComponent } from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import React, { Component } from 'react';
+import { 
+    Tab, 
+    Tabs, 
+    TabList, 
+    TabPanel 
+} from 'react-tabs';
 import EditPanelTitle from './editPanelTitle';
 import EditPanelStat from './editPanelStat';
 import BorderedButton from '../../../common/components/controls/borderedButton';
 import 'react-tabs/style/react-tabs.css';
 import Question from '../../common/components/question';
+import {
+    DEFAULT_PAGE_TITLE
+} from '../../../types/types';
 
-class EditPanel extends PureComponent {
+class EditPanel extends Component {
     constructor(props) {
         super(props);
         this.state = { tabIndex: 0 };
-        
-    }
-
-    handleEdit() {
-        this.props.onEdit();
-    }
-
-    handleCreatePageClick() {
-        this.surveyToEdit.pages 
-        this.handleEdit()
+        // this.surveyToEdit = this.props.surveyToEdit;
     }
 
     render() {
+        const manageButtons = [
+            {
+                text: 'Сохранить',
+                onClick: this.props.onSaveClick,
+            },
+            {
+                text: 'Сохранить как шаблон',
+                onClick: this.props.onSaveAsTemplateClick,
+            },
+            {
+                text: 'Отмена',
+                onClick: this.props.onCancelClick,
+            },
+            {
+                text: 'Новая страница',
+                onClick: this.props.onCreatePageClick,
+            },
+        ]
         const surveyToEdit = this.props.surveyToEdit;
         return (
             <div className='edit-panel'>
@@ -32,23 +49,26 @@ class EditPanel extends PureComponent {
                                    questionsCount={12}
                     />
                     <div className='edit-panel__manage-buttons'>
-                        <BorderedButton onClick={() => this.props.onSaveClick()} />
-                        <BorderedButton onClick={() => this.props.onSaveAsTemplateClick()} />
-                        <BorderedButton onClick={() => this.props.onCancelClick()} />
-                        <BorderedButton onClick={() => this.props.onCreatePageClick()} />
+                        {manageButtons.map(button => (
+                            <BorderedButton onClick={button.onClick}
+                                            title={button.text} 
+                                            key={button.text}                
+                            />
+                        ))}
                     </div>
                 </form>
                 <Tabs selectedIndex={this.state.tabIndex} 
                       onSelect={tabIndex => this.setState({ tabIndex })}>
                     <TabList>
-
-                        <Tab></Tab>
+                        {surveyToEdit.pages.map((page) => 
+                            <Tab key={page.id}>
+                                {(page.title) ? page.title : DEFAULT_PAGE_TITLE + ' ' + page.id}
+                            </Tab>
+                        )}
                     </TabList>
-                    <TabPanel>
-                        <Question id={0}
-                                  title='Вопрос'
-                                  type='text'/>
-                    </TabPanel>
+                    {surveyToEdit.pages.map((page) => 
+                        <TabPanel key={page.id}/>
+                    )}
                 </Tabs>
             </div>
         );

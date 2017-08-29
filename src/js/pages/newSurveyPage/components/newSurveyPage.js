@@ -2,28 +2,38 @@ import React, { Component } from 'react';
 import EditPanel from './editPanel';
 import QuestionTypesBoard from './questionTypesBoard';
 import SurveyOptionsBoard from './surveyOptionsBoard';
-import questionTypesName from '../../../types/types';
+import questionTypesName from '../../../types/types'; 
 import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 
 class NewSurveyPage extends Component {
 	constructor(props) {
 		super(props);
-		const surveyToEdit = (!!this.props.surveyToEdit)
-			? Object.assign({}, this.props.surveyToEdit)
-			: Object.assign({}, this.props.createNewSurvey());
+		
 		this.state = {
-			history: [
-				surveyToEdit
-			],
+			history: [],
 		};
+
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
-		this.handleEdit = this.handleEdit.bind(this);
+		this.handleCommitChanges = this.handleCommitChanges.bind(this);
+	}
+
+	componentWillMount() {
+		const surveyToEdit = (!!this.props.surveyToEdit)
+		? Object.assign({}, this.props.surveyToEdit)
+		: Object.assign({}, this.props.createNewSurvey());
+
+		this.setState(prevState => ({
+			history: [
+				...prevState.history,
+				surveyToEdit,
+			],
+		}));
 	}
 
 	getSurveyCurrentState() {
-		const currentStateIndex = this.state.history.length;
+		const currentStateIndex = this.state.history.length - 1;
 		return Object.assign({}, this.state.history[currentStateIndex]);
 	}
 
@@ -36,37 +46,51 @@ class NewSurveyPage extends Component {
 	}
 
 	handleCancelClick() {
-		const currentStateIndex = this.state.history.length - 1;
 		if (this.state.history.length > 1) {
+			const previousStateIndex = this.state.history.length - 1;
+			const previousState = this.state.history[previousStateIndex];
+
 			this.setState(Object.assign({}, this.state, {
-				history: this.history.slice(0, currentStateIndex),
+				history: [
+					...this.state.history,
+					previousState,
+				]
 			}))
 		}
 	}
 
-	handleEdit(changedSurvey) {
-		const surveyCurrentState = this.getSurveyCurrentState();
-		const surveyNextState = Object.assign({}, 
-			surveyCurrentState,
-			changedSurvey,
-		)
-		this.setState(Object.assign({}, this.state, {
+	handleCreatePageClick() {
+		const newPage = this.props.createNewPage();
+		const currentSurveyState = this.getSurveyCurrentState();
+		const nextSurveyState = Object.assign({}, currentSurveyState, {
+			pages: [
+				...currentSurveyState.pages,
+				newPage,
+			],
+			pagesCount: currentSurveyState.pagesCount + 1,
+		})
+		this.handleCommitChanges(nextSurveyState);
+	}
+
+	handleCommitChanges(changedSurveyStateToCommit) {
+		this.setState({
 			history: [
 				...this.state.history,
-				surveyNextState,
+				changedSurveyStateToCommit,
 			]
-		}));
+		});
 	}
 
 	render() {
-		const currentSurveyToEditState = this.getSurveyCurrentState();
+		const surveyCurrentState =  this.getSurveyCurrentState();
 		return (
 			<div className='page page_content_new-survey'>
-				<EditPanel surveyToEdit={currentSurveyToEditState}
+				<EditPanel surveyToEdit={surveyCurrentState}
 						   onSaveClick={() => this.handleSaveCLick()}
 						   onSaveAsTemplateClick={() => this.handleSaveAsTemplateClick()}
 						   onCancelClick={() => this.handleCancelClick()}
-						   onEdit={() => this.handleEdit()}
+						   onEdit={() => this.handleCommitChanges()}
+						   onCreatePageClick={() => this.handleCreatePageClick()}
 				/>
 				<div className='new-survey__options-boards'>
 					{/* <QuestionTypesBoard onClick={(action) => console.log(action)}/>
@@ -74,7 +98,7 @@ class NewSurveyPage extends Component {
 				</div>
 			</div>
 		);
-}
+	}
 }
 
 export default NewSurveyPage;
