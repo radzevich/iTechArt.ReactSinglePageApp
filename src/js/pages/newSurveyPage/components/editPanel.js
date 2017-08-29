@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import EditPanelTitle from './editPanelTitle';
 import EditPanelStat from './editPanelStat';
@@ -6,7 +6,7 @@ import BorderedButton from '../../../common/components/controls/borderedButton';
 import 'react-tabs/style/react-tabs.css';
 import Question from '../../common/components/question';
 
-class EditPanel extends Component {
+class EditPanel extends PureComponent {
     constructor(props) {
         super(props);
         this.state = { tabIndex: 0 };
@@ -19,7 +19,7 @@ class EditPanel extends Component {
 
     handleCreatePageClick() {
         this.surveyToEdit.pages 
-        handleEdit()
+        this.handleEdit()
     }
 
     render() {
