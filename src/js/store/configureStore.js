@@ -4,7 +4,7 @@ import rootReducer from '../reducers/index'
 const initialState = {
     templates: [],
     surveys: [],
-    surveyToCreate: null,
+    surveyToCreate: {},
 };
 
 export default function configureStore() {

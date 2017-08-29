@@ -6,22 +6,23 @@ import {
     ADD_PAGE,
 } from '../types/types';
 
-export const createSurvey = {
+export const createSurvey = surveyToCreate => ({
     type: CREATE_SURVEY,
-}
+    surveyToCreate
+})
 
-export const saveAsTemplate = {
+export const saveAsTemplate = () => ({
     type: SAVE_AS_TEMPLATE,
-}
+})
 
-export const saveChangesInSurvey = {
+export const saveChangesInSurvey = () => ({
     type: SAVE_CHANGES_IN_SURVEY,
-}
+})
 
-export const backupState = {
+export const backupState = () => ({
     type: STATE_BACKUP,
-}
+})
 
-export const createNewPage = {
+export const createNewPage = () => ({
     type: ADD_PAGE,
-}
+})

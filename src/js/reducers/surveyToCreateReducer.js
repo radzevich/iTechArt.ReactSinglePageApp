@@ -14,8 +14,8 @@ import pageReducer from './pageReducer';
 function surveyToCreateReducer(state = {}, action) {
     switch (action.type) {
         case CREATE_SURVEY: 
-            const pageToCreate = pageReducer({
-                type: action.type,
+            const pageToCreate = pageReducer(undefined, {
+                type: ADD_PAGE,
                 id: 1,
             })
             return {

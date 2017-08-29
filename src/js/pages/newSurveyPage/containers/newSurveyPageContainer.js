@@ -9,42 +9,52 @@ import {
 } from '../../../actions/index';
 
 const mapStateToProps = state => {
-    const surveyToCreate = state.surveyToCreate;
     return {
-        editPanelProps: Object.assign({}, {
-            pages: [
-                ...[], 
-                surveyToCreate.pages,
-            ],
-            pagesCount: surveyToCreate.pagesCount,
-            questionsCount: surveyToCreate.questionsCount,
-        }),
-        // questionsTypesPanel: 
-        // // surveyOptionsPanel: 
+        surveyToCreate: state.surveyToCreate,
     }
+    
+    // return {
+    //     editPanelProps: Object.assign({}, {
+    //         pages: [
+    //             ...[], 
+    //             surveyToCreate.pages,
+    //         ],
+    //         pagesCount: surveyToCreate.pagesCount,
+    //         questionsCount: surveyToCreate.questionsCount,
+    //     }),
+    //     // questionsTypesPanel: 
+    //     // // surveyOptionsPanel: 
+    // }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        questionsTypesPanelEvents: {
-            onSaveAsClick: () => {
-                dispatch(saveAsTemplate());
-            },
-            onSaveChangesClick: () => {
-                dispatch(saveChangesInSurvey());
-            },
-            onCancelClick: () => {
-                dispatch(backupState());
-            },
-            onCreateClick: () => {
-                dispatch(createNewPage());
-            },
-        },
-    };
+const createNewSurvey = dispatch => {
+    const surveyToCreate = {};
+    dispatch(createSurvey(surveyToCreate));
+    return surveyToCreate;
 }
+
+const mapDispatchToProps = dispatch => ({
+    questionsTypesPanelEvents: {
+        onSaveAsClick: () => {
+            dispatch(saveAsTemplate());
+        },
+        onSaveChangesClick: () => {
+            dispatch(saveChangesInSurvey());
+        },
+        onCancelClick: () => {
+            dispatch(backupState());
+        },
+        onCreateClick: () => {
+            dispatch(createNewPage());
+        },
+    },
+    createNewSurvey: () => 
+        createNewSurvey(dispatch)
+});
 
 const NewSurveyPageContainer = connect(
     mapStateToProps,
+    mapDispatchToProps,
 )(NewSurveyPage);
 
 export default NewSurveyPageContainer;

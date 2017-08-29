@@ -68,10 +68,9 @@ import {
 function rootReducer(state = {}, action) {
     switch (action.type) {
         case CREATE_SURVEY: 
-            const newSurvey = surveyToCreateReducer(undefined, action);
-            return Object.assign({}, state, {
-                surveyToCreate: newSurvey,
-            });
+            const newSurvey = surveyToCreateReducer(undefined, action);  
+            Object.assign(action.surveyToCreate, newSurvey);
+            return state; 
         case SAVE_AS_TEMPLATE: {
             if (!state.surveyToCreate) {
                 return state;
