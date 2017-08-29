@@ -4,30 +4,11 @@ import SideNavigation from '../sideNavigation/sideNavigation';
 import '../../../../styles/common/flex-box/flex-box.css';
 import '../../../../styles/page/page.css';
 import PropTypes from 'prop-types';
-import NewSurveyPageContainer from '../../../pages/newSurveyPage/containers/newSurveyPageContainer';
-import MySurveysPage from '../../../pages/mySurveysPage/components/mySurveysPage';
-import SurveyTemplatesPage from '../../../pages/surveyTemplatesPage/components/surveyTemplatesPage';
 
 class FlexBox extends Component {	
 	
 	render() {
-		const navigationItemsMeta = [
-			{
-				title: 'Новый опрос',
-				linkTo: '/newSurvey',
-				component: NewSurveyPageContainer,
-			},
-			{
-				title: 'Мои опросы',
-				linkTo: '/mySurveys',
-				component: MySurveysPage,
-			},
-			{
-				title: 'Шаблоны опросов',
-				linkTo: '/surveyTemplates',
-				component: SurveyTemplatesPage,
-			},
-        ];
+		const navigationItemsMeta = this.props.navigationItemsMeta;
 		return (
 			<div className="flex-box">
 				<SideNavigation navigationItemsMeta={navigationItemsMeta} />

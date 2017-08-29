@@ -8,24 +8,9 @@ import {
     createNewPage,
 } from '../../../actions/index';
 
-const mapStateToProps = state => {
-    return {
-        surveyToCreate: state.surveyToCreate,
-    }
-    
-    // return {
-    //     editPanelProps: Object.assign({}, {
-    //         pages: [
-    //             ...[], 
-    //             surveyToCreate.pages,
-    //         ],
-    //         pagesCount: surveyToCreate.pagesCount,
-    //         questionsCount: surveyToCreate.questionsCount,
-    //     }),
-    //     // questionsTypesPanel: 
-    //     // // surveyOptionsPanel: 
-    // }
-}
+const mapStateToProps = state => ({
+    surveyToCreate: state.surveyToCreate,
+})
 
 const createNewSurvey = dispatch => {
     const surveyToCreate = {};

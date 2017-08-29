@@ -13,7 +13,6 @@ class NewSurveyPage extends Component {
 				? Object.assign({}, this.props.surveyToEdit)
 				: Object.assign({}, this.props.createNewSurvey())
 		}
-		debugger;
 	}	
 
 	render() {
