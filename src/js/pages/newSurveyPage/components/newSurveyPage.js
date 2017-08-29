@@ -8,45 +8,46 @@ import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 class NewSurveyPage extends Component {
 	constructor(props) {
 		super(props);
+		const surveyToEdit = (!!this.props.surveyToEdit)
+			? Object.assign({}, this.props.surveyToEdit)
+			: Object.assign({}, this.props.createNewSurvey());
 		this.state = {
-			surveyToEdit: (!!this.props.surveyToEdit)
-				? Object.assign({}, this.props.surveyToEdit)
-				: Object.assign({}, this.props.createNewSurvey())
-		}
-		this.history = this.initHistory();
+			history: [
+				surveyToEdit
+			],
+		};
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
 	}
-	
-	initHistory() {
-		return [
-			...[],
-			this.state,
-		];
+
+	getSurveyCurrentState() {
+		const currentStateIndex = this.history.length;
+		return Object.assign({}, this.state.history[currentStateIndex]);
 	}
 
 	handleSaveCLick() {
-		this.props.onSaveChangesClick(this.state.surveyToEdit);
-		this.history = this.initHistory();
+		this.props.onSaveChangesClick(this.getSurveyCurrentState());
 	}
 
 	handleSaveAsTemplateClick() {
-		this.props.onSaveAsTemplateClick(this.state.surveyToEdit);
+		this.props.onSaveAsTemplateClick(this.getSurveyCurrentState());
 	}
 
 	handleCancelClick() {
-		const previousStateIndex = this.history.length - 1;
-		const previousState = this.history[previousStateIndex];
-		this.setState(previousState, () => {
-			this.history = this.history.slice(0, previousStateIndex);
-		})
+		const currentStateIndex = this.state.history.length - 1;
+		if (this.state.history.length > 1) {
+			this.setState(Object.assign({}, this.state, {
+				history: this.history.slice(0, currentStateIndex),
+			}))
+		}
 	}
 
 	render() {
+		const currentSurveyToEditState = this.getSurveyCurrentState();
 		return (
 			<div className='page page_content_new-survey'>
-				<EditPanel surveyToEdit={this.state.surveyToEdit}
+				<EditPanel surveyToEdit={currentSurveyToEditState}
 						   onSaveClick={() => this.handleSaveCLick()}
 						   onSaveAsTemplateClick={() => this.handleSaveAsTemplateClick()}
 						   onCancelClick={() => this.handleCancelClick()}

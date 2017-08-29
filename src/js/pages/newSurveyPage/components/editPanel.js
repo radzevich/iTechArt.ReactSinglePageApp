@@ -12,6 +12,7 @@ class EditPanel extends Component {
         this.state = { tabIndex: 0 };
     }
     render() {
+        const surveyToEdit = this.props.surveyToEdit;
         return (
             <div className='edit-panel'>
                 <form className='edit-panel__form'>
@@ -29,7 +30,8 @@ class EditPanel extends Component {
                 <Tabs selectedIndex={this.state.tabIndex} 
                       onSelect={tabIndex => this.setState({ tabIndex })}>
                     <TabList>
-                        <Tab>Title 1</Tab>
+
+                        <Tab></Tab>
                     </TabList>
                     <TabPanel>
                         <Question id={0}
