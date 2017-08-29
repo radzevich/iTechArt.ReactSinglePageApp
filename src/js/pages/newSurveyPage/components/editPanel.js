@@ -67,7 +67,11 @@ class EditPanel extends Component {
                         )}
                     </TabList>
                     {surveyToEdit.pages.map((page) => 
-                        <TabPanel key={page.id}/>
+                        <TabPanel key={page.id}>
+                            {page.questions.map(question =>
+                                question.id                                
+                            )}
+                        </TabPanel>
                     )}
                 </Tabs>
             </div>

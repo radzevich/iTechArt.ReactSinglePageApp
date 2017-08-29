@@ -47,15 +47,11 @@ class NewSurveyPage extends Component {
 
 	handleCancelClick() {
 		if (this.state.history.length > 1) {
-			const previousStateIndex = this.state.history.length - 1;
-			const previousState = this.state.history[previousStateIndex];
+			const currentStateIndex = this.state.history.length - 1;
 
-			this.setState(Object.assign({}, this.state, {
-				history: [
-					...this.state.history,
-					previousState,
-				]
-			}))
+			this.setState({
+				history: this.state.history.slice(0, currentStateIndex),
+			})
 		}
 	}
 
