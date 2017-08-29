@@ -33,7 +33,7 @@ function rootReducer(state = {}, action) {
             return Object.assign({}, state, {
                 templates: [
                     ...state.templates,
-                    state.newSurvey,
+                    action.templateToSave,
                 ],
                 surveyToCreate: null,
             });
@@ -44,7 +44,7 @@ function rootReducer(state = {}, action) {
             }
             return Object.assign({}, state, [
                 ...state.surveys,
-                state.surveyToCreate,
+                action.surveyToSave,
             ])
         }
         case STATE_BACKUP:

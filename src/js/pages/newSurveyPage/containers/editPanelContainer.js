@@ -7,18 +7,18 @@ import {
     createNewPage,
 } from '../../../actions/index';
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onSaveAsClick: () => {
-            dispatch(saveAsTemplate())
+            dispatch(saveAsTemplate(ownProps.surveyToEdit))
         },
         onSaveChangesClick: () => {
-            dispatch(saveChangesInSurvey())
+            dispatch(saveChangesInSurvey(ownProps.surveyToEdit))
         },
         onCancelClick: () => {
             dispatch(backupState())
         },
-        onCreateClick: () => {
+        onCreatePageClick: () => {
             dispatch(createNewPage())
         },
     };

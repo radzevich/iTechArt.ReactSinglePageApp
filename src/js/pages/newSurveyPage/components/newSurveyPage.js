@@ -18,7 +18,7 @@ class NewSurveyPage extends Component {
 	render() {
 		return (
 			<div className='page page_content_new-survey'>
-				<EditPanelContainer />
+				<EditPanelContainer surveyToEdit={this.state.surveyToEdit}/>
 				<div className='new-survey__options-boards'>
 					{/* <QuestionTypesBoard onClick={(action) => console.log(action)}/>
 					<SurveyOptionsBoard /> */}

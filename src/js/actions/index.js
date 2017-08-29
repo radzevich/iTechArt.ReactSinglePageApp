@@ -11,12 +11,14 @@ export const createSurvey = surveyToCreate => ({
     surveyToCreate
 })
 
-export const saveAsTemplate = () => ({
+export const saveAsTemplate = surveyToSaveAsTemplate => ({
     type: SAVE_AS_TEMPLATE,
+    templateToSave: surveyToSaveAsTemplate
 })
 
-export const saveChangesInSurvey = () => ({
+export const saveChangesInSurvey = changedSurveyToStave => ({
     type: SAVE_CHANGES_IN_SURVEY,
+    surveyToSave: changedSurveyToStave,
 })
 
 export const backupState = () => ({
