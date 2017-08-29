@@ -23,7 +23,7 @@ class EditPanel extends Component {
                         <BorderedButton onClick={() => this.props.onSaveClick()} />
                         <BorderedButton onClick={() => this.props.onSaveAsTemplateClick()} />
                         <BorderedButton onClick={() => this.props.onCancelClick()} />
-                        <BorderedButton onClick={() => this.props.onNewPageClick()} />
+                        <BorderedButton onClick={() => this.props.onCreatePageClick()} />
                     </div>
                 </form>
                 <Tabs selectedIndex={this.state.tabIndex} 

@@ -19,22 +19,15 @@ const createNewSurvey = dispatch => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    questionsTypesPanelEvents: {
-        onSaveAsClick: () => {
-            dispatch(saveAsTemplate());
-        },
-        onSaveChangesClick: () => {
-            dispatch(saveChangesInSurvey());
-        },
-        onCancelClick: () => {
-            dispatch(backupState());
-        },
-        onCreateClick: () => {
-            dispatch(createNewPage());
-        },
+    onSaveAsClick: () => {
+        dispatch(saveAsTemplate());
     },
-    createNewSurvey: () => 
+    onSaveChangesClick: () => {
+        dispatch(saveChangesInSurvey());
+    },
+    createNewSurvey: () => {
         createNewSurvey(dispatch)
+    },
 });
 
 const NewSurveyPageContainer = connect(
