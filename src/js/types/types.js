@@ -16,6 +16,7 @@ export const TOGGLE_SHOW_REQUIRED_QUESTION_MARK = 'TOGGLE_SHOW_REQUIRED_QUESTION
 
 export const RENAME_PAGE = 'RENAME_PAGE';
 export const ADD_QUESTION = 'ADD_QUESTION';
+export const CREATE_QUESTION = 'CREATE_QUESTION';
 
 export const CHANGE_QUESTION_TEXT = 'CHANGE_QUESTION_TEXT';
 export const TOGGLE_REQUIRED_STATUS = 'TOGGLE_REQUIRED_STATUS';
@@ -25,6 +26,7 @@ export const DEFAULT_QUESTION_TYPE = 0;
 export const TEMPLATE_OPTIONS_BOARD_TITLE = 'Тип вопроса';
 export const DEFAULT_PAGE_TITLE = 'Страница';
 export const SURVEY_OPTIONS_PANEL_TITLE = 'Параметры опроса';
+export const QUESTION_TYPES_PANEL_TITLE = 'Тип вопроса';
  
 export const questionTypesName = {
     SINGLE: 'single',
@@ -35,7 +37,7 @@ export const questionTypesName = {
     RANGE: 'range',
 }
 
-export const questionTypesTitle = typeName => {
+export const questionTypeInfoToRender = typeName => {
     switch(typeName) {
         case questionTypesName.SINGLE: 
             return {

@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import QuestionTypesOption from '../components/controls/questionTypesOption';
+import PropTypes from 'prop-types';
 import { 
     questionTypesName,
-    questionTypesTitle,
+    questionTypeInfoToRender,
+    QUESTION_TYPES_PANEL_TITLE,
  } from '../../../types/types';
 
-class QuestionTypesBoard extends Component {
+class QuestionTypesPanel extends Component {
     renderQuestionTypeOption(type) {
-        const title = questionTypesTitle[type].title;
-        const iconName = questionTypesTitle[type].iconName;
+        const questionTypeInfo = questionTypeInfoToRender(type);
+        const title = questionTypeInfo.title;
+        const iconName = questionTypeInfo.iconName;
         return (
-            <QuestionTypesOption key={type}
-                iconName={iconName}
-                title={title}
-                onClick={() => this.props.onClick(type)}
+            <QuestionTypesOption iconName={iconName}
+                                 title={title}
+                                 onClick={() => this.props.onClick(type)}
             />
         );
     }
     
     render() {
-        const title = 'Тип вопроса';
+        const title = QUESTION_TYPES_PANEL_TITLE;
         const questionTypes = Object.values(questionTypesName);
         return (
             <div className='question-types-board'>
@@ -28,7 +30,7 @@ class QuestionTypesBoard extends Component {
                 </div>
                 <ul>
                 {questionTypes.map(type => 
-                    <li>
+                    <li key={type}>
                         {this.renderQuestionTypeOption(type)}
                     </li>
                 )}
@@ -38,4 +40,8 @@ class QuestionTypesBoard extends Component {
     }
 }
 
-export default QuestionTypesBoard;
+QuestionTypesPanel.propTypes = {
+    onClick: PropTypes.func.isRequired,
+}
+
+export default QuestionTypesPanel;

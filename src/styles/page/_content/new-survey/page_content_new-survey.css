@@ -4,19 +4,8 @@
     height: 400px;
 }
 
-.page_content_new-survey .new-survey__options {
-    float: right;
-    width: 300px;
-    height: 200px;
-}
-
+.page_content_new-survey .survey-params-board,
 .page_content_new-survey .question-types-board {
-
-
-    border: 3px solid #000000;
-}
-
-.page_content_new-survey .survey-params-board {
     float: right;
     width: 300px;
     height: 200px;

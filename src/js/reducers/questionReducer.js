@@ -1,16 +1,17 @@
 import {
-    ADD_QUESTION,
+    CREATE_QUESTION,
     CHANGE_QUESTION_TEXT,
     TOGGLE_REQUIRED_STATUS,
     DEFAULT_QUESTION_TYPE,
+    questionTypesName,
 } from '../types/types';
 
 function questionReducer(state = {}, action) {
     switch (action.type) {
-        case ADD_QUESTION: 
+        case CREATE_QUESTION: 
             return {
                 id: action.id,
-                type: DEFAULT_QUESTION_TYPE,
+                type: action.type,
                 isRequired: false,
             }
         case CHANGE_QUESTION_TEXT:

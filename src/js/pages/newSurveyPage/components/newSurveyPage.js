@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EditPanel from './editPanel';
-import QuestionTypesBoard from './questionTypesBoard';
+import QuestionTypesPanel from './questionTypesPanel';
 import SurveyOptionsPanel from './surveyOptionsPanel';
 import questionTypesName from '../../../types/types'; 
 import PropTypes from 'prop-types';
@@ -71,23 +71,32 @@ class NewSurveyPage extends Component {
 
 	handleCreatePageClick() {
 		const newPage = this.props.createNewPage();
-		const currentSurveyState = this.getSurveyCurrentState();
-		const nextSurveyState = Object.assign({}, currentSurveyState, {
+		const surveyCurrentState = this.getSurveyCurrentState();
+		const nextSurveyState = Object.assign({}, surveyCurrentState, {
 			pages: [
-				...currentSurveyState.pages,
+				...surveyCurrentState.pages,
 				newPage,
 			],
-			pagesCount: currentSurveyState.pagesCount + 1,
+			pagesCount: surveyCurrentState.pagesCount + 1,
 		})
 		this.handleCommitChanges(nextSurveyState);
 	}
 	
 	handleSurveyOptionsToggle(surveyStateWithToggledOption) {
-		const currentSurveyState = this.getSurveyCurrentState();
+		const surveyCurrentState = this.getSurveyCurrentState();
 		const nextSurveyState = Object.assign({}, 
-            currentSurveyState,
+            surveyCurrentState,
             surveyStateWithToggledOption,
-		)
+		);
+
+		this.handleCommitChanges(nextSurveyState);
+	}
+
+	handleQuestionTypeClick(clickedType) {
+		const surveyCurrentState = this.getSurveyCurrentState();
+		const nextSurveyState = Object.assign({}, surveyCurrentState, {
+			questionsCount: surveyCurrentState.questionsCount + 1,
+		});
 
 		this.handleCommitChanges(nextSurveyState);
 	}
@@ -104,6 +113,7 @@ class NewSurveyPage extends Component {
 	render() {
 		const surveyCurrentState =  this.getSurveyCurrentState();
 		const propsForSurveyOptionsPanel = this.mapStateToSurveyOptionsPanelProps();
+		console.log(surveyCurrentState);
 		return (
 			<div className='page page_content_new-survey'>
 				<EditPanel surveyToEdit={surveyCurrentState}
@@ -114,7 +124,7 @@ class NewSurveyPage extends Component {
 						   onCreatePageClick={() => this.handleCreatePageClick()}
 				/>
 				<div className='new-survey__options-boards'>
-					{/* <QuestionTypesBoard onClick={}/> */}
+					<QuestionTypesPanel onClick={clickedType => this.handleQuestionTypeClick(clickedType)}/>
 					<SurveyOptionsPanel currentState={propsForSurveyOptionsPanel}
 										onOptionToggle={state => this.handleSurveyOptionsToggle(state)}
 					/>

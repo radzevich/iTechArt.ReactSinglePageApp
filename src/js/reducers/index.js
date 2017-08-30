@@ -20,6 +20,7 @@ import {
 
     CREATE_SURVEY,
     CREATE_PAGE,
+    CREATE_QUESTION,
 } from '../types/types';
 
 function rootReducer(state = {}, action) {
@@ -31,6 +32,10 @@ function rootReducer(state = {}, action) {
         case CREATE_PAGE: 
             const newPage = pageReducer(undefined, action);  
             Object.assign(action.pageToCreate, newPage);
+            return state; 
+        case CREATE_QUESTION: 
+            const newQuestion = pageReducer(undefined, action);  
+            Object.assign(action.questionToCreate, newQuestion);
             return state; 
         case SAVE_AS_TEMPLATE: {
             if (!state.surveyToCreate) {
