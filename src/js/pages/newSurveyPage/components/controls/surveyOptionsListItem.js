@@ -9,9 +9,9 @@ class SurveyOptionsListItem extends PureComponent {
         return (
             <li>
                 <input id={optionState.id}
-                    type={inputType}
-                    onChange={() => optionState.onToggle()}
-                    checked={optionState.isChecked}       
+                       type={inputType}
+                       onChange={() => optionState.onToggle()}
+                       checked={optionState.isChecked}       
                 />
                 <label htmlFor={optionState.id}>{optionState.text}</label>
             </li>
@@ -19,17 +19,19 @@ class SurveyOptionsListItem extends PureComponent {
     }
 }
 
-SurveyOptionsListItem.PropTypes = {
-    onToggle: PropTypes.func.isRequired,
-    name: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-    ]).isRequired,
+SurveyOptionsListItem.propTypes = {
     id: PropTypes.oneOfType([
-        PropTypes.string,
         PropTypes.number,
-    ]).isRequired,
-    text: PropTypes.string.isRequired,
+        PropTypes.string,
+    ]),
+    onToggle: PropTypes.func.isRequired,
+    text: PropTypes.string,
+    isChecked: PropTypes.bool,
+}
+
+SurveyOptionsListItem.defaultProps = {
+    text: 'UNDEFINED_PROPERTY',
+    isChecked: false,
 }
 
 export default SurveyOptionsListItem;

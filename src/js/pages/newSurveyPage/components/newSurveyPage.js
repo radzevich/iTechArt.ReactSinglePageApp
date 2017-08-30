@@ -3,6 +3,7 @@ import EditPanel from './editPanel';
 import QuestionTypesBoard from './questionTypesBoard';
 import SurveyOptionsPanel from './surveyOptionsPanel';
 import questionTypesName from '../../../types/types'; 
+import PropTypes from 'prop-types';
 import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 
 class NewSurveyPage extends Component {
@@ -121,6 +122,13 @@ class NewSurveyPage extends Component {
 			</div>
 		);
 	}
+}
+
+NewSurveyPage.propTypes = {
+	onSaveAsClick: PropTypes.func.isRequired,
+	onSaveChangesClick: PropTypes.func.isRequired,
+	createNewSurvey: PropTypes.func.isRequired,
+	createNewPage: PropTypes.func.isRequired,
 }
 
 export default NewSurveyPage;

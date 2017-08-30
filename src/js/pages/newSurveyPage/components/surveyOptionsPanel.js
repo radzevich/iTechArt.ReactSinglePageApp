@@ -4,6 +4,7 @@ import {
     questionOptionsText,
     SURVEY_OPTIONS_PANEL_TITLE,
 } from '../../../types/types';
+import PropTypes from 'prop-types';
 
 class SurveyOptionsPanel extends PureComponent {
     constructor(props) {
@@ -14,7 +15,7 @@ class SurveyOptionsPanel extends PureComponent {
     handleOptionToggle(toggledOptionName) {
         const changedState = Object.assign({}, this.props.currentState);
         const newOptionValue = !this.props.currentState[toggledOptionName];
-console.log(newOptionValue);
+
         changedState[toggledOptionName] = newOptionValue;
 
         this.props.onOptionToggle(changedState);
@@ -79,5 +80,16 @@ console.log(newOptionValue);
     }
 }
 
+SurveyOptionsPanel.propTypes = {
+    currentState: PropTypes.shape({
+        isAnon: PropTypes.bool.isRequired,
+        showQuestionNums: PropTypes.bool.isRequired,
+        showPageNums: PropTypes.bool.isRequired,
+        isQuestionOrderRandom: PropTypes.bool.isRequired,
+        showRequiredQuestionsMarks: PropTypes.bool.isRequired,
+        showProgressBar: PropTypes.bool.isRequired,
+    }).isRequired,
+    onOptionToggle: PropTypes.func.isRequired,
+}
 
 export default SurveyOptionsPanel;
