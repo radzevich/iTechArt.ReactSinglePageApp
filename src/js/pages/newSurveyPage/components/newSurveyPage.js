@@ -118,9 +118,20 @@ class NewSurveyPage extends Component {
 	}
 
 	handleQuestionTypeClick(clickedType) {
-		const newQuestionToAdd = this.props.createNewQuestion();
 		const surveyCurrentState = this.getSurveyCurrentState();
+		const newQuestionToAdd = this.props.createNewQuestion();
+		const indexOfPageToAddQuestion = this.state.activePageIndex;
+		const pagesToAddQuestion = [].concat(
+			surveyCurrentState.pages,
+		);		
+		const currentListOfQuestions = pagesToAddQuestion[indexOfPageToAddQuestion].questions || [];
+		pagesToAddQuestion[indexOfPageToAddQuestion].questions = [
+			...currentListOfQuestions,
+			newQuestionToAdd,
+		];
+		debugger;
 		const nextSurveyState = Object.assign({}, surveyCurrentState, {
+			pages: pagesToAddQuestion,
 			questionsCount: surveyCurrentState.questionsCount + 1,
 		});
 
