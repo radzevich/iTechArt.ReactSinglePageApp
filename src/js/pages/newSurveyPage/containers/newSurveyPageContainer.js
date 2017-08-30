@@ -30,8 +30,9 @@ const mapDispatchToProps = dispatch => ({
     createNewSurvey: () => 
         createNewSurvey(dispatch),
     createNewPage: () =>
-        createNewPage(dispatch)
+        createNewPage(dispatch),
 });
+
 
 const NewSurveyPageContainer = connect(
     null,

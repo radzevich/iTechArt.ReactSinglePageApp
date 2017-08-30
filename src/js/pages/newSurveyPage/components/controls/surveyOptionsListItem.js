@@ -1,19 +1,22 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {PureComponent} from 'react';
 
-function SurveyOptionsListItem(props) {
-    const inputType = 'checkbox';
-    return (
-        <li>
-            <input id={props.id}
-                   type={inputType}
-                   onClick={() => props.onToggle()}
-                   name={props.name}
-                   
-            />
-            <label for={props.id}>{props.text}</label>
-        </li>
-    );
+class SurveyOptionsListItem extends PureComponent {
+
+    render() {
+        const inputType = 'checkbox';
+        const optionState = Object.assign({}, this.props);
+        return (
+            <li>
+                <input id={optionState.id}
+                    type={inputType}
+                    onChange={() => optionState.onToggle()}
+                    checked={optionState.isChecked}       
+                />
+                <label htmlFor={optionState.id}>{optionState.text}</label>
+            </li>
+        );
+    }
 }
 
 SurveyOptionsListItem.PropTypes = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EditPanel from './editPanel';
 import QuestionTypesBoard from './questionTypesBoard';
-import SurveyOptionsBoard from './surveyOptionsBoard';
+import SurveyOptionsPanel from './surveyOptionsPanel';
 import questionTypesName from '../../../types/types'; 
 import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 
@@ -14,15 +14,16 @@ class NewSurveyPage extends Component {
 		};
 
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
-		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
+		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
+		this.handleSurveyOptionsToggle = this.handleSurveyOptionsToggle.bind(this);
 		this.handleCommitChanges = this.handleCommitChanges.bind(this);
 	}
 
 	componentWillMount() {
 		const surveyToEdit = (!!this.props.surveyToEdit)
-		? Object.assign({}, this.props.surveyToEdit)
-		: Object.assign({}, this.props.createNewSurvey());
+			? Object.assign({}, this.props.surveyToEdit)
+			: Object.assign({}, this.props.createNewSurvey());
 
 		this.setState(prevState => ({
 			history: [
@@ -35,6 +36,18 @@ class NewSurveyPage extends Component {
 	getSurveyCurrentState() {
 		const currentStateIndex = this.state.history.length - 1;
 		return Object.assign({}, this.state.history[currentStateIndex]);
+	}
+
+	mapStateToSurveyOptionsPanelProps() {
+		const currentState = this.getSurveyCurrentState();
+		return {
+			isAnon: currentState.isAnon,
+			showQuestionNums: currentState.showQuestionNums,
+			showPageNums: currentState.showPageNums,
+			isQuestionOrderRandom: currentState.isQuestionOrderRandom,
+			showRequiredQuestionsMarks: currentState.showRequiredQuestionsMarks,
+			showProgressBar: currentState.showProgressBar,
+		};
 	}
 
 	handleSaveCLick() {
@@ -67,6 +80,16 @@ class NewSurveyPage extends Component {
 		})
 		this.handleCommitChanges(nextSurveyState);
 	}
+	
+	handleSurveyOptionsToggle(surveyStateWithToggledOption) {
+		const currentSurveyState = this.getSurveyCurrentState();
+		const nextSurveyState = Object.assign({}, 
+            currentSurveyState,
+            surveyStateWithToggledOption,
+		)
+
+		this.handleCommitChanges(nextSurveyState);
+	}
 
 	handleCommitChanges(changedSurveyStateToCommit) {
 		this.setState({
@@ -79,6 +102,7 @@ class NewSurveyPage extends Component {
 
 	render() {
 		const surveyCurrentState =  this.getSurveyCurrentState();
+		const propsForSurveyOptionsPanel = this.mapStateToSurveyOptionsPanelProps();
 		return (
 			<div className='page page_content_new-survey'>
 				<EditPanel surveyToEdit={surveyCurrentState}
@@ -89,8 +113,10 @@ class NewSurveyPage extends Component {
 						   onCreatePageClick={() => this.handleCreatePageClick()}
 				/>
 				<div className='new-survey__options-boards'>
-					{/* <QuestionTypesBoard onClick={(action) => console.log(action)}/>
-					<SurveyOptionsBoard /> */}
+					{/* <QuestionTypesBoard onClick={}/> */}
+					<SurveyOptionsPanel currentState={propsForSurveyOptionsPanel}
+										onOptionToggle={state => this.handleSurveyOptionsToggle(state)}
+					/>
 				</div>
 			</div>
 		);

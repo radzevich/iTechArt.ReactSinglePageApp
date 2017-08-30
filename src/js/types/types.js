@@ -24,6 +24,7 @@ export const DEFAULT_QUESTION_TYPE = 0;
 
 export const TEMPLATE_OPTIONS_BOARD_TITLE = 'Тип вопроса';
 export const DEFAULT_PAGE_TITLE = 'Страница';
+export const SURVEY_OPTIONS_PANEL_TITLE = 'Параметры опроса';
  
 export const questionTypesName = {
     SINGLE: 'single',
