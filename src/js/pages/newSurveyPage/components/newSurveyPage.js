@@ -18,6 +18,7 @@ class NewSurveyPage extends Component {
 		this.handleCancelClick = this.handleCancelClick.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleSurveyOptionsToggle = this.handleSurveyOptionsToggle.bind(this);
+		this.handlePageSelect = this.handlePageSelect.bind(this);
 		this.handleCommitChanges = this.handleCommitChanges.bind(this);
 	}
 
@@ -25,18 +26,26 @@ class NewSurveyPage extends Component {
 		const surveyToEdit = (!!this.props.surveyToEdit)
 			? Object.assign({}, this.props.surveyToEdit)
 			: Object.assign({}, this.props.createNewSurvey());
-
+		
 		this.setState(prevState => ({
 			history: [
-				...prevState.history,
-				surveyToEdit,
+				...prevState.history, {
+					surveyState: surveyToEdit,
+					activePageIndex: 0,
+				}
 			],
+			activePageIndex: 0,
 		}));
 	}
 
-	getSurveyCurrentState() {
+	getCurrentState() {
 		const currentStateIndex = this.state.history.length - 1;
 		return Object.assign({}, this.state.history[currentStateIndex]);
+	}
+
+	getSurveyCurrentState() {
+		const currentGeneralState = this.getCurrentState();
+		return currentGeneralState.surveyState;
 	}
 
 	mapStateToSurveyOptionsPanelProps() {
@@ -51,6 +60,15 @@ class NewSurveyPage extends Component {
 		};
 	}
 
+	mapStateToQuestionTypesPanelProps() {
+		const currentState = this.getSurveyCurrentState();
+		return {
+			pages: Object.assign({}, currentState.pages),
+			pagesCount: currentState.pagesCount,
+			questionsCount: currentState.questionsCount,
+		}
+	}
+
 	handleSaveCLick() {
 		this.props.onSaveChangesClick(this.getSurveyCurrentState());
 	}
@@ -62,24 +80,12 @@ class NewSurveyPage extends Component {
 	handleCancelClick() {
 		if (this.state.history.length > 1) {
 			const currentStateIndex = this.state.history.length - 1;
-
+			console.log(this.state.history[currentStateIndex - 1].activePageIndex);
 			this.setState({
+				activePageIndex: this.state.history[currentStateIndex].activePageIndex,
 				history: this.state.history.slice(0, currentStateIndex),
 			})
 		}
-	}
-
-	handleCreatePageClick() {
-		const newPage = this.props.createNewPage();
-		const surveyCurrentState = this.getSurveyCurrentState();
-		const nextSurveyState = Object.assign({}, surveyCurrentState, {
-			pages: [
-				...surveyCurrentState.pages,
-				newPage,
-			],
-			pagesCount: surveyCurrentState.pagesCount + 1,
-		})
-		this.handleCommitChanges(nextSurveyState);
 	}
 	
 	handleSurveyOptionsToggle(surveyStateWithToggledOption) {
@@ -92,7 +98,27 @@ class NewSurveyPage extends Component {
 		this.handleCommitChanges(nextSurveyState);
 	}
 
+	handleCreatePageClick() {
+		const newPageToAdd = this.props.createNewPage();
+		const surveyCurrentState = this.getSurveyCurrentState();
+		const nextSurveyState = Object.assign({}, surveyCurrentState, {
+			pages: [
+				...surveyCurrentState.pages,
+				newPageToAdd,
+			],
+			pagesCount: surveyCurrentState.pagesCount + 1,
+		})
+		this.handleCommitChanges(nextSurveyState);
+	}
+
+	handlePageSelect(selectedPageIndex) {
+		this.setState(Object.assign({}, this.state, {
+			activePageIndex: selectedPageIndex,
+		}))
+	}
+
 	handleQuestionTypeClick(clickedType) {
+		const newQuestionToAdd = this.props.createNewQuestion();
 		const surveyCurrentState = this.getSurveyCurrentState();
 		const nextSurveyState = Object.assign({}, surveyCurrentState, {
 			questionsCount: surveyCurrentState.questionsCount + 1,
@@ -102,29 +128,39 @@ class NewSurveyPage extends Component {
 	}
 
 	handleCommitChanges(changedSurveyStateToCommit) {
+		const generalStateToCommit = {
+			surveyState: changedSurveyStateToCommit,
+			activePageIndex: this.state.activePageIndex,
+		}
+
 		this.setState({
 			history: [
 				...this.state.history,
-				changedSurveyStateToCommit,
-			]
+				generalStateToCommit,
+			],
 		});
 	}
 
 	render() {
 		const surveyCurrentState =  this.getSurveyCurrentState();
 		const propsForSurveyOptionsPanel = this.mapStateToSurveyOptionsPanelProps();
-		console.log(surveyCurrentState);
+		const propsForQuestionTypesPanel = this.mapStateToQuestionTypesPanelProps();
+		const activePageIndex = this.state.activePageIndex;
+		console.log(this.state);
 		return (
 			<div className='page page_content_new-survey'>
 				<EditPanel surveyToEdit={surveyCurrentState}
+						   activePageIndex={activePageIndex}
 						   onSaveClick={() => this.handleSaveCLick()}
 						   onSaveAsTemplateClick={() => this.handleSaveAsTemplateClick()}
 						   onCancelClick={() => this.handleCancelClick()}
 						   onEdit={() => this.handleCommitChanges()}
 						   onCreatePageClick={() => this.handleCreatePageClick()}
+						   onPageSelect={(selectedPageIndex) => this.handlePageSelect(selectedPageIndex)}
 				/>
 				<div className='new-survey__options-boards'>
-					<QuestionTypesPanel onClick={clickedType => this.handleQuestionTypeClick(clickedType)}/>
+					<QuestionTypesPanel currentState={this.state}
+										onClick={clickedType => this.handleQuestionTypeClick(clickedType)}/>
 					<SurveyOptionsPanel currentState={propsForSurveyOptionsPanel}
 										onOptionToggle={state => this.handleSurveyOptionsToggle(state)}
 					/>
@@ -139,6 +175,7 @@ NewSurveyPage.propTypes = {
 	onSaveChangesClick: PropTypes.func.isRequired,
 	createNewSurvey: PropTypes.func.isRequired,
 	createNewPage: PropTypes.func.isRequired,
+	createNewQuestion: PropTypes.func.isRequired,
 }
 
 export default NewSurveyPage;

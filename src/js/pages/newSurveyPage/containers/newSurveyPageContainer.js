@@ -9,6 +9,9 @@ import {
 import {
     createPage,
 } from '../../../actions/pageActions';
+import {
+    createQuestion
+} from '../../../actions/questionActions';
 
 const createNewSurvey = dispatch => {
     const surveyToCreate = {};
@@ -22,6 +25,12 @@ const createNewPage = dispatch => {
     return pageToCreate;
 }
 
+const createNewQuestion = dispatch => {
+    const questionToCreate = {};
+    dispatch(createQuestion(questionToCreate));
+    return questionToCreate;
+}
+
 const mapDispatchToProps = dispatch => ({
     onSaveAsClick: () =>
         dispatch(saveAsTemplate()),
@@ -31,6 +40,8 @@ const mapDispatchToProps = dispatch => ({
         createNewSurvey(dispatch),
     createNewPage: () =>
         createNewPage(dispatch),
+    createNewQuestion: () =>
+        createNewQuestion(dispatch),
 });
 
 

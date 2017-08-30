@@ -41,6 +41,8 @@ class EditPanel extends Component {
             },
         ]
         const surveyToEdit = this.props.surveyToEdit;
+        const tabIndex = this.props.activePageIndex;
+        console.log(this.state.tabIndex);
         return (
             <div className='edit-panel'>
                 <form className='edit-panel__form'>
@@ -57,8 +59,8 @@ class EditPanel extends Component {
                         ))}
                     </div>
                 </form>
-                <Tabs selectedIndex={this.state.tabIndex} 
-                      onSelect={tabIndex => this.setState({ tabIndex })}>
+                <Tabs selectedIndex={tabIndex} 
+                      onSelect={tabIndex => this.props.onPageSelect(tabIndex)}>
                     <TabList>
                         {surveyToEdit.pages.map((page) => 
                             <Tab key={page.id}>
@@ -68,9 +70,7 @@ class EditPanel extends Component {
                     </TabList>
                     {surveyToEdit.pages.map((page) => 
                         <TabPanel key={page.id}>
-                            {page.questions.map(question =>
-                                question.id                                
-                            )}
+                            {page.questions}
                         </TabPanel>
                     )}
                 </Tabs>
