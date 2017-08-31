@@ -11,7 +11,7 @@ function questionReducer(state = {}, action) {
         case CREATE_QUESTION: 
             return {
                 id: action.id,
-                type: action.type,
+                type: action.questionType,
                 isRequired: false,
             }
         case CHANGE_QUESTION_TEXT:

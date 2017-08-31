@@ -17,9 +17,9 @@ class NewSurveyPage extends Component {
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
 		this.handlePageSelect = this.handlePageSelect.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
+		this.handleQuestionListUpdate = this.handleQuestionListUpdate.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleSurveyOptionsToggle = this.handleSurveyOptionsToggle.bind(this);
-		this.handleQuestionListUpdated = this.handleQuestionListUpdated.bind(this);
 		this.handleCommitChanges = this.handleCommitChanges.bind(this);
 	}
 
@@ -119,7 +119,7 @@ class NewSurveyPage extends Component {
 
 	handleQuestionTypeClick(clickedType) {
 		const surveyCurrentState = this.getSurveyCurrentState();
-		const newQuestionToAdd = this.props.createNewQuestion();
+		const newQuestionToAdd = this.props.createNewQuestion(clickedType);
 		const indexOfPageToAddQuestion = this.state.activePageIndex;
 
 		const sourceListOfQuestions = surveyCurrentState.pages[indexOfPageToAddQuestion].questions.slice();
@@ -128,10 +128,10 @@ class NewSurveyPage extends Component {
 			newQuestionToAdd,
 		]
 
-		this.handleQuestionListUpdated(updatedListOfQuestions);
+		this.handleQuestionListUpdate(updatedListOfQuestions);
 	}
 
-	handleQuestionListUpdated(updatedQuestionList) {
+	handleQuestionListUpdate(updatedQuestionList) {
 		const surveyCurrentState = this.getSurveyCurrentState();
 		const indexOfPageToUpdateQuestionList = this.state.activePageIndex;
 		const pageUpdatedWithQuestionList = Object.assign({}, 
@@ -176,7 +176,7 @@ class NewSurveyPage extends Component {
 		const propsForSurveyOptionsPanel = this.mapStateToSurveyOptionsPanelProps();
 		const propsForQuestionTypesPanel = this.mapStateToQuestionTypesPanelProps();
 		const activePageIndex = this.state.activePageIndex;
-console.log(this.state);
+
 		return (
 			<div className='page page_content_new-survey'>
 				<EditPanel surveyToEdit={surveyCurrentState}
@@ -187,6 +187,7 @@ console.log(this.state);
 						   onEdit={() => this.handleCommitChanges()}
 						   onCreatePageClick={() => this.handleCreatePageClick()}
 						   onPageSelect={(selectedPageIndex) => this.handlePageSelect(selectedPageIndex)}
+						   onQuestionListUpdate={(updatedQuestionList) => this.handleQuestionListUpdate(updatedQuestionList)}
 				/>
 				<div className='new-survey__options-boards'>
 					<QuestionTypesPanel currentState={this.state}

@@ -5,10 +5,11 @@ import {
 } from '../types/types';
 
 let id = 0;
-export const createQuestion = questionToCreate => {
+export const createQuestion = (questionToCreate, questionType) => {
     const idToSet = ++id;
     return {
         type: CREATE_QUESTION,
+        questionType,
         questionToCreate,
         id: idToSet,
     }

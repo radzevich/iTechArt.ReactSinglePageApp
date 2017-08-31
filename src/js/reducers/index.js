@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import surveyToCreateReducer from './surveyToCreateReducer';
 import pageReducer from './pageReducer';
+import questionReducer from './questionReducer';
 import {
     SAVE_CHANGES_IN_SURVEY,
     SAVE_AS_TEMPLATE,
@@ -34,7 +35,7 @@ function rootReducer(state = {}, action) {
             Object.assign(action.pageToCreate, newPage);
             return state; 
         case CREATE_QUESTION: 
-            const newQuestion = pageReducer(undefined, action);  
+            const newQuestion = questionReducer(undefined, action);  
             Object.assign(action.questionToCreate, newQuestion);
             return state; 
         case SAVE_AS_TEMPLATE: {

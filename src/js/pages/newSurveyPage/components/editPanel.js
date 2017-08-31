@@ -39,20 +39,7 @@ class EditPanel extends Component {
         const surveyToEdit = this.props.surveyToEdit;
         const tabIndex = this.props.activePageIndex;
         const questionsToDisplay = surveyToEdit.pages[tabIndex].questions;
-// const questionsToDisplay = [
-//     {
-//         id: 0,
-//     },
-//     {
-//         id: 1,
-//     },
-//     {
-//         id: 2,
-//     },
-//     {
-//         id: 3,
-//     },
-// ]
+
         return (
             <div className='edit-panel'>
                 <SurveyManageForm manageButtons={manageButtons}/>
@@ -67,7 +54,11 @@ class EditPanel extends Component {
                     </TabList>
                     {surveyToEdit.pages.map((page) => 
                         <TabPanel key={page.id}>
-                            <QuestionsList questions={questionsToDisplay}/>
+                            <QuestionsList questions={questionsToDisplay}
+                                           onQuestionDrag={updatedQuestionList => 
+                                                this.props.onQuestionListUpdate(updatedQuestionList)
+                                           }
+                            />
                         </TabPanel>
                     )}
                 </Tabs>

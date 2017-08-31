@@ -25,9 +25,9 @@ const createNewPage = dispatch => {
     return pageToCreate;
 }
 
-const createNewQuestion = dispatch => {
-    const questionToCreate = {};
-    dispatch(createQuestion(questionToCreate));
+const createNewQuestion = (dispatch, questionType) => {
+    const questionToCreate = {    };
+    dispatch(createQuestion(questionToCreate, questionType));
     return questionToCreate;
 }
 
@@ -40,8 +40,8 @@ const mapDispatchToProps = dispatch => ({
         createNewSurvey(dispatch),
     createNewPage: () =>
         createNewPage(dispatch),
-    createNewQuestion: () =>
-        createNewQuestion(dispatch),
+    createNewQuestion: (typeOfQuestionToCreate) =>
+        createNewQuestion(dispatch, typeOfQuestionToCreate),
 });
 
 
