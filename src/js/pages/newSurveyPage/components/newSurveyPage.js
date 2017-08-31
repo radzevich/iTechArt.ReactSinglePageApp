@@ -15,10 +15,11 @@ class NewSurveyPage extends Component {
 		};
 
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
+		this.handlePageSelect = this.handlePageSelect.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleSurveyOptionsToggle = this.handleSurveyOptionsToggle.bind(this);
-		this.handlePageSelect = this.handlePageSelect.bind(this);
+		this.handleQuestionListUpdated = this.handleQuestionListUpdated.bind(this);
 		this.handleCommitChanges = this.handleCommitChanges.bind(this);
 	}
 
@@ -120,18 +121,37 @@ class NewSurveyPage extends Component {
 		const surveyCurrentState = this.getSurveyCurrentState();
 		const newQuestionToAdd = this.props.createNewQuestion();
 		const indexOfPageToAddQuestion = this.state.activePageIndex;
-		const pagesToAddQuestion = [].concat(
-			surveyCurrentState.pages,
-		);		
-		const currentListOfQuestions = pagesToAddQuestion[indexOfPageToAddQuestion].questions || [];
-		pagesToAddQuestion[indexOfPageToAddQuestion].questions = [
-			...currentListOfQuestions,
+
+		const sourceListOfQuestions = surveyCurrentState.pages[indexOfPageToAddQuestion].questions.slice();
+		const updatedListOfQuestions = [
+			...sourceListOfQuestions,
 			newQuestionToAdd,
-		];
+		]
+
+		this.handleQuestionListUpdated(updatedListOfQuestions);
+	}
+
+	handleQuestionListUpdated(updatedQuestionList) {
+		const surveyCurrentState = this.getSurveyCurrentState();
+		const indexOfPageToUpdateQuestionList = this.state.activePageIndex;
+		const pageUpdatedWithQuestionList = Object.assign({}, 
+			surveyCurrentState.pages[indexOfPageToUpdateQuestionList],
+			{
+				questions: updatedQuestionList,
+			},
+		);
+
+		const numberOfQuestionsOnSourcePage = pageUpdatedWithQuestionList.questions.length;
+		const numberOfQuestionsOnUpdatedPage = updatedQuestionList.length;
+		const questionsWereAddedCount = numberOfQuestionsOnUpdatedPage - numberOfQuestionsOnSourcePage;
 
 		const nextSurveyState = Object.assign({}, surveyCurrentState, {
-			pages: pagesToAddQuestion,
-			questionsCount: surveyCurrentState.questionsCount + 1,
+			pages: [
+				...surveyCurrentState.pages.slice(0, indexOfPageToUpdateQuestionList),
+				pageUpdatedWithQuestionList,
+				...surveyCurrentState.pages.slice(indexOfPageToUpdateQuestionList + 1, surveyCurrentState.pages.length),
+			],
+			questionsCount: surveyCurrentState.questionsCount + questionsWereAddedCount,
 		});
 
 		this.handleCommitChanges(nextSurveyState);
@@ -156,7 +176,7 @@ class NewSurveyPage extends Component {
 		const propsForSurveyOptionsPanel = this.mapStateToSurveyOptionsPanelProps();
 		const propsForQuestionTypesPanel = this.mapStateToQuestionTypesPanelProps();
 		const activePageIndex = this.state.activePageIndex;
-		
+console.log(this.state);
 		return (
 			<div className='page page_content_new-survey'>
 				<EditPanel surveyToEdit={surveyCurrentState}

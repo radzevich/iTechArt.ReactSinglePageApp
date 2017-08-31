@@ -32,6 +32,7 @@ class QuestionsList extends PureComponent {
     }
 
     dragEnd(e) {
+        debugger;
         this.dragged.style.display = "block";
         this.dragged.parentNode.removeChild(placeholder);
         // Update questions
@@ -73,6 +74,8 @@ class QuestionsList extends PureComponent {
         }
     }
 
+    handle
+
     render() {
         const allowDrag = 'true';
         const questionsToDisplay = this.state.questions;
@@ -86,7 +89,7 @@ class QuestionsList extends PureComponent {
                         onDragEnd={this.dragEnd}
                         onDragStart={this.dragStart}
                     >
-                        {index}
+                        {question.id}
                     </li>
                 )}
             </ul>
