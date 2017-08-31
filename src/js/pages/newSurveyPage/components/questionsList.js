@@ -12,7 +12,7 @@ class QuestionsList extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            questions: this.props.questions,
+            questions: this.props.questions.slice(),
         };
         this.dragStart = this.dragStart.bind(this);
         this.dragEnd = this.dragEnd.bind(this);
@@ -45,9 +45,20 @@ class QuestionsList extends PureComponent {
         if(this.nodePlacement == "after") {
             to++;
         }
-        questions.splice(to, 0, questions.splice(from, 1)[0]);
 
-        this.handleItemDrag(questions);
+        console.log(to, from);
+
+        const lowerIndex = (to < from) ? to : from;
+        const upperIndex = (to < from) ? from : to;
+
+        const changedListOfQuestions = [
+            ...questions.slice(0, lowerIndex),
+            questions[upperIndex],
+            ...questions.slice(lowerIndex, upperIndex),
+            ...questions.slice(upperIndex + 1, questions.length),
+        ]
+
+        this.handleItemDrag(changedListOfQuestions);
     }
 
     dragOver(e) {

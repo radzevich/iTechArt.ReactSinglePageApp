@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { 
     Tab, 
     Tabs, 
@@ -11,7 +11,7 @@ import Question from '../../common/components/question';
 import QuestionsList from './questionsList'
 import { DEFAULT_PAGE_TITLE } from '../../../types/types';
 
-class EditPanel extends Component {
+class EditPanel extends PureComponent {
     constructor(props) {
         super(props);
         this.state = { tabIndex: 0 };

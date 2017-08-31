@@ -176,6 +176,8 @@ class NewSurveyPage extends Component {
 		const propsForSurveyOptionsPanel = this.mapStateToSurveyOptionsPanelProps();
 		const propsForQuestionTypesPanel = this.mapStateToQuestionTypesPanelProps();
 		const activePageIndex = this.state.activePageIndex;
+		
+		console.log(this.state);
 
 		return (
 			<div className='page page_content_new-survey'>
