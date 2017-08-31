@@ -80,7 +80,6 @@ class NewSurveyPage extends Component {
 	handleCancelClick() {
 		if (this.state.history.length > 1) {
 			const currentStateIndex = this.state.history.length - 1;
-			console.log(this.state.history[currentStateIndex - 1].activePageIndex);
 			this.setState({
 				activePageIndex: this.state.history[currentStateIndex].activePageIndex,
 				history: this.state.history.slice(0, currentStateIndex),
@@ -129,7 +128,7 @@ class NewSurveyPage extends Component {
 			...currentListOfQuestions,
 			newQuestionToAdd,
 		];
-		debugger;
+
 		const nextSurveyState = Object.assign({}, surveyCurrentState, {
 			pages: pagesToAddQuestion,
 			questionsCount: surveyCurrentState.questionsCount + 1,
@@ -157,7 +156,7 @@ class NewSurveyPage extends Component {
 		const propsForSurveyOptionsPanel = this.mapStateToSurveyOptionsPanelProps();
 		const propsForQuestionTypesPanel = this.mapStateToQuestionTypesPanelProps();
 		const activePageIndex = this.state.activePageIndex;
-		console.log(this.state);
+		
 		return (
 			<div className='page page_content_new-survey'>
 				<EditPanel surveyToEdit={surveyCurrentState}

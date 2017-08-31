@@ -5,20 +5,16 @@ import {
     TabList, 
     TabPanel 
 } from 'react-tabs';
-import EditPanelTitle from './editPanelTitle';
-import EditPanelStat from './editPanelStat';
-import BorderedButton from '../../../common/components/controls/borderedButton';
+import SurveyManageForm from './surveyManageForm';
 import 'react-tabs/style/react-tabs.css';
 import Question from '../../common/components/question';
-import {
-    DEFAULT_PAGE_TITLE
-} from '../../../types/types';
+import QuestionsList from './questionsList'
+import { DEFAULT_PAGE_TITLE } from '../../../types/types';
 
 class EditPanel extends Component {
     constructor(props) {
         super(props);
         this.state = { tabIndex: 0 };
-        // this.surveyToEdit = this.props.surveyToEdit;
     }
 
     render() {
@@ -42,23 +38,11 @@ class EditPanel extends Component {
         ]
         const surveyToEdit = this.props.surveyToEdit;
         const tabIndex = this.props.activePageIndex;
-        console.log(this.state.tabIndex);
+        const questionsToDisplay = surveyToEdit.pages[tabIndex].questions;
+
         return (
             <div className='edit-panel'>
-                <form className='edit-panel__form'>
-                    <EditPanelTitle surveyNum={0}/>
-                    <EditPanelStat pagesCount={3}
-                                   questionsCount={12}
-                    />
-                    <div className='edit-panel__manage-buttons'>
-                        {manageButtons.map(button => (
-                            <BorderedButton onClick={button.onClick}
-                                            title={button.text} 
-                                            key={button.text}                
-                            />
-                        ))}
-                    </div>
-                </form>
+                <SurveyManageForm manageButtons={manageButtons}/>
                 <Tabs selectedIndex={tabIndex} 
                       onSelect={tabIndex => this.props.onPageSelect(tabIndex)}>
                     <TabList>
@@ -70,7 +54,7 @@ class EditPanel extends Component {
                     </TabList>
                     {surveyToEdit.pages.map((page) => 
                         <TabPanel key={page.id}>
-                            {/* {page.questions} */}
+                            <QuestionsList questions={questionsToDisplay}/>
                         </TabPanel>
                     )}
                 </Tabs>
