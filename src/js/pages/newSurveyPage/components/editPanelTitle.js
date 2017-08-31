@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ControlledInput from '../../../common/components/controls/controlledInput';
 
 function EditPanelTitle(props) {
     const titleText = 'Новый опрос';
@@ -7,9 +8,8 @@ function EditPanelTitle(props) {
     return (
         <div className='edit-panel__title'>
             <h2>{titleText}</h2>
-            <input type='text'
-                   name='title-edit'
-                   placeholder={contentText}/>
+            <ControlledInput value={'default'}
+                             onInputChange={() => {}}/>
         </div>
     );
 }
