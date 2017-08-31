@@ -107,8 +107,11 @@ class NewSurveyPage extends Component {
 				newPageToAdd,
 			],
 			pagesCount: surveyCurrentState.pagesCount + 1,
-		})
-		this.handleCommitChanges(nextSurveyState);
+		}) 
+		this.handleCommitChanges(
+			nextSurveyState,
+			this.handlePageSelect(nextSurveyState.pagesCount - 1),
+		);
 	}
 
 	handlePageSelect(selectedPageIndex) {
@@ -157,7 +160,7 @@ class NewSurveyPage extends Component {
 		this.handleCommitChanges(nextSurveyState);
 	}
 
-	handleCommitChanges(changedSurveyStateToCommit) {
+	handleCommitChanges(changedSurveyStateToCommit, callback = () => {}) {
 		const generalStateToCommit = {
 			surveyState: changedSurveyStateToCommit,
 			activePageIndex: this.state.activePageIndex,
@@ -168,7 +171,7 @@ class NewSurveyPage extends Component {
 				...this.state.history,
 				generalStateToCommit,
 			],
-		});
+		}, callback());
 	}
 
 	render() {
