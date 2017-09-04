@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function EditPanelStat(props) {
     const questionsText = 'Вопросов: ';
-    const answersText = 'ответов: ';
+    const pagesText = 'страниц: ';
     const delimiter = ',';
 
     const questionsCount = props.questionsCount;
@@ -12,7 +12,7 @@ function EditPanelStat(props) {
     return (
         <div className='edit-panel__stat'>
             <span>{questionsText + questionsCount + delimiter + ' '}</span>
-            <span>{answersText + pagesCount}</span>
+            <span>{pagesText + pagesCount}</span>
         </div>
     );
 };

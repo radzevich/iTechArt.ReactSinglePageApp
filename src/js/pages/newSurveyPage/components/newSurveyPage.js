@@ -137,6 +137,8 @@ class NewSurveyPage extends Component {
 	handleQuestionListUpdate(updatedQuestionList) {
 		const surveyCurrentState = this.getSurveyCurrentState();
 		const indexOfPageToUpdateQuestionList = this.state.activePageIndex;
+		const numberOfQuestionsOnSourcePage = surveyCurrentState.pages[indexOfPageToUpdateQuestionList].questions.length;
+		
 		const pageUpdatedWithQuestionList = Object.assign({}, 
 			surveyCurrentState.pages[indexOfPageToUpdateQuestionList],
 			{
@@ -144,7 +146,6 @@ class NewSurveyPage extends Component {
 			},
 		);
 
-		const numberOfQuestionsOnSourcePage = pageUpdatedWithQuestionList.questions.length;
 		const numberOfQuestionsOnUpdatedPage = updatedQuestionList.length;
 		const questionsWereAddedCount = numberOfQuestionsOnUpdatedPage - numberOfQuestionsOnSourcePage;
 

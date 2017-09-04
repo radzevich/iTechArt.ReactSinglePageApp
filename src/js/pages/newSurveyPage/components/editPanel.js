@@ -42,7 +42,10 @@ class EditPanel extends PureComponent {
 
         return (
             <div className='edit-panel'>
-                <SurveyManageForm manageButtons={manageButtons}/>
+                <SurveyManageForm manageButtons={manageButtons}
+                                  pagesCount={surveyToEdit.pagesCount}
+                                  questionsCount={surveyToEdit.questionsCount}
+                                  />
                 <Tabs selectedIndex={tabIndex} 
                       onSelect={tabIndex => this.props.onPageSelect(tabIndex)}>
                     <TabList>

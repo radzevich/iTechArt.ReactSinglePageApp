@@ -9,8 +9,8 @@ class SurveyManageForm extends PureComponent {
         return (
             <form className='edit-panel__form'>
             <EditPanelTitle surveyNum={0}/>
-            <EditPanelStat pagesCount={3}
-                        questionsCount={12}
+            <EditPanelStat questionsCount={this.props.questionsCount}
+                           pagesCount={this.props.pagesCount}
             />
             <div className='edit-panel__manage-buttons'>
                 {manageButtons.map(button => (
