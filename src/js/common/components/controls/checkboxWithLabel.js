@@ -1,35 +1,43 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Sha1 from 'js-sha1';
 
-function CheckboxWithLabel(props) {
-    const inputType = 'checkbox';
-    const inputName = props.name;
-    const inputId = props.id;
-    const isChecked = props.isChecked;
-    const inputHash = Sha1(inputType + inputName + inputId);
+class CheckboxWithLabel extends PureComponent {
+    handleChange(event) {
+        this.props.onToggle(event.target.value);
+    }
 
-    return (
-        <div>
-            <input type={inputType}
-                   name={inputName}
-                   id={inputId}
-            />
-            <label htmlFor={inputId}>{props.content}</label>
-        </div>
-    );
+    render() {
+        const inputType = 'checkbox';
+        const inputId = this.props.id;
+        const isChecked = this.props.isChecked;
+        const labelText = this.props.labelText;
+        const onToggle = this.props.onToggle;
+
+        return (
+            <div>
+                <input type={inputType}
+                       onChange={() => onToggle()}
+                       checked={isChecked}
+                />
+                <label htmlFor={inputId}>{labelText}</label>
+            </div>
+        );
+    }
 }
 
 CheckboxWithLabel.PropTypes = {
     id: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.number,
-    ]).isRequired,
-    name: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-    ]).isRequired,
+        PropTypes.number,       
+    ]),
     isChecked: PropTypes.bool,
+    onToggle: PropTypes.func,
+}
+
+CheckboxWithLabel.defaultProps = {
+    onToggle: () => {},
+    id: 0,
 }
 
 export default CheckboxWithLabel;

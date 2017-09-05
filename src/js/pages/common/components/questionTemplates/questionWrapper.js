@@ -5,10 +5,13 @@ class QuestionWrapper extends Component {
     render() {
         const questionId = this.props.id;
         const questionType = this.props.type;
+        const title = this.props.title;
+
+        const onClick = this.props.onClick;
 
         return (
-            <div>
-                <h4>{this.props.title}</h4>
+            <div onClick={() => onClick()}>
+                <h4>{title}</h4>
                 <form className="form" 
                       id={questionId}
                       type={questionType}

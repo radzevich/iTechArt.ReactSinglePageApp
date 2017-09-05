@@ -27,6 +27,11 @@ export const TEMPLATE_OPTIONS_BOARD_TITLE = 'Тип вопроса';
 export const DEFAULT_PAGE_TITLE = 'Страница';
 export const SURVEY_OPTIONS_PANEL_TITLE = 'Параметры опроса';
 export const QUESTION_TYPES_PANEL_TITLE = 'Тип вопроса';
+
+export const EDIT_QUESTION_WRAPPER__TRANSFER_TEXT = 'Переместить';
+export const EDIT_QUESTION_WRAPPER__IS_REQUIRED_TEXT = 'Обязательный';
+export const EDIT_QUESTION_WRAPPER__SUBMIT_QUESTION_TEXT = 'Сохранить';
+export const EDIT_QUESTION_WRAPPER__CANCEL_TEXT = 'Отмена';
  
 export const questionTypesName = {
     SINGLE: 'single',

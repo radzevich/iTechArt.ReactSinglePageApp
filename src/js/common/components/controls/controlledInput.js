@@ -2,6 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 class ControlledInput extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
     handleChange(event) {
         this.props.onInputChange(event.target.value);
     }
@@ -9,9 +14,10 @@ class ControlledInput extends PureComponent {
     render() {
         const inputType = 'text';
         const valueToEdit = this.props.value;
+        
         return (
-            <input value={valueToEdit}
-                   onChange={this.handleChange}/>
+            <textarea value={valueToEdit}
+                      onChange={this.handleChange}/>
         );
     }
 }

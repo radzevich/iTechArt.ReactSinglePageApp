@@ -58,7 +58,7 @@ class EditPanel extends PureComponent {
                     {surveyToEdit.pages.map((page) => 
                         <TabPanel key={page.id}>
                             <QuestionsList questions={questionsToDisplay}
-                                           onQuestionDrag={updatedQuestionList => 
+                                           onQuestionListUpdate={updatedQuestionList => 
                                                 this.props.onQuestionListUpdate(updatedQuestionList)
                                            }
                             />

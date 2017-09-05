@@ -7,7 +7,8 @@ function NavigationItem(props) {
 	return (
 		<li>
 			<Link to={props.linkTo}>
-				<BorderedButton title={props.title}/>
+				<BorderedButton title={props.title}
+								onClick={() => {}}/>
 			</Link>
 		</li>
 	)

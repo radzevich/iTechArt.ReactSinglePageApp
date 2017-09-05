@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Question from '../../common/components/question';
 
 /**
  * The next code to allow questions dragging was taken from the http://webcloud.se/sortable-list-component-react-js/.
@@ -13,25 +14,28 @@ class QuestionsList extends PureComponent {
         super(props);
         this.state = {
             questions: this.props.questions.slice(),
+            activeQuestionIndex: null,
         };
-        this.dragStart = this.dragStart.bind(this);
-        this.dragEnd = this.dragEnd.bind(this);
-        this.dragOver = this.dragOver.bind(this);
+
+        this.handleQuestionActiveClick = this.handleQuestionActiveClick.bind(this);
+
+        this.handleDragStart = this.handleDragStart.bind(this);
+        this.handleDragEnd = this.handleDragEnd.bind(this);
+        this.handleDragOver = this.handleDragOver.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState(nextProps);
     }   
 
-
-    dragStart(e) {
-        this.dragged = e.currentTarget;
-        e.dataTransfer.effectAllowed = 'move';
+    handleDragStart(event) {
+        this.dragged = event.currentTarget;
+        event.dataTransfer.effectAllowed = 'move';
         // Firefox requires dataTransfer data to be set
-        e.dataTransfer.setData("text/html", e.currentTarget);
+        event.dataTransfer.setData("text/html", event.currentTarget);
     }
 
-    dragEnd(e) {
+    handleDragEnd(event) {
         this.dragged.style.display = "block";
         this.dragged.parentNode.removeChild(placeholder);
         // Update questions
@@ -61,45 +65,67 @@ class QuestionsList extends PureComponent {
         this.handleItemDrag(changedListOfQuestions);
     }
 
-    dragOver(e) {
-        e.preventDefault();
+    handleDragOver(event) {
+        event.preventDefault();
         this.dragged.style.display = "none";
-        if (e.target.className == "placeholder") {
+        if (event.target.className == "placeholder") {
             return;
         }
-        this.over = e.target;
+        this.over = event.target;
 
-        var relY = e.clientY - this.over.offsetTop;
+        var relY = event.clientY - this.over.offsetTop;
         var height = this.over.offsetHeight / 2;
-        var parent = e.target.parentNode;
+        var parent = event.target.parentNode;
         
         if (relY > height) {
             this.nodePlacement = "after";
-            parent.insertBefore(placeholder, e.target.nextElementSibling);
+            parent.insertBefore(placeholder, event.target.nextElementSibling);
         } else if (relY < height) {
             this.nodePlacement = "before"
-            parent.insertBefore(placeholder, e.target);
+            parent.insertBefore(placeholder, event.target);
         }
     }
 
     handleItemDrag(changedListOfQuestions) {
-        this.props.onQuestionDrag(changedListOfQuestions);
+        this.props.onQuestionListUpdate(changedListOfQuestions);
+    }
+
+    handleQuestionActiveClick(activeQuestionId) {
+        this.setState(prevState => {
+            return Object.assign({}, prevState, {
+                activeQuestionIndex: activeQuestionId,
+            });
+        });
+    }
+
+    handleQuestionUpdate(updatedQuestion) {
+        const indexOfupdatedQuestion = updatedQuestion.id;
+        const updatedListOfQuestions = [
+            ...this.state.questions.slice(0, indexOfupdatedQuestion),
+            updatedQuestion,
+            ...this.state.questions.slice(indexOfupdatedQuestion + 1, this.state.questions.length),
+        ];
+        this.setState
     }
 
     render() {
         const allowDrag = 'true';
         const questionsToDisplay = this.state.questions;
-
+console.log(questionsToDisplay);
         return (
-            <ul onDragOver={this.dragOver}>
+            <ul onDragOver={this.handleDragOver}>
                 {questionsToDisplay.map((question, index) => 
                     <li data-id={index}
                         key={index}
                         draggable={allowDrag}
-                        onDragEnd={this.dragEnd}
-                        onDragStart={this.dragStart}
+                        onDragEnd={this.handleDragEnd}
+                        onDragStart={this.handleDragStart}
                     >
-                        {question.id}
+                        <Question infoToCreateQuestion={question}
+                                  isInEditMode={(this.state.activeQuestionIndex === question.id) ? true : false} 
+                                  onQuestionFocus={() => this.handleQuestionActiveClick(question.id)}
+                                  onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(updatedQuestion)}
+                        />
                     </li>
                 )}
             </ul>

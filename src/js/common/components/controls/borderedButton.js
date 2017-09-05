@@ -15,4 +15,4 @@ BorderedButton.PropTypes = {
 	title: PropTypes.string.isRequired,
 }
 
-export default BorderedButton
+export default BorderedButton;
