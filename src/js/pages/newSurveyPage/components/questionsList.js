@@ -13,7 +13,7 @@ class QuestionsList extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            questions: this.props.questions.slice(),
+            questions: this.props.questions,
             activeQuestionIndex: null,
         };
 
@@ -25,7 +25,15 @@ class QuestionsList extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState(nextProps);
+        let activeQuestionIndex = null;
+        if (this.state.questions.length < nextProps.questions.length) {
+            const newQuestionIndex = nextProps.questions.length - 1;
+            activeQuestionIndex = newQuestionIndex;
+        }
+        this.setState(Object.assign({}, this.state, {
+            questions: nextProps.questions,
+            activeQuestionIndex: activeQuestionIndex,
+        }));
     }   
 
     handleDragStart(event) {
@@ -91,27 +99,36 @@ class QuestionsList extends PureComponent {
     }
 
     handleQuestionActiveClick(activeQuestionId) {
-        this.setState(prevState => {
-            return Object.assign({}, prevState, {
-                activeQuestionIndex: activeQuestionId,
-            });
-        });
+        this.setState(prevState => Object.assign({}, prevState, {
+            activeQuestionIndex: activeQuestionId,
+        }));
     }
 
-    handleQuestionUpdate(updatedQuestion) {
-        const indexOfupdatedQuestion = updatedQuestion.id;
-        const updatedListOfQuestions = [
-            ...this.state.questions.slice(0, indexOfupdatedQuestion),
-            updatedQuestion,
-            ...this.state.questions.slice(indexOfupdatedQuestion + 1, this.state.questions.length),
-        ];
-        this.setState
+    handleQuestionFocusLost() {
+        this.setState(prevState => Object.assign({}, prevState, {
+            activeQuestionIndex: null,
+        }))
+    }
+
+    handleQuestionUpdate(updatedQuestion, sourceQuestion) {
+        if (sourceQuestion != updatedQuestion) {
+            const indexOfupdatedQuestion = updatedQuestion.id;
+            const updatedListOfQuestions = [
+                ...this.state.questions.slice(0, indexOfupdatedQuestion),
+                updatedQuestion,
+                ...this.state.questions.slice(indexOfupdatedQuestion + 1, this.state.questions.length),
+            ];
+            this.props.onQuestionListUpdate(updatedListOfQuestions);
+        } else {
+            this.handleQuestionFocusLost();
+        }
+        // this.props.onQuestionListUpdate(updatedListOfQuestions);
     }
 
     render() {
         const allowDrag = 'true';
         const questionsToDisplay = this.state.questions;
-console.log(questionsToDisplay);
+
         return (
             <ul onDragOver={this.handleDragOver}>
                 {questionsToDisplay.map((question, index) => 
@@ -124,7 +141,7 @@ console.log(questionsToDisplay);
                         <Question infoToCreateQuestion={question}
                                   isInEditMode={(this.state.activeQuestionIndex === question.id) ? true : false} 
                                   onQuestionFocus={() => this.handleQuestionActiveClick(question.id)}
-                                  onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(updatedQuestion)}
+                                  onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(updatedQuestion, question)}
                         />
                     </li>
                 )}

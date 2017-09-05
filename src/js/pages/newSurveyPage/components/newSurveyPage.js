@@ -193,7 +193,7 @@ class NewSurveyPage extends Component {
 						   onEdit={() => this.handleCommitChanges()}
 						   onCreatePageClick={() => this.handleCreatePageClick()}
 						   onPageSelect={(selectedPageIndex) => this.handlePageSelect(selectedPageIndex)}
-						   onQuestionListUpdate={(updatedQuestionList) => this.handleQuestionListUpdate(updatedQuestionList)}
+						   onQuestionListUpdate={updatedQuestionList => this.handleQuestionListUpdate(updatedQuestionList)}
 				/>
 				<div className='new-survey__options-boards'>
 					<QuestionTypesPanel currentState={this.state}

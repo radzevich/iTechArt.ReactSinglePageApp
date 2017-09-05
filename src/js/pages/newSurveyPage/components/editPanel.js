@@ -38,7 +38,7 @@ class EditPanel extends PureComponent {
         ]
         const surveyToEdit = this.props.surveyToEdit;
         const tabIndex = this.props.activePageIndex;
-        const questionsToDisplay = surveyToEdit.pages[tabIndex].questions;
+        const questionsToDisplay = surveyToEdit.pages[tabIndex].questions.slice();
 
         return (
             <div className='edit-panel'>
@@ -58,9 +58,7 @@ class EditPanel extends PureComponent {
                     {surveyToEdit.pages.map((page) => 
                         <TabPanel key={page.id}>
                             <QuestionsList questions={questionsToDisplay}
-                                           onQuestionListUpdate={updatedQuestionList => 
-                                                this.props.onQuestionListUpdate(updatedQuestionList)
-                                           }
+                                           onQuestionListUpdate={this.props.onQuestionListUpdate}
                             />
                         </TabPanel>
                     )}

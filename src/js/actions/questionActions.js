@@ -6,7 +6,7 @@ import {
 
 let id = 0;
 export const createQuestion = (questionToCreate, questionType) => {
-    const idToSet = ++id;
+    const idToSet = id++;
     return {
         type: CREATE_QUESTION,
         questionType,

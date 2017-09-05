@@ -20,6 +20,7 @@ class Question extends Component {
         this.state = {
             isInEditMode: this.props.isInEditMode,
             question: this.props.infoToCreateQuestion,
+            thereAreNotSavedChanges: false,
         }
 
         this.handleQuestionTextChange = this.handleQuestionTextChange.bind(this);
@@ -29,31 +30,51 @@ class Question extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState(nextProps);
+        let questionToSet = nextProps.infoToCreateQuestion;
+        if (this.state.thereAreNotSavedChanges) {
+            questionToSet = this.state.question;
+        }
+        this.setState(Object.assign({}, this.state, {
+            isInEditMode: nextProps.isInEditMode,
+            question: questionToSet,
+        }));
     }  
 
-    handleToggleRequireFlag() {
+    addQuestionChangesToState(changedQuestionState) {
         this.setState(prevState => Object.assign({}, prevState, {
-            question: Object.assign({}, prevState.question, {
-                isRequired: !prevState.question.isRequired,
-            })
+            question: changedQuestionState,
+            thereAreNotSavedChanges: true,
         }));
     }
 
+    commitChanges(callback = () => {}) {
+        this.setState(Object.assign({}, this.state, {
+            thereAreNotSavedChanges: false,
+        }), callback());
+    }
+
+    handleToggleRequireFlag() {
+        const changedQuestionState = Object.assign({}, this.state.question, {
+            isRequired: !this.state.question.isRequired,
+        });
+        this.addQuestionChangesToState(changedQuestionState);
+    }
+
     handleQuestionTextChange(changedTextToSet) {
-        this.setState(prevState => Object.assign({}, prevState, {
-            question: Object.assign({}, prevState.question, {
-                text: changedTextToSet,
-            })
-        }))
+        const changedQuestionState = Object.assign({}, this.state.question, {
+            text: changedTextToSet,
+        });
+        this.addQuestionChangesToState(changedQuestionState);
     }
 
     handleSaveButtonClick() {
-        this.props.onQuestionUpdate(this.state.question);
+        this.props.onQuestionUpdate(Object.assign({}, this.state.question));
+        this.commitChanges();
     }
 
     handleCancelButtonClick() {
         this.props.onQuestionUpdate(this.props.infoToCreateQuestion);
+        this.commitChanges();
     }
 
     getAnswersModelByQuestionType(questionType) {
@@ -74,24 +95,29 @@ class Question extends Component {
     }
 
     render() {
-        const question = this.state.question;
+        const questionId = this.state.question.id;
+        const questionText = this.state.question.text;
+        const questionType = this.state.question.type;
+        const questionIsRequired = this.state.question.isRequired;
         const onClick = this.props.onQuestionFocus;
         const questionIsInEditMode = this.state.isInEditMode;
+        const thereAreNotSavedChanges = this.state.thereAreNotSavedChanges;
 
         return (
             <div>
+                {(thereAreNotSavedChanges) && <span>!</span>}
                 {(questionIsInEditMode)
-                    ? <EditQuestionWrapper id={question.id}
-                                           text={question.text}  
-                                           isRequired={question.isRequired}
+                    ? <EditQuestionWrapper id={questionId}
+                                           text={questionText}  
+                                           isRequired={questionIsRequired}
                                            onToggleRequireFlag={() => this.handleToggleRequireFlag()}
                                            onQuestionTextChange={changedText => this.handleQuestionTextChange(changedText)}
                                            onSaveButtonClick={() => this.handleSaveButtonClick()}
                                            onCancelButtonClick={() => this.handleCancelButtonClick()}
                     />
-                    : <QuestionWrapper id={question.id}
-                                       title={question.text}
-                                       type={question.type}
+                    : <QuestionWrapper id={questionId}
+                                       title={questionText}
+                                       type={questionType}
                                        onClick={onClick}
                     />             
                 }
