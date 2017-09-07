@@ -47,7 +47,8 @@ class EditPanel extends PureComponent {
                                   questionsCount={surveyToEdit.questionsCount}
                                   />
                 <Tabs selectedIndex={tabIndex} 
-                      onSelect={tabIndex => this.props.onPageSelect(tabIndex)}>
+                      onSelect={tabIndex => this.props.onPageSelect(tabIndex)}
+                      >                      
                     <TabList>
                         {surveyToEdit.pages.map((page) => 
                             <Tab key={page.id}>

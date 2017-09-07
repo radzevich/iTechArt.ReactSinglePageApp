@@ -19,8 +19,8 @@ class Question extends Component {
         super(props);
         this.state = {
             isInEditMode: this.props.isInEditMode,
-            question: this.props.infoToCreateQuestion,
-            thereAreNotSavedChanges: false,
+            question: this.props.questionModel,
+            isChanged: false,
         }
 
         this.handleQuestionTextChange = this.handleQuestionTextChange.bind(this);
@@ -30,26 +30,32 @@ class Question extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let questionToSet = nextProps.infoToCreateQuestion;
-        if (this.state.thereAreNotSavedChanges) {
+        let questionToSet = nextProps.questionModel;
+        if (this.state.isChanged) {
             questionToSet = this.state.question;
         }
-        this.setState(Object.assign({}, this.state, {
+        this.setState(prevState => ({
             isInEditMode: nextProps.isInEditMode,
             question: questionToSet,
         }));
-    }  
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (!this.state.isChanged && (this.state.isChanged !== prevState.isChanged)) {
+            this.props.onQuestionUpdate(this.state.question);
+        }
+    }
 
     addQuestionChangesToState(changedQuestionState) {
         this.setState(prevState => Object.assign({}, prevState, {
             question: changedQuestionState,
-            thereAreNotSavedChanges: true,
+            isChanged: true,
         }));
     }
 
-    commitChanges(callback = () => {}) {
-        this.setState(Object.assign({}, this.state, {
-            thereAreNotSavedChanges: false,
+    commitChanges(nextState = this.state, callback = () => {}) {
+        this.setState(Object.assign({}, nextState, {
+            isChanged: false,
         }), callback());
     }
 
@@ -68,13 +74,13 @@ class Question extends Component {
     }
 
     handleSaveButtonClick() {
-        this.props.onQuestionUpdate(Object.assign({}, this.state.question));
-        this.commitChanges();
+        this.commitChanges(this.state);
     }
 
     handleCancelButtonClick() {
-        this.props.onQuestionUpdate(this.props.infoToCreateQuestion);
-        this.commitChanges();
+        this.commitChanges(Object.assign({}, this.state, {
+            question: this.props.questionModel,
+        }));
     }
 
     getAnswersModelByQuestionType(questionType) {
@@ -101,11 +107,11 @@ class Question extends Component {
         const questionIsRequired = this.state.question.isRequired;
         const onClick = this.props.onQuestionFocus;
         const questionIsInEditMode = this.state.isInEditMode;
-        const thereAreNotSavedChanges = this.state.thereAreNotSavedChanges;
+        const isChanged = this.state.isChanged;
 
         return (
             <div>
-                {(thereAreNotSavedChanges) && <span>!</span>}
+                {(isChanged) && <span>!</span>}
                 {(questionIsInEditMode)
                     ? <EditQuestionWrapper id={questionId}
                                            text={questionText}  
@@ -127,7 +133,7 @@ class Question extends Component {
 }
 
 Question.PropTypes = {
-    infoToCreateQuestion: PropTypes.shape({
+    questionModel: PropTypes.shape({
         id: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.number,
@@ -140,7 +146,7 @@ Question.PropTypes = {
 
 Question.defaultProps = {
     isInEditMode: false,
-    infoToCreateQuestion: {
+    questionModel: {
         questionText: questionTypesText()
     }
 }
