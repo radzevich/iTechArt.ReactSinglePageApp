@@ -142,6 +142,15 @@ class QuestionsList extends PureComponent {
         }
     }
 
+    handleQuestionDelete(indexOfDeletedQuestion) {
+        const sourceListOfQuestions = this.state.questions;
+        const updatedListOfQuestions = [
+            ...sourceListOfQuestions.slice(0, indexOfDeletedQuestion),
+            ...sourceListOfQuestions.slice(indexOfDeletedQuestion + 1, sourceListOfQuestions.length),
+        ]
+        this.props.onQuestionListUpdate(updatedListOfQuestions);
+    }
+
     render() {
         const allowDrag = 'true';
         const questionsToDisplay = this.state.questions;
@@ -159,6 +168,7 @@ class QuestionsList extends PureComponent {
                                   isInEditMode={(this.state.activeQuestionIndex === index) ? true : false} 
                                   onQuestionFocus={() => this.handleQuestionActiveClick(index)}
                                   onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
+                                  onDeleteButtonClick={() => this.handleQuestionDelete(index)}
                         />
                     </li>
                 )}

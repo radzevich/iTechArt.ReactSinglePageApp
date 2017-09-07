@@ -8,6 +8,8 @@ import TextAnswerQuestion from './questionTemplates/textAnswerQuestion';
 import FileAnswerQuestion from './questionTemplates/fileAnswerQuestion';
 import StarRatingAnswerQuestion from './questionTemplates/ratingAnswerQuestion';
 import RangeAnswerQuestion from './questionTemplates/rangeAnswerQuestion';
+import Button from '../../../common/components/controls/button';
+import {Icon} from 'react-fa';
 import {
     questionTypesName,
     questionTypesText,
@@ -110,9 +112,20 @@ class Question extends Component {
         const questionIsInEditMode = this.state.isInEditMode;
         const isChanged = this.state.isChanged;
 
+        const editIcon = <Icon name='pencil-square'/>;
+        const deleteIcon = <Icon name='trash'/>;
+
         return (
             <div>
                 {(isChanged) && <span>!</span>}
+                <div className='question__manage-buttons'>
+                    <Button content={editIcon}
+                            onClick={onClick}
+                    />
+                    <Button content={deleteIcon}
+                            onClick={this.props.onDeleteButtonClick}
+                    />
+                </div>
                 {(questionIsInEditMode)
                     ? <EditQuestionWrapper id={questionId}
                                            text={questionText}  
