@@ -41,8 +41,9 @@ class Question extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (!this.state.isChanged && (this.state.isChanged !== prevState.isChanged)) {
-            this.props.onQuestionUpdate(this.state.question);
+        if ((this.state.isChanged !== prevState.isChanged) &&
+            (!this.state.isChanged)) {
+                this.props.onQuestionUpdate(this.state.question);
         }
     }
 

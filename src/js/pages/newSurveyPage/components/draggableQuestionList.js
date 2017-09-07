@@ -40,14 +40,16 @@ class QuestionsList extends PureComponent {
         if ((nextProps.questions.length !== this.state.questions.length) || 
             (this.state.activeQuestionIndex !== nextState.activeQuestionIndex)) {
             return true;
+        } else if (nextProps === this.props) {
+            return true;
         } else {
             return false;
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // debugger;
-        if ((prevState.activeQuestionIndex !== this.state.activeQuestionIndex) && (this.state.activeQuestionIndex === null)) {
+        if ((prevState.activeQuestionIndex !== this.state.activeQuestionIndex) && 
+            (this.state.activeQuestionIndex === null)) {
             this.props.onQuestionListUpdate(this.state.questions);
         }
     }
@@ -100,7 +102,7 @@ class QuestionsList extends PureComponent {
         var relY = event.clientY - this.over.offsetTop;
         var height = this.over.offsetHeight / 2;
         var parent = event.target.parentNode;
-        
+
         if (relY > height) {
             this.nodePlacement = "after";
             parent.insertBefore(placeholder, event.target.nextElementSibling);
@@ -126,14 +128,18 @@ class QuestionsList extends PureComponent {
         }))
     }
 
-    handleQuestionUpdate(indexOfUpdatedQuestion, updatedQuestionState) {;
-        const sourceListOfQuestions = this.state.questions;
-        const updatedListOfQuestions = [
-            ...sourceListOfQuestions.slice(0, indexOfUpdatedQuestion),
-            updatedQuestionState,
-            ...sourceListOfQuestions.slice(indexOfUpdatedQuestion + 1, sourceListOfQuestions.length),
-        ]
-        this.props.onQuestionListUpdate(updatedListOfQuestions);
+    handleQuestionUpdate(indexOfUpdatedQuestion, updatedQuestionState) {
+        if (updatedQuestionState === this.state.questions[indexOfUpdatedQuestion]) {
+            this.handleQuestionFocusLost();
+        } else {
+            const sourceListOfQuestions = this.state.questions;
+            const updatedListOfQuestions = [
+                ...sourceListOfQuestions.slice(0, indexOfUpdatedQuestion),
+                updatedQuestionState,
+                ...sourceListOfQuestions.slice(indexOfUpdatedQuestion + 1, sourceListOfQuestions.length),
+            ]
+            this.props.onQuestionListUpdate(updatedListOfQuestions);
+        }
     }
 
     render() {
@@ -151,7 +157,7 @@ class QuestionsList extends PureComponent {
                     >
                         <Question questionModel={question}
                                   isInEditMode={(this.state.activeQuestionIndex === index) ? true : false} 
-                                  onQuestionFocus={() => this.handleQuestionActiveClick(question.id)}
+                                  onQuestionFocus={() => this.handleQuestionActiveClick(index)}
                                   onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
                         />
                     </li>

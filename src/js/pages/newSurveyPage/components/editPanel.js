@@ -8,13 +8,15 @@ import {
 import SurveyManageForm from './surveyManageForm';
 import 'react-tabs/style/react-tabs.css';
 import Question from '../../common/components/question';
-import QuestionsList from './questionsList'
+import QuestionsList from './draggableQuestionList'
 import { DEFAULT_PAGE_TITLE } from '../../../types/types';
 
 class EditPanel extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { tabIndex: 0 };
+        this.state = { 
+            tabIndex: 0,
+        };
     }
 
     render() {
@@ -43,8 +45,11 @@ class EditPanel extends PureComponent {
         return (
             <div className='edit-panel'>
                 <SurveyManageForm manageButtons={manageButtons}
+                                  id={surveyToEdit.id}
+                                  title={surveyToEdit.title}
                                   pagesCount={surveyToEdit.pagesCount}
                                   questionsCount={surveyToEdit.questionsCount}
+                                  onTitleUpdate={this.props.onTitleUpdate}
                                   />
                 <Tabs selectedIndex={tabIndex} 
                       onSelect={tabIndex => this.props.onPageSelect(tabIndex)}

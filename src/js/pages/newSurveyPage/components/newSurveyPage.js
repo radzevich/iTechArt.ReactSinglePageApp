@@ -87,6 +87,14 @@ class NewSurveyPage extends Component {
 			})
 		}
 	}
+
+	handleTitleUpdate(updatedTitle) {
+		const surveyCurrentState = this.getSurveyCurrentState();
+		const nextSurveyState = Object.assign({}, surveyCurrentState, {
+			title: updatedTitle,
+		});
+		this.handleCommitChanges(nextSurveyState);
+	}
 	
 	handleSurveyOptionsToggle(surveyStateWithToggledOption) {
 		const surveyCurrentState = this.getSurveyCurrentState();
@@ -94,7 +102,6 @@ class NewSurveyPage extends Component {
             surveyCurrentState,
             surveyStateWithToggledOption,
 		);
-
 		this.handleCommitChanges(nextSurveyState);
 	}
 
@@ -194,6 +201,7 @@ class NewSurveyPage extends Component {
 						   onCreatePageClick={() => this.handleCreatePageClick()}
 						   onPageSelect={(selectedPageIndex) => this.handlePageSelect(selectedPageIndex)}
 						   onQuestionListUpdate={updatedQuestionList => this.handleQuestionListUpdate(updatedQuestionList)}
+						   onTitleUpdate={updatedTitle => this.handleTitleUpdate(updatedTitle)}
 				/>
 				<div className='new-survey__options-boards'>
 					<QuestionTypesPanel currentState={this.state}
