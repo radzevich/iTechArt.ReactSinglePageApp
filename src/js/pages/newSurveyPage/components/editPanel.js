@@ -7,7 +7,6 @@ import {
 } from 'react-tabs';
 import SurveyManageForm from './surveyManageForm';
 import 'react-tabs/style/react-tabs.css';
-import Question from '../../common/components/question';
 import QuestionsList from './draggableQuestionList'
 import { DEFAULT_PAGE_TITLE } from '../../../types/types';
 

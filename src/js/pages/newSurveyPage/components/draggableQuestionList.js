@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Question from '../../common/components/question';
+import QuestionCreator from './questionCreator';
 
 /**
  * The next code to allow questions dragging was taken from the http://webcloud.se/sortable-list-component-react-js/.
@@ -164,11 +164,11 @@ class QuestionsList extends PureComponent {
                         onDragEnd={this.handleDragEnd}
                         onDragStart={this.handleDragStart}
                     >
-                        <Question questionModel={question}
-                                  isInEditMode={(this.state.activeQuestionIndex === index) ? true : false} 
-                                  onQuestionFocus={() => this.handleQuestionActiveClick(index)}
-                                  onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
-                                  onDeleteButtonClick={() => this.handleQuestionDelete(index)}
+                        <QuestionCreator questionModel={question}
+                                         isInEditMode={(this.state.activeQuestionIndex === index) ? true : false} 
+                                         onQuestionFocus={() => this.handleQuestionActiveClick(index)}
+                                         onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
+                                         onDeleteButtonClick={() => this.handleQuestionDelete(index)}
                         />
                     </li>
                 )}

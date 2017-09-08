@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import EditQuestionWrapper from './questionTemplates/editQuestionWrapper';
-import QuestionWrapper from './questionTemplates/questionWrapper';
-import SingleAnswerQuestion from './questionTemplates/singleAnswerQuestion';
-import MultiAnswerQuestion from './questionTemplates/multiAnswerQuestion';
-import TextAnswerQuestion from './questionTemplates/textAnswerQuestion';
-import FileAnswerQuestion from './questionTemplates/fileAnswerQuestion';
-import StarRatingAnswerQuestion from './questionTemplates/ratingAnswerQuestion';
-import RangeAnswerQuestion from './questionTemplates/rangeAnswerQuestion';
+import EditQuestionWrapper from './editQuestionWrapper';
+import QuestionWrapper from '../../common/components/questionTemplates/questionWrapper';
+import SingleAnswerQuestion from '../../common/components/questionTemplates/singleAnswerQuestion';
+import MultiAnswerQuestion from '../../common/components/questionTemplates/multiAnswerQuestion';
+import TextAnswerQuestion from '../../common/components/questionTemplates/textAnswerQuestion';
+import FileAnswerQuestion from '../../common/components/questionTemplates/fileAnswerQuestion';
+import StarRatingAnswerQuestion from '../../common/components/questionTemplates/ratingAnswerQuestion';
+import RangeAnswerQuestion from '../../common/components/questionTemplates/rangeAnswerQuestion';
 import Button from '../../../common/components/controls/button';
 import {Icon} from 'react-fa';
 import {
@@ -16,7 +16,7 @@ import {
 } from '../../../types/types';
 
 // TODO: add hash validation for each control.
-class Question extends Component {
+class QuestionCreator extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,6 +29,7 @@ class Question extends Component {
         this.handleToggleRequireFlag = this.handleToggleRequireFlag.bind(this);
         this.handleSaveButtonClick = this.handleSaveButtonClick.bind(this);
         this.handleCancelButtonClick = this.handleCancelButtonClick.bind(this);
+        this.handleAnswersChange = this.handleAnswersChange.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -76,6 +77,13 @@ class Question extends Component {
         this.addQuestionChangesToState(changedQuestionState);
     }
 
+    handleAnswersChange(changedAnswers) {
+        const changedQuestionState = Object.assign({}, this.state.question, {
+            answers: changedAnswers,
+        })
+        this.addQuestionChangesToState(changedQuestionState);
+    }
+
     handleSaveButtonClick() {
         this.commitChanges(this.state);
     }
@@ -107,7 +115,10 @@ class Question extends Component {
         const questionId = this.state.question.id;
         const questionText = this.state.question.text;
         const questionType = this.state.question.type;
+
+        const answersToQuestion = this.state.question.answers;
         const questionIsRequired = this.state.question.isRequired;
+
         const onClick = this.props.onQuestionFocus;
         const questionIsInEditMode = this.state.isInEditMode;
         const isChanged = this.state.isChanged;
@@ -129,13 +140,17 @@ class Question extends Component {
                 {(questionIsInEditMode)
                     ? <EditQuestionWrapper id={questionId}
                                            text={questionText}  
+                                           type={questionType}
                                            isRequired={questionIsRequired}
+                                           answers={answersToQuestion}
                                            onToggleRequireFlag={() => this.handleToggleRequireFlag()}
                                            onQuestionTextChange={changedText => this.handleQuestionTextChange(changedText)}
+                                           onAnswersChange={changedAnswers => this.handleAnswersChange(changedAnswers)}
                                            onSaveButtonClick={() => this.handleSaveButtonClick()}
                                            onCancelButtonClick={() => this.handleCancelButtonClick()}
                     />
                     : <QuestionWrapper id={questionId}
+                                       answers={answersToQuestion}
                                        title={questionText}
                                        type={questionType}
                                        onClick={onClick}
@@ -146,7 +161,7 @@ class Question extends Component {
     }
 }
 
-Question.PropTypes = {
+QuestionCreator.PropTypes = {
     questionModel: PropTypes.shape({
         id: PropTypes.oneOfType([
             PropTypes.string,
@@ -158,12 +173,12 @@ Question.PropTypes = {
     isInEditMode: PropTypes.bool,
 }
 
-Question.defaultProps = {
+QuestionCreator.defaultProps = {
     isInEditMode: false,
     questionModel: {
         questionText: questionTypesText()
     }
 }
 
-export default Question;
+export default QuestionCreator;
 

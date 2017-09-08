@@ -32,6 +32,15 @@ export const EDIT_QUESTION_WRAPPER__TRANSFER_TEXT = 'Переместить';
 export const EDIT_QUESTION_WRAPPER__IS_REQUIRED_TEXT = 'Обязательный';
 export const EDIT_QUESTION_WRAPPER__SUBMIT_QUESTION_TEXT = 'Сохранить';
 export const EDIT_QUESTION_WRAPPER__CANCEL_TEXT = 'Отмена';
+
+export const SELECT_QUESTION__DEFAULT_TEXT = 'Ответ';
+
+export const RANGE_QUESTION__MIN_VALUE_ID = 0;
+export const RANGE_QUESTION__MAX_VALUE_ID = 1;
+export const RANGE_QUESTION__USER_VALUE_ID = 2;
+export const RANGE_QUESTION__DEFAULT_MIN_VALUE = 0;
+export const RANGE_QUESTION__DEFAULT_MAX_VALUE = 100;
+export const RANGE_QUESTION__DEFAULT_USER_VALUE = 50;
  
 export const questionTypesName = {
     SINGLE: 'single',

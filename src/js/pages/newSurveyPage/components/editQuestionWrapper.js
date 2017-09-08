@@ -1,25 +1,28 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CheckboxWithLabel from '../../../../common/components/controls/checkboxWithLabel';
-import ControlledInput from '../../../../common/components/controls/controlledInput';
-import BorderedButton from '../../../../common/components/controls/borderedButton';
+import CheckboxWithLabel from '../../../common/components/controls/checkboxWithLabel';
+import ControlledInput from '../../../common/components/controls/controlledInput';
+import BorderedButton from '../../../common/components/controls/borderedButton';
+import AnswersCreator from './answersCreator';
 import {
     EDIT_QUESTION_WRAPPER__TRANSFER_TEXT,
     EDIT_QUESTION_WRAPPER__IS_REQUIRED_TEXT,
     EDIT_QUESTION_WRAPPER__SUBMIT_QUESTION_TEXT,
     EDIT_QUESTION_WRAPPER__CANCEL_TEXT,
-} from '../../../../types/types';
+} from '../../../types/types';
 
 class EditQuestionWrapper extends PureComponent {
     render() {
         const questionId = this.props.id;
         const questionText = this.props.text;
         const isRequired = this.props.isRequired;
+        const questionType = this.props.type;
 
         const onToggleRequireFlag = this.props.onToggleRequireFlag;
         const onQuestionTextChange = this.props.onQuestionTextChange;
         const onSaveButtonClick = this.props.onSaveButtonClick;
         const onCancelButtonClick = this.props.onCancelButtonClick;
+        const onAnswersChange = this.props.onAnswersChange;
 
         return (
             <div>
@@ -31,11 +34,13 @@ class EditQuestionWrapper extends PureComponent {
                 />
                 <ControlledInput value={questionText}
                                  onInputChange={onQuestionTextChange}/>
-                <form className="form" 
-                    id={questionId}
-                >
-                    {this.props.answers}
-                </form>
+                <AnswersCreator className="form" 
+                                id={questionId}
+                                answers={this.props.answers}
+                                type={questionType}
+                                questionId={questionId}
+                                onAnswersChange={onAnswersChange}
+                />
                 <div className='question-from_mode_edit__buttons'>
                     <BorderedButton title={EDIT_QUESTION_WRAPPER__SUBMIT_QUESTION_TEXT}
                                     onClick={onSaveButtonClick}
