@@ -15,8 +15,10 @@ class AnswersCreator extends PureComponent {
     constructor(props) {
         super(props);
 
+        const sourceAnswersListToDisplay = this.props.answers || this.defaultAnswers;
         this.state = {
-            answers: this.props.answers || this.defaultAnswers,
+            answers: sourceAnswersListToDisplay,
+            nextCreatedAnswerId: sourceAnswersListToDisplay.length + 1,
         }
 
         this.handleAnswerAdd = this.handleAnswerAdd.bind(this);
@@ -26,8 +28,12 @@ class AnswersCreator extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
+        const nextCreatedAnswerId = (this.state.answers.length < nextProps.answers.length)
+            ? this.state.nextCreatedAnswerId + 1
+            : this.state.nextCreatedAnswerId;
         this.setState({
             answers: nextProps.answers,
+            nextCreatedAnswerId: nextCreatedAnswerId,
         });
     }
 
@@ -38,16 +44,16 @@ class AnswersCreator extends PureComponent {
             case questionTypesName.MULTI:
                 return [
                     {
-                        id: 0,
-                        value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 0,
-                    },
-                    {
                         id: 1,
                         value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 1,
                     },
                     {
                         id: 2,
                         value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 2,
+                    },
+                    {
+                        id: 3,
+                        value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 3,
                     },
                 ];
             case questionTypesName.RANGE:
@@ -69,13 +75,22 @@ class AnswersCreator extends PureComponent {
 
     }
 
+    createDefaultSelectAnswer() {
+        const idOfAnswerToCreate = this.state.nextCreatedAnswerId;
+        return {
+            id: idOfAnswerToCreate,
+            value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + idOfAnswerToCreate,
+        };
+    }
+
     handleAnswersChanged(changedAnswers) {
         this.props.onAnswersChange(changedAnswers);
     }
 
-    handleAnswerAdd(answerToAdd) {
+    handleAnswerAdd() {
+        const answerToAdd = this.createDefaultSelectAnswer(this.state.nextCreatedAnswerId);
         const updatedAnswersList = [
-            ...this.props.answers,
+            ...this.state.answers,
             answerToAdd,
         ]
         this.handleAnswersChanged(updatedAnswersList);

@@ -2,24 +2,11 @@ import React, { PureComponent } from 'react';
 import EditAnswerTextInput from '../controls/editAnswerTextInput';
 
 class SelectAnswerBox extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.handleAnswerEdit = this.handleAnswersChanged.bind(this);
-    }
-
-    handleAnswersChanged(changedAnswers) {
-        this.props.onAnswersChange(changedAnswers);
-    }
-
-    handleAnswerTextChanged(index, changedAnswerTextToSet) {
-        
-    }
-
     render() {
         const answers = this.props.answers.slice();
         const type = this.props.inputType;
         const name = this.props.name;
-
+        
         return (
             <div className='answers_type_select'>
                 <form>
@@ -38,6 +25,10 @@ class SelectAnswerBox extends PureComponent {
                             </div>
                         ))
                     }
+                    <EditAnswerTextInput name={name}
+                                         onInputChange={() => {}}      
+                                         onClick={() => this.props.onAnswerAdd()}                                   
+                    />
                 </form>
             </div>
         );
