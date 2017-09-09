@@ -79,7 +79,7 @@ class AnswersCreator extends PureComponent {
         const idOfAnswerToCreate = this.state.nextCreatedAnswerId;
         return {
             id: idOfAnswerToCreate,
-            value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + idOfAnswerToCreate,
+            value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + (this.state.answers.length + 1),
         };
     }
 
@@ -110,12 +110,14 @@ class AnswersCreator extends PureComponent {
     }
 
     handleAnswerDelete(indexOfAnswerToDelete) {
-        const currentAnswersState = this.props.answers;
+        debugger;
+        const currentAnswersState = this.state.answers;
         if (currentAnswersState.length > 1) {
             const updatedAnswersList = [
                 ...currentAnswersState.slice(0, indexOfAnswerToDelete),
                 ...currentAnswersState.slice(indexOfAnswerToDelete + 1, currentAnswersState.length),
             ]
+            debugger;
             this.handleAnswersChanged(updatedAnswersList);
         } else {
             // alert();

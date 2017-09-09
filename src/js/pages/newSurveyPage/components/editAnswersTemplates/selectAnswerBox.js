@@ -1,11 +1,15 @@
 import React, { PureComponent } from 'react';
 import EditAnswerTextInput from '../controls/editAnswerTextInput';
+import Button from '../../../../common/components/controls/button';
+import { Icon } from 'react-fa';
 
 class SelectAnswerBox extends PureComponent {
     render() {
         const answers = this.props.answers.slice();
         const type = this.props.inputType;
         const name = this.props.name;
+
+        const deleteButtonIcon = <Icon name='trash'/>;
         
         return (
             <div className='answers_type_select'>
@@ -20,7 +24,9 @@ class SelectAnswerBox extends PureComponent {
                                                      value={answer.value}
                                                      name={name}
                                                      onInputChange={(changedInputValue) => this.props.onAnswerEdit(index, changedInputValue)}
-                                                     
+                                />
+                                <Button content={deleteButtonIcon}
+                                        onClick={() => this.props.onAnswerDelete(index)}
                                 />
                             </div>
                         ))
