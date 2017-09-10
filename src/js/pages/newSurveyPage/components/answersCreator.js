@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import SelectAnswerBox from './editAnswersTemplates/selectAnswerBox';
 import TextAnswerQuestion from './editAnswersTemplates/textAnswerQuestion';
 import FileAnswerQuestion from './editAnswersTemplates/fileAnswerQuestion';
+import RatingAnswerQuestion from './editAnswersTemplates/ratingAnswerQuestion';
 
 import { 
     questionTypesName,
@@ -159,7 +160,9 @@ class AnswersCreator extends PureComponent {
             case questionTypesName.FILE:
                 return <FileAnswerQuestion/>
             case questionTypesName.RATING:
-                // return <RatingInput />
+                return <RatingAnswerQuestion name={this.props.id}
+                                             value={+this.state.answers.value}
+                />
             case questionTypesName.RANGE:
                 // return <RangeInput />
                 return <SelectAnswerBox answers={this.state.answers.slice()}/>
