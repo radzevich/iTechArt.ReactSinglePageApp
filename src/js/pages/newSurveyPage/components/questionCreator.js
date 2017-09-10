@@ -44,6 +44,7 @@ class QuestionCreator extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        debugger;
         if ((this.state.isChanged !== prevState.isChanged) &&
             (!this.state.isChanged)) {
                 this.props.onQuestionUpdate(this.state.question);
@@ -89,9 +90,13 @@ class QuestionCreator extends Component {
     }
 
     handleCancelButtonClick() {
-        this.commitChanges(Object.assign({}, this.state, {
-            question: this.props.questionModel,
-        }));
+        if (this.props.questionModel.answers) {
+            this.commitChanges(Object.assign({}, this.state, {
+                question: this.props.questionModel,
+            }));   
+        } else {
+            this.props.onDeleteButtonClick();   
+        }
     }
 
     getAnswersModelByQuestionType(questionType) {

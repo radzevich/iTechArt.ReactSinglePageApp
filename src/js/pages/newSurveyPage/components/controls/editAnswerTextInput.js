@@ -4,7 +4,7 @@ import ControlledInput from '../../../../common/components/controls/controlledIn
 
 class EditAnswerTextInput extends PureComponent {
     render() {
-        const inputValue = this.props.value;
+        const inputValue = this.props.value + '';
         const onInputClick = this.props.onClick;
 
         return (
@@ -18,7 +18,10 @@ class EditAnswerTextInput extends PureComponent {
 }
 
 EditAnswerTextInput.propTypes = {
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     onInputChange: PropTypes.func.isRequired,
     onInputClick: PropTypes.func,
 }

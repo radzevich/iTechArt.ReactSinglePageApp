@@ -42,6 +42,8 @@ class QuestionsList extends PureComponent {
             return true;
         } else if (nextProps === this.props) {
             return true;
+        } else if (this.state.questions === nextProps.questions) {
+            return true;
         } else {
             return false;
         }
@@ -164,12 +166,14 @@ class QuestionsList extends PureComponent {
                         onDragEnd={this.handleDragEnd}
                         onDragStart={this.handleDragStart}
                     >
-                        <QuestionCreator questionModel={question}
-                                         isInEditMode={(this.state.activeQuestionIndex === index) ? true : false} 
-                                         onQuestionFocus={() => this.handleQuestionActiveClick(index)}
-                                         onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
-                                         onDeleteButtonClick={() => this.handleQuestionDelete(index)}
-                        />
+                        <div className='question' draggable='false'>
+                            <QuestionCreator questionModel={question}
+                                            isInEditMode={(this.state.activeQuestionIndex === index) ? true : false} 
+                                            onQuestionFocus={() => this.handleQuestionActiveClick(index)}
+                                            onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
+                                            onDeleteButtonClick={() => this.handleQuestionDelete(index)}
+                            />
+                        </div>
                     </li>
                 )}
             </ul>

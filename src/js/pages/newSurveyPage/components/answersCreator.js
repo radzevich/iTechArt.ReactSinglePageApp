@@ -3,6 +3,7 @@ import SelectAnswerBox from './editAnswersTemplates/selectAnswerBox';
 import TextAnswerQuestion from './editAnswersTemplates/textAnswerQuestion';
 import FileAnswerQuestion from './editAnswersTemplates/fileAnswerQuestion';
 import RatingAnswerQuestion from './editAnswersTemplates/ratingAnswerQuestion';
+import RangeAnswerQuestion from './editAnswersTemplates/rangeAnswerQuestion';
 
 import { 
     questionTypesName,
@@ -31,15 +32,24 @@ class AnswersCreator extends PureComponent {
         this.handleAnswersChanged = this.handleAnswersChanged.bind(this);
     }
 
+    componentWillMount() {
+        if (!this.props.answers) {
+            this.props.onAnswersChange(this.defaultAnswers);
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
-        if (this.props.type === questionTypesName.SINGLE || this.props.type === questionTypesName.MULTI) {
-            const nextCreatedAnswerId = (this.state.answers.length < nextProps.answers.length)
-                ? this.state.nextCreatedAnswerId + 1
-                : this.state.nextCreatedAnswerId;
-            this.setState({
-                answers: nextProps.answers,
-                nextCreatedAnswerId: nextCreatedAnswerId,
-            });
+        switch(this.props.type) {
+            case questionTypesName.SINGLE:
+            case questionTypesName.MULTI:
+            case questionTypesName.RANGE:
+                const nextCreatedAnswerId = (this.state.answers.length < nextProps.answers.length)
+                    ? this.state.nextCreatedAnswerId + 1
+                    : this.state.nextCreatedAnswerId;
+                this.setState({
+                    answers: nextProps.answers,
+                    nextCreatedAnswerId: nextCreatedAnswerId,
+                });
         }
     }
 
@@ -123,14 +133,12 @@ class AnswersCreator extends PureComponent {
     }
 
     handleAnswerDelete(indexOfAnswerToDelete) {
-        debugger;
         const currentAnswersState = this.state.answers;
         if (currentAnswersState.length > 1) {
             const updatedAnswersList = [
                 ...currentAnswersState.slice(0, indexOfAnswerToDelete),
                 ...currentAnswersState.slice(indexOfAnswerToDelete + 1, currentAnswersState.length),
             ]
-            debugger;
             this.handleAnswersChanged(updatedAnswersList);
         } else {
             alert('Нельзя удалить все вопросы!');
@@ -154,18 +162,20 @@ class AnswersCreator extends PureComponent {
                                         onAnswerAdd={() => this.handleAnswerAdd()}
                                         onAnswerEdit={(indexOfAnswerToEdit, newValueToSet) => this.handleAnswerEdit(indexOfAnswerToEdit, newValueToSet)}
                                         onAnswerDelete={(indexOfAnswerToDelete) => this.handleAnswerDelete(indexOfAnswerToDelete)}
-                                  />
+                />
             case questionTypesName.TEXT:
-                return <TextAnswerQuestion/>
+                return <TextAnswerQuestion name={this.props.id}/>;
             case questionTypesName.FILE:
-                return <FileAnswerQuestion/>
+                return <FileAnswerQuestion name={this.props.id}/>;
             case questionTypesName.RATING:
                 return <RatingAnswerQuestion name={this.props.id}
                                              value={+this.state.answers.value}
                 />
             case questionTypesName.RANGE:
-                // return <RangeInput />
-                return <SelectAnswerBox answers={this.state.answers.slice()}/>
+                return <RangeAnswerQuestion name={this.props.id}
+                                            answers={this.state.answers.slice()}
+                                            onValueEdit={(kindOfValue, newValueToSet) => this.handleAnswerEdit(kindOfValue, newValueToSet)}
+                />
         }
     }
 

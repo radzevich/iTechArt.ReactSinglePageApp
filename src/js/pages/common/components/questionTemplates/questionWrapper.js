@@ -16,7 +16,8 @@ class QuestionWrapper extends Component {
                       id={questionId}
                       type={questionType}
                 >
-                    {this.props.answers}
+                hello
+                    {/* {this.props.answers} */}
                 </form>
             </div>
         );
