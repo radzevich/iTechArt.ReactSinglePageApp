@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
-import SelectBox from './editAnswersTemplates/selectAnswerBox';
+import SelectAnswerBox from './editAnswersTemplates/selectAnswerBox';
+import TextAnswerQuestion from './editAnswersTemplates/textAnswerQuestion';
+import FileAnswerQuestion from './editAnswersTemplates/fileAnswerQuestion';
+
 import { 
     questionTypesName,
     SELECT_QUESTION__DEFAULT_TEXT,
@@ -28,13 +31,15 @@ class AnswersCreator extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const nextCreatedAnswerId = (this.state.answers.length < nextProps.answers.length)
-            ? this.state.nextCreatedAnswerId + 1
-            : this.state.nextCreatedAnswerId;
-        this.setState({
-            answers: nextProps.answers,
-            nextCreatedAnswerId: nextCreatedAnswerId,
-        });
+        if (this.props.type === questionTypesName.SINGLE || this.props.type === questionTypesName.MULTI) {
+            const nextCreatedAnswerId = (this.state.answers.length < nextProps.answers.length)
+                ? this.state.nextCreatedAnswerId + 1
+                : this.state.nextCreatedAnswerId;
+            this.setState({
+                answers: nextProps.answers,
+                nextCreatedAnswerId: nextCreatedAnswerId,
+            });
+        }
     }
 
     get defaultAnswers() {
@@ -70,7 +75,14 @@ class AnswersCreator extends PureComponent {
                         id: RANGE_QUESTION__USER_VALUE_ID,
                         value: RANGE_QUESTION__DEFAULT_USER_VALUE,
                     },
-                ]
+                ];
+            case questionTypesName.TEXT:
+            case questionTypesName.FILE:
+            case questionTypesName.RATING:
+                return {
+                    id: 0,
+                    value: '',
+                }
         }
 
     }
@@ -120,39 +132,37 @@ class AnswersCreator extends PureComponent {
             debugger;
             this.handleAnswersChanged(updatedAnswersList);
         } else {
-            // alert();
+            alert('Нельзя удалить все вопросы!');
         }
     }
 
     get answerTemplate() {
-        const answersToDisplay = this.state.answers.slice();
-
         switch (this.props.type) {
             case questionTypesName.SINGLE:
-                return <SelectBox inputType={'radio'} 
-                                  answers={answersToDisplay}
-                                  name={this.props.id}
-                                  onAnswerAdd={() => this.handleAnswerAdd()}
-                                  onAnswerEdit={(indexOfAnswerToEdit, newValueToSet) => this.handleAnswerEdit(indexOfAnswerToEdit, newValueToSet)}
-                                  onAnswerDelete={(indexOfAnswerToDelete) => this.handleAnswerDelete(indexOfAnswerToDelete)}
+                return <SelectAnswerBox inputType={'radio'} 
+                                        answers={this.state.answers.slice()}
+                                        name={this.props.id}
+                                        onAnswerAdd={() => this.handleAnswerAdd()}
+                                        onAnswerEdit={(indexOfAnswerToEdit, newValueToSet) => this.handleAnswerEdit(indexOfAnswerToEdit, newValueToSet)}
+                                        onAnswerDelete={(indexOfAnswerToDelete) => this.handleAnswerDelete(indexOfAnswerToDelete)}
                 />
             case questionTypesName.MULTI:
-                return <SelectBox inputType={'checkbox'} 
-                                  answers={answersToDisplay}
-                                  name={this.props.id}
-                                  onAnswerAdd={() => this.handleAnswerAdd()}
-                                  onAnswerEdit={(indexOfAnswerToEdit, newValueToSet) => this.handleAnswerEdit(indexOfAnswerToEdit, newValueToSet)}
-                                  onAnswerDelete={(indexOfAnswerToDelete) => this.handleAnswerDelete(indexOfAnswerToDelete)}
+                return <SelectAnswerBox inputType={'checkbox'} 
+                                        answers={this.state.answers.slice()}
+                                        name={this.props.id}
+                                        onAnswerAdd={() => this.handleAnswerAdd()}
+                                        onAnswerEdit={(indexOfAnswerToEdit, newValueToSet) => this.handleAnswerEdit(indexOfAnswerToEdit, newValueToSet)}
+                                        onAnswerDelete={(indexOfAnswerToDelete) => this.handleAnswerDelete(indexOfAnswerToDelete)}
                                   />
             case questionTypesName.TEXT:
-                // return <TextInput />
+                return <TextAnswerQuestion/>
             case questionTypesName.FILE:
-                // return <FileInput />
+                return <FileAnswerQuestion/>
             case questionTypesName.RATING:
                 // return <RatingInput />
             case questionTypesName.RANGE:
                 // return <RangeInput />
-                return <SelectBox answers={answersToDisplay}/>
+                return <SelectAnswerBox answers={this.state.answers.slice()}/>
         }
     }
 
