@@ -13,6 +13,10 @@ import {Icon} from 'react-fa';
 import {
     questionTypesName,
     questionTypesText,
+    QUESTION_CREATOR__EDIT_MODE,
+    QUESTION_CREATOR__EDIT_MODE_CHANGED,
+    QUESTION_CREATOR__VIEW_MODE,
+    QUESTION_CREATOR__VIEW_MODE_CHANGED,
 } from '../../../types/types';
 
 // TODO: add hash validation for each control.
@@ -20,9 +24,8 @@ class QuestionCreator extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isInEditMode: this.props.isInEditMode,
             question: this.props.questionModel,
-            isChanged: false,
+            mode: QUESTION_CREATOR__EDIT_MODE,
         }
 
         this.handleQuestionTextChange = this.handleQuestionTextChange.bind(this);
@@ -33,34 +36,54 @@ class QuestionCreator extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let questionToSet = nextProps.questionModel;
-        if (this.state.isChanged) {
+        // debugger;
+        const prevMode = this.state.mode;
+        const nextMode = this.getDisplayMode(nextProps.isChanged, nextProps.isInEditMode);
+
+        let questionToSet = null;
+        if (prevMode === QUESTION_CREATOR__EDIT_MODE && nextMode === QUESTION_CREATOR__EDIT_MODE_CHANGED) {
             questionToSet = this.state.question;
+        } else {
+            questionToSet = nextProps.questionModel;
         }
+
         this.setState(prevState => ({
-            isInEditMode: nextProps.isInEditMode,
+            mode: nextMode,
             question: questionToSet,
         }));
     }
 
     componentDidUpdate(prevProps, prevState) {
-        debugger;
-        if ((this.state.isChanged !== prevState.isChanged) &&
-            (!this.state.isChanged)) {
-                this.props.onQuestionUpdate(this.state.question);
+        if (
+            (prevState.mode === QUESTION_CREATOR__EDIT_MODE || prevState.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED) && 
+            this.state.mode === QUESTION_CREATOR__VIEW_MODE
+        ) {
+            this.props.onQuestionUpdate(this.state.question);
         }
+    }
+
+    getDisplayMode(isChanged, isInEditMode) {
+        if (isChanged && isInEditMode) {
+            return QUESTION_CREATOR__EDIT_MODE_CHANGED;
+        } else if (!isChanged && isInEditMode) {
+            return QUESTION_CREATOR__EDIT_MODE;
+        } else if (isChanged && !isInEditMode) {
+            return QUESTION_CREATOR__VIEW_MODE_CHANGED;
+        } else if (!isChanged && !isInEditMode) {
+            return QUESTION_CREATOR__VIEW_MODE;
+        } 
     }
 
     addQuestionChangesToState(changedQuestionState) {
         this.setState(prevState => Object.assign({}, prevState, {
             question: changedQuestionState,
-            isChanged: true,
+            mode: QUESTION_CREATOR__EDIT_MODE_CHANGED,
         }));
     }
 
     commitChanges(nextState = this.state, callback = () => {}) {
         this.setState(Object.assign({}, nextState, {
-            isChanged: false,
+            mode: QUESTION_CREATOR__VIEW_MODE,
         }), callback());
     }
 
@@ -125,8 +148,14 @@ class QuestionCreator extends Component {
         const questionIsRequired = this.state.question.isRequired;
 
         const onClick = this.props.onQuestionFocus;
-        const questionIsInEditMode = this.state.isInEditMode;
-        const isChanged = this.state.isChanged;
+        const questionIsInEditMode = (
+            this.state.mode === QUESTION_CREATOR__EDIT_MODE || 
+            this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED
+        ) ? true : false;
+        const isChanged = (
+            this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED || 
+            this.state.mode === QUESTION_CREATOR__VIEW_MODE_CHANGED
+        ) ? true : false;
 
         const editIcon = <Icon name='pencil-square'/>;
         const deleteIcon = <Icon name='trash'/>;

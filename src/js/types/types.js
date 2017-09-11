@@ -35,6 +35,11 @@ export const EDIT_QUESTION_WRAPPER__CANCEL_TEXT = 'Отмена';
 
 export const SELECT_QUESTION__DEFAULT_TEXT = 'Ответ';
 
+export const QUESTION_CREATOR__EDIT_MODE = 0;
+export const QUESTION_CREATOR__EDIT_MODE_CHANGED = 1;
+export const QUESTION_CREATOR__VIEW_MODE = 2;
+export const QUESTION_CREATOR__VIEW_MODE_CHANGED = 3;
+
 export const RANGE_QUESTION__MIN_VALUE_ID = 0;
 export const RANGE_QUESTION__MAX_VALUE_ID = 1;
 export const RANGE_QUESTION__USER_VALUE_ID = 2;
