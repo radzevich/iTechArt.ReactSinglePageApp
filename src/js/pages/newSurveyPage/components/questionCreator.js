@@ -40,8 +40,14 @@ class QuestionCreator extends Component {
         const prevMode = this.state.mode;
         const nextMode = this.getDisplayMode(nextProps.isChanged, nextProps.isInEditMode);
 
+        debugger;
+
         let questionToSet = null;
-        if (prevMode === QUESTION_CREATOR__EDIT_MODE && nextMode === QUESTION_CREATOR__EDIT_MODE_CHANGED) {
+        if (
+            prevMode === QUESTION_CREATOR__EDIT_MODE && nextMode === QUESTION_CREATOR__EDIT_MODE_CHANGED ||
+            prevMode === QUESTION_CREATOR__EDIT_MODE_CHANGED && nextMode === QUESTION_CREATOR__VIEW_MODE_CHANGED ||
+            prevMode === QUESTION_CREATOR__VIEW_MODE_CHANGED && prevMode === QUESTION_CREATOR__EDIT_MODE_CHANGED
+        ) {
             questionToSet = this.state.question;
         } else {
             questionToSet = nextProps.questionModel;
@@ -62,17 +68,7 @@ class QuestionCreator extends Component {
         }
     }
 
-    getDisplayMode(isChanged, isInEditMode) {
-        if (isChanged && isInEditMode) {
-            return QUESTION_CREATOR__EDIT_MODE_CHANGED;
-        } else if (!isChanged && isInEditMode) {
-            return QUESTION_CREATOR__EDIT_MODE;
-        } else if (isChanged && !isInEditMode) {
-            return QUESTION_CREATOR__VIEW_MODE_CHANGED;
-        } else if (!isChanged && !isInEditMode) {
-            return QUESTION_CREATOR__VIEW_MODE;
-        } 
-    }
+
 
     addQuestionChangesToState(changedQuestionState) {
         this.setState(prevState => Object.assign({}, prevState, {
