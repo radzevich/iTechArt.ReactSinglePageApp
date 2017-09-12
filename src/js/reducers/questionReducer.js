@@ -3,7 +3,8 @@ import {
     CHANGE_QUESTION_TEXT,
     TOGGLE_REQUIRED_STATUS,
     DEFAULT_QUESTION_TYPE,
-    questionTypesText
+    questionTypesText,
+    questionTypesDeafaultAnswers,
 } from '../types/types';
 
 function questionReducer(state = {}, action) {
@@ -14,6 +15,7 @@ function questionReducer(state = {}, action) {
                 text: questionTypesText(action.questionType),
                 type: action.questionType,
                 isRequired: false,
+                answers: questionTypesDeafaultAnswers(action.questionType)
             }
         case CHANGE_QUESTION_TEXT:
             if (action.id !== state.id) {

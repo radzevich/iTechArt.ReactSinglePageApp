@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import QuestionCreator from 'questionCreator';
+import QuestionCreator from './questionCreator';
 import {
     QUESTION_CREATOR__EDIT_MODE,
     QUESTION_CREATOR__EDIT_MODE_CHANGED,
@@ -13,23 +13,48 @@ class QuestionFiniteStateMachine extends PureComponent {
 
         this.state = {
             mode: QUESTION_CREATOR__EDIT_MODE,
+            question: props.question,
         }
+
+        this.handleQuestionCancel = this.handleQuestionCancel.bind(this);
+        this.handleQuestionSave = this.handleQuestionSave.bind(this);
+        this.handleQuestionUdate = this.handleQuestionUdate.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         let questionDisplayMode = this.state.mode;
-        if (this.props.isInEditMode !== nextProps.isInEditMode) {
-            if (nextProps.isInEditMode) {
-                if (this.state.mode === QUESTION_CREATOR__VIEW_MODE) {
-                    questionDisplayMode = QUESTION_CREATOR__EDIT_MODE;
-                } else {
-                    questionDisplayMode = QUESTION_CREATOR__EDIT_MODE_CHANGED;
-                }
-            } else {
+        // if (this.props.isInEditMode !== nextProps.isInEditMode) {
+        //     if (nextProps.isInEditMode) {
+        //         if (this.state.mode === QUESTION_CREATOR__VIEW_MODE) {
+        //             questionDisplayMode = QUESTION_CREATOR__EDIT_MODE;
+        //         } else {
+        //             questionDisplayMode = QUESTION_CREATOR__EDIT_MODE_CHANGED;
+        //         }
+        //     } else {
+        //         if (this.state.mode === QUESTION_CREATOR__EDIT_MODE) {
+        //             questionDisplayMode = QUESTION_CREATOR__VIEW_MODE;
+        //         } else {
+        //             questionDisplayMode = QUESTION_CREATOR__VIEW_MODE_CHANGED;
+        //         }
+        //     }
+        // }
+        // this.setState({
+        //     mode: questionDisplayMode,
+        // })
+        if ((this.props.activeQuestionIndex === this.state.question.id) ^ (nextProps.activeQuestionIndex === this.state.question.id)) {
+            if (nextProps.activeQuestionIndex === null) {
+                questionDisplayMode = QUESTION_CREATOR__VIEW_MODE;
+            } else if (this.props.activeQuestionIndex === this.state.question.id) {
                 if (this.state.mode === QUESTION_CREATOR__EDIT_MODE) {
                     questionDisplayMode = QUESTION_CREATOR__VIEW_MODE;
                 } else {
                     questionDisplayMode = QUESTION_CREATOR__VIEW_MODE_CHANGED;
+                }
+            } else if (nextProps.activeQuestionIndex === this.state.question.id) {
+                if (this.state.mode === QUESTION_CREATOR__VIEW_MODE) {
+                    questionDisplayMode = QUESTION_CREATOR__EDIT_MODE;
+                } else {
+                    questionDisplayMode = QUESTION_CREATOR__EDIT_MODE_CHANGED;
                 }
             }
         }
@@ -44,9 +69,10 @@ class QuestionFiniteStateMachine extends PureComponent {
         }
     }
 
-    handleQuestionEdit() {
+    handleQuestionUdate(updatedQuestion) {
         this.setState({
             mode: QUESTION_CREATOR__EDIT_MODE_CHANGED,
+            question: updatedQuestion,
         });
     }
 
@@ -66,6 +92,7 @@ class QuestionFiniteStateMachine extends PureComponent {
     handleQuestionCancel() {
         this.setState({
             mode: QUESTION_CREATOR__VIEW_MODE,
+            question: this.props.question,
         })
     }
 
@@ -76,6 +103,26 @@ class QuestionFiniteStateMachine extends PureComponent {
     }
 
     render() {
-        return <QuestionCreator />
+        const question = (this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED || this.state.mode === QUESTION_CREATOR__VIEW_MODE_CHANGED) 
+            ? this.state.question
+            : this.props.question;
+        const isInEditMode = (this.state.mode === QUESTION_CREATOR__EDIT_MODE || this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED) 
+            ? true
+            : false;
+        const isChanged = (this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED || this.state.mode === QUESTION_CREATOR__VIEW_MODE_CHANGED) 
+            ? true
+            : false;
+        return <QuestionCreator question={question}
+                                isInEditMode={isInEditMode}
+                                isChanged={isChanged}
+                                onQuestionFocus={this.props.onQuestionFocus}
+                                onDeleteButtonClick={this.props.onDeleteButtonClick}
+                                onSaveButtonClick={() => this.handleQuestionSave()}
+                                onCancelButtonClick={() => this.handleQuestionCancel()}
+                                onQuestionUpdate={(updatedQuestion) => this.handleQuestionUdate(updatedQuestion)}
+
+        />
     }   
 }
+
+export default QuestionFiniteStateMachine;

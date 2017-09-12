@@ -108,6 +108,54 @@ export const questionTypesText = typeName => {
     }
 };
 
+export const questionTypesDeafaultAnswers = typeName => {
+    switch(typeName) {
+        case questionTypesName.SINGLE:
+        case questionTypesName.MULTI:
+            return [
+                {
+                    id: 1,
+                    value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 1,
+                },
+                {
+                    id: 2,
+                    value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 2,
+                },
+                {
+                    id: 3,
+                    value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 3,
+                },
+            ];
+        case questionTypesName.RANGE:
+            return [
+                {
+                    id: RANGE_QUESTION__MIN_VALUE_ID,
+                    value: RANGE_QUESTION__DEFAULT_MIN_VALUE,
+                },
+                {
+                    id: RANGE_QUESTION__MAX_VALUE_ID,
+                    value: RANGE_QUESTION__DEFAULT_MAX_VALUE,
+                },
+                {
+                    id: RANGE_QUESTION__USER_VALUE_ID,
+                    value: RANGE_QUESTION__DEFAULT_USER_VALUE,
+                },
+            ];
+        case questionTypesName.TEXT:
+        case questionTypesName.FILE:
+        case questionTypesName.RATING:
+            return {
+                id: 0,
+                value: '',
+            }
+    }
+}
+
+export const defaultSelectAnswer = (idOfAnswerToCreate, indexToSetValue = idOfAnswerToCreate) => ({
+    id: idOfAnswerToCreate,
+    value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + indexToSetValue,
+});
+
 export const questionOptionsText = {
     ANON_STATUS_TEXT: 'Анонимный опрос',
     QUESTION_ORDER_TEXT: 'Случайный порядок вопросов',

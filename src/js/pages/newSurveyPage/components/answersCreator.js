@@ -7,20 +7,14 @@ import RangeAnswerQuestion from './editAnswersTemplates/rangeAnswerQuestion';
 
 import { 
     questionTypesName,
-    SELECT_QUESTION__DEFAULT_TEXT,
-    RANGE_QUESTION__MIN_VALUE_ID,
-    RANGE_QUESTION__MAX_VALUE_ID, 
-    RANGE_QUESTION__USER_VALUE_ID,
-    RANGE_QUESTION__DEFAULT_MIN_VALUE,
-    RANGE_QUESTION__DEFAULT_MAX_VALUE,
-    RANGE_QUESTION__DEFAULT_USER_VALUE,
+    defaultSelectAnswer,
  } from '../../../types/types'
 
 class AnswersCreator extends PureComponent {
     constructor(props) {
         super(props);
 
-        const sourceAnswersListToDisplay = this.props.answers || this.defaultAnswers;
+        const sourceAnswersListToDisplay = this.props.answers;
         this.state = {
             answers: sourceAnswersListToDisplay,
             nextCreatedAnswerId: sourceAnswersListToDisplay.length + 1,
@@ -53,65 +47,20 @@ class AnswersCreator extends PureComponent {
         }
     }
 
-    get defaultAnswers() {
-        const parentQuestionId = this.props.id;
-        switch(this.props.type) {
-            case questionTypesName.SINGLE:
-            case questionTypesName.MULTI:
-                return [
-                    {
-                        id: 1,
-                        value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 1,
-                    },
-                    {
-                        id: 2,
-                        value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 2,
-                    },
-                    {
-                        id: 3,
-                        value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + 3,
-                    },
-                ];
-            case questionTypesName.RANGE:
-                return [
-                    {
-                        id: RANGE_QUESTION__MIN_VALUE_ID,
-                        value: RANGE_QUESTION__DEFAULT_MIN_VALUE,
-                    },
-                    {
-                        id: RANGE_QUESTION__MAX_VALUE_ID,
-                        value: RANGE_QUESTION__DEFAULT_MAX_VALUE,
-                    },
-                    {
-                        id: RANGE_QUESTION__USER_VALUE_ID,
-                        value: RANGE_QUESTION__DEFAULT_USER_VALUE,
-                    },
-                ];
-            case questionTypesName.TEXT:
-            case questionTypesName.FILE:
-            case questionTypesName.RATING:
-                return {
-                    id: 0,
-                    value: '',
-                }
-        }
-
-    }
-
-    createDefaultSelectAnswer() {
-        const idOfAnswerToCreate = this.state.nextCreatedAnswerId;
-        return {
-            id: idOfAnswerToCreate,
-            value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + (this.state.answers.length + 1),
-        };
-    }
+    // createDefaultSelectAnswer() {
+    //     const idOfAnswerToCreate = this.state.nextCreatedAnswerId;
+    //     return {
+    //         id: idOfAnswerToCreate,
+    //         value: SELECT_QUESTION__DEFAULT_TEXT + ' ' + (this.state.answers.length + 1),
+    //     };
+    // }
 
     handleAnswersChanged(changedAnswers) {
         this.props.onAnswersChange(changedAnswers);
     }
 
     handleAnswerAdd() {
-        const answerToAdd = this.createDefaultSelectAnswer(this.state.nextCreatedAnswerId);
+        const answerToAdd = defaultSelectAnswer(this.state.nextCreatedAnswerId);
         const updatedAnswersList = [
             ...this.state.answers,
             answerToAdd,

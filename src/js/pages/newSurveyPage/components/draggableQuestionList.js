@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import QuestionCreator from './questionCreator';
+import QuestionFiniteStateMachine from './questionFiniteStateMachine';
 
 /**
  * The next code to allow questions dragging was taken from the http://webcloud.se/sortable-list-component-react-js/.
@@ -157,6 +157,10 @@ class QuestionsList extends PureComponent {
         const allowDrag = 'true';
         const questionsToDisplay = this.state.questions;
 
+        const activeQuestionId = (this.state.activeQuestionIndex !== null)
+            ? questionsToDisplay[this.state.activeQuestionIndex].id
+            : null;
+
         return (
             <ul onDragOver={this.handleDragOver}>
                 {questionsToDisplay.map((question, index) => 
@@ -167,11 +171,11 @@ class QuestionsList extends PureComponent {
                         onDragStart={this.handleDragStart}
                     >
                         <div className='question' draggable='false'>
-                            <QuestionCreator questionModel={question}
-                                            isInEditMode={(this.state.activeQuestionIndex === index) ? true : false} 
-                                            onQuestionFocus={() => this.handleQuestionActiveClick(index)}
-                                            onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
-                                            onDeleteButtonClick={() => this.handleQuestionDelete(index)}
+                            <QuestionFiniteStateMachine question={question}
+                                                        activeQuestionIndex={activeQuestionId} 
+                                                        onQuestionFocus={() => this.handleQuestionActiveClick(index)}
+                                                        onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
+                                                        onDeleteButtonClick={() => this.handleQuestionDelete(index)}
                             />
                         </div>
                     </li>
