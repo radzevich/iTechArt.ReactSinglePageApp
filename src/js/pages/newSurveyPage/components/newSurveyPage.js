@@ -24,6 +24,7 @@ class NewSurveyPage extends Component {
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
 		this.handlePageSelect = this.handlePageSelect.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
+		this.handlePageTitleEdit = this.handlePageTitleEdit.bind(this);
 		this.handleQuestionListUpdate = this.handleQuestionListUpdate.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleSurveyOptionsToggle = this.handleSurveyOptionsToggle.bind(this);
@@ -179,6 +180,23 @@ class NewSurveyPage extends Component {
 		this.handleQuestionListUpdate(updatedListOfQuestions);
 	}
 
+	handlePageTitleEdit(pageIndex, changedPageTitleToSet) {
+		// debugger;
+		const surveyCurrentState = this.getSurveyCurrentState();
+		const updatedPage = Object.assign({}, surveyCurrentState.pages[pageIndex], {
+			title: changedPageTitleToSet,
+		})
+		const updatedPageList = [
+			...surveyCurrentState.pages.slice(0, pageIndex),
+			updatedPage,
+			...surveyCurrentState.pages.slice(pageIndex + 1, surveyCurrentState.pages.length),
+		]
+		const nextSurveyState = Object.assign({}, surveyCurrentState, {
+			pages: updatedPageList,
+		})
+		this.handleCommitChanges(nextSurveyState);
+	}
+
 	handleQuestionListUpdate(updatedQuestionList) {
 		const surveyCurrentState = this.getSurveyCurrentState();
 		const indexOfPageToUpdateQuestionList = this.state.activePageIndex;
@@ -237,6 +255,7 @@ class NewSurveyPage extends Component {
 						   onCancelClick={() => this.handleCancelClick()}
 						   onEdit={() => this.handleCommitChanges()}
 						   onCreatePageClick={() => this.handleCreatePageClick()}
+						   onPageTitleEdit={(pageIndex, titleToSet) => this.handlePageTitleEdit(pageIndex, titleToSet)}
 						   onPageSelect={(selectedPageIndex) => this.handlePageSelect(selectedPageIndex)}
 						   onQuestionListUpdate={updatedQuestionList => this.handleQuestionListUpdate(updatedQuestionList)}
 						   onTitleUpdate={updatedTitle => this.handleTitleUpdate(updatedTitle)}

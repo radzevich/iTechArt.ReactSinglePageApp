@@ -4,6 +4,7 @@ import {
     ADD_QUESTION,
     CHANGE_QUESTION_TEXT,
     TOGGLE_REQUIRED_STATUS,
+    DEFAULT_PAGE_TITLE,
 } from '../types/types';
 import questionReducer from './questionReducer';
 
@@ -12,7 +13,7 @@ function pageReducer(state = {}, action) {
         case CREATE_PAGE: {
             return {
                 id: action.id,
-                title: action.title,
+                title: (action.title) ? action.title : DEFAULT_PAGE_TITLE + ' ' + action.id,
                 questions: [],
             }
         }

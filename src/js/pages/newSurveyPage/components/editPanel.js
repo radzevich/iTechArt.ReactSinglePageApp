@@ -7,9 +7,14 @@ import {
 } from 'react-tabs';
 import SurveyManageForm from './surveyManageForm';
 import 'react-tabs/style/react-tabs.css';
-import QuestionsList from './draggableQuestionList'
+import QuestionsList from './draggableQuestionList';
+import ControlledInput from '../../../common/components/controls/controlledInput';
 import { 
     DEFAULT_PAGE_TITLE,
+    EDIT_PANEL__SAVE_BUTTON_TEXT,
+    EDIT_PANEL__SAVE_AS_BUTTON_TEXT, 
+    EDIT_PANEL__CANCEL_BUTTON_TEXT,
+    EDIT_PANEL__NEW_PAGE_BUTTON_TEXT,
 } from '../../../types/types';
 
 class EditPanel extends PureComponent {
@@ -20,28 +25,33 @@ class EditPanel extends PureComponent {
         };
     }
 
+    handlePageTitleEdit(editedTitle) {
+
+    }
+
     render() {
         const manageButtons = [
             {
-                text: 'Сохранить',
+                text: EDIT_PANEL__SAVE_BUTTON_TEXT,
                 onClick: this.props.onSaveClick,
             },
             {
-                text: 'Сохранить как шаблон',
+                text: EDIT_PANEL__SAVE_AS_BUTTON_TEXT,
                 onClick: this.props.onSaveAsTemplateClick,
             },
             {
-                text: 'Отмена',
+                text: EDIT_PANEL__CANCEL_BUTTON_TEXT,
                 onClick: this.props.onCancelClick,
             },
             {
-                text: 'Новая страница',
+                text: EDIT_PANEL__NEW_PAGE_BUTTON_TEXT,
                 onClick: this.props.onCreatePageClick,
             },
         ]
         const surveyToEdit = this.props.surveyToEdit;
         const tabIndex = this.props.activePageIndex;
         const questionsToDisplay = surveyToEdit.pages[tabIndex].questions.slice();
+        // debugger;
 
         return (
             <div className='edit-panel'>
@@ -56,14 +66,16 @@ class EditPanel extends PureComponent {
                       onSelect={tabIndex => this.props.onPageSelect(tabIndex)}
                       >                      
                     <TabList>
-                        {surveyToEdit.pages.map((page) => 
+                        {surveyToEdit.pages.map((page, index) => 
                             <Tab key={page.id}>
-                                {(page.title) ? page.title : DEFAULT_PAGE_TITLE + ' ' + page.id}
+                                {page.title}
                             </Tab>
                         )}
                     </TabList>
-                    {surveyToEdit.pages.map((page) => 
+                    {surveyToEdit.pages.map((page, index) => 
                         <TabPanel key={page.id}>
+                            <ControlledInput value={page.title}
+                                             onInputChange={(changedTitle) => this.props.onPageTitleEdit(index, changedTitle)}/>
                             <QuestionsList questions={questionsToDisplay}
                                            onQuestionListUpdate={this.props.onQuestionListUpdate}
                                            onQuestionUpdateFixed={this.props.onQuestionUpdateFixed}

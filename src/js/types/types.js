@@ -28,7 +28,12 @@ export const DEFAULT_PAGE_TITLE = 'Страница';
 export const SURVEY_OPTIONS_PANEL_TITLE = 'Параметры опроса';
 export const QUESTION_TYPES_PANEL_TITLE = 'Тип вопроса';
 
-export const NEW_SURVEY_PAGE__QUESTIONS_WERE_UPDATED_MESSAGE = 'Все несохранённые изменения будут утеряны!'
+export const NEW_SURVEY_PAGE__QUESTIONS_WERE_UPDATED_MESSAGE = 'Все несохранённые изменения будут утеряны!';
+
+export const EDIT_PANEL__SAVE_BUTTON_TEXT = 'Сохранить';
+export const EDIT_PANEL__SAVE_AS_BUTTON_TEXT = 'Сохранить как шаблон';
+export const EDIT_PANEL__CANCEL_BUTTON_TEXT = 'Отмена';
+export const EDIT_PANEL__NEW_PAGE_BUTTON_TEXT = 'Новая страница';
 
 export const EDIT_QUESTION_WRAPPER__TRANSFER_TEXT = 'Переместить';
 export const EDIT_QUESTION_WRAPPER__IS_REQUIRED_TEXT = 'Обязательный';
