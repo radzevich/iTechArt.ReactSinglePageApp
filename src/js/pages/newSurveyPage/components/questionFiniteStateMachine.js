@@ -12,8 +12,13 @@ import {
 class QuestionFiniteStateMachine extends PureComponent {
     constructor(props) {
         super(props);
+
+        const displayMode = (props.activeQuestionIndex === props.question.id)
+            ? QUESTION_CREATOR__EDIT_MODE
+            : QUESTION_CREATOR__VIEW_MODE;
+
         this.state = {
-            mode: QUESTION_CREATOR__EDIT_MODE,
+            mode: displayMode,
             question: props.question,
         }
 
@@ -23,7 +28,7 @@ class QuestionFiniteStateMachine extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        let questionDisplayMode = QUESTION_CREATOR__VIEW_MODE;
+        let questionDisplayMode = this.state.mode;
         if ((this.props.activeQuestionIndex === this.state.question.id) ^ (nextProps.activeQuestionIndex === this.state.question.id)) {
             if (nextProps.activeQuestionIndex === null) {
                 questionDisplayMode = QUESTION_CREATOR__VIEW_MODE;
@@ -55,7 +60,7 @@ class QuestionFiniteStateMachine extends PureComponent {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED && this.state.mode === QUESTION_CREATOR__VIEW_MODE) {
-            this.props.onQuestionUpdate(this.state.question);
+            this.props.onQuestionChangesFixed(QUESTION_CREATOR__QUESTION_WAS_COMMITED);
         } else if (prevState.mode === QUESTION_CREATOR__EDIT_MODE && this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED) {
             this.props.onQuestionChangesFixed(QUESTION_CREATOR__QUESTION_WAS_UPDATED);
         }
@@ -70,12 +75,10 @@ class QuestionFiniteStateMachine extends PureComponent {
 
     handleQuestionSave() {
         this.props.onQuestionUpdate(this.state.question);
-        this.props.onQuestionChangesFixed(QUESTION_CREATOR__QUESTION_WAS_COMMITED);
     }
 
     handleQuestionCancel() {
         this.props.onQuestionUpdate(this.props.question);
-        this.props.onQuestionChangesFixed(QUESTION_CREATOR__QUESTION_WAS_COMMITED);
     }
 
     commitState() {
@@ -85,9 +88,9 @@ class QuestionFiniteStateMachine extends PureComponent {
     }
 
     render() {
-        // debugger;
         const question = this.state.question;
-        const isInEditMode = ((this.state.mode === QUESTION_CREATOR__EDIT_MODE || this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED) && this.props.activeQuestionIndex !== null) 
+        const isInEditMode = ((this.state.mode === QUESTION_CREATOR__EDIT_MODE || this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED) && 
+                               this.props.activeQuestionIndex !== null) 
             ? true
             : false;
         const isChanged = (this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED || this.state.mode === QUESTION_CREATOR__VIEW_MODE_CHANGED) 
