@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import EditPanel from './editPanel';
 import QuestionTypesPanel from './questionTypesPanel';
 import SurveyOptionsPanel from './surveyOptionsPanel';
-import questionTypesName from '../../../types/types'; 
+import {
+	questionTypesName, 
+	NEW_SURVEY_PAGE__QUESTIONS_WERE_UPDATED_MESSAGE,
+	QUESTION_CREATOR__QUESTION_WAS_UPDATED,
+	QUESTION_CREATOR__QUESTION_WAS_COMMITED,
+} from '../../../types/types'; 
 import PropTypes from 'prop-types';
 import '../../../../styles/page/_content/new-survey/page_content_new-survey.css'
 
@@ -14,12 +19,15 @@ class NewSurveyPage extends Component {
 			history: [],
 		};
 
+		this.questionsUpdatesCount = 0;
+
 		this.handleSaveCLick = this.handleSaveCLick.bind(this);
 		this.handlePageSelect = this.handlePageSelect.bind(this);
 		this.handleCancelClick = this.handleCancelClick.bind(this);
 		this.handleQuestionListUpdate = this.handleQuestionListUpdate.bind(this);
 		this.handleSaveAsTemplateClick = this.handleSaveAsTemplateClick.bind(this);
 		this.handleSurveyOptionsToggle = this.handleSurveyOptionsToggle.bind(this);
+		this.handleQuestionUpdatesFixed = this.handleQuestionUpdatesFixed.bind(this);
 		this.handleCommitChanges = this.handleCommitChanges.bind(this);
 	}
 
@@ -37,6 +45,10 @@ class NewSurveyPage extends Component {
 			],
 			activePageIndex: 0,
 		}));
+	}
+
+	get questionsWereUpdated() {
+		return this.questionsUpdatesCount !== 0;
 	}
 
 	getCurrentState() {
@@ -105,7 +117,19 @@ class NewSurveyPage extends Component {
 		this.handleCommitChanges(nextSurveyState);
 	}
 
+	shouldPagesUpdate() {
+		if (this.questionsWereUpdated) {
+			if (window.confirm(NEW_SURVEY_PAGE__QUESTIONS_WERE_UPDATED_MESSAGE) == false) {
+                return false;
+            }
+		}
+		return true;
+	}
+
 	handleCreatePageClick() {
+		if (!this.shouldPagesUpdate()) {
+			return;
+		}
 		const newPageToAdd = this.props.createNewPage();
 		const surveyCurrentState = this.getSurveyCurrentState();
 		const nextSurveyState = Object.assign({}, surveyCurrentState, {
@@ -117,15 +141,29 @@ class NewSurveyPage extends Component {
 		}) 
 		this.handleCommitChanges(
 			nextSurveyState,
-			this.handlePageSelect(nextSurveyState.pagesCount - 1),
+			this.handlePageSelect(nextSurveyState.pagesCount - 1, true),
 		);
 	}
 
-	handlePageSelect(selectedPageIndex) {
+	handlePageSelect(selectedPageIndex, questionChangesWereChecked) {
+		if (!questionChangesWereChecked) {
+			if (!this.shouldPagesUpdate()) {
+				return;
+			}
+		}
+		this.questionsUpdatesCount = 0;
 		this.setState(Object.assign({}, this.state, {
 			activePageIndex: selectedPageIndex,
-		}))
+		}));
 	}
+
+	handleQuestionUpdatesFixed(actionToProcess) {
+        if (actionToProcess === QUESTION_CREATOR__QUESTION_WAS_UPDATED) {
+            this.questionsUpdatesCount++;
+        } else if (actionToProcess === QUESTION_CREATOR__QUESTION_WAS_COMMITED) {
+            this.questionsUpdatesCount--;
+		}
+    }
 
 	handleQuestionTypeClick(clickedType) {
 		const surveyCurrentState = this.getSurveyCurrentState();
@@ -202,6 +240,7 @@ class NewSurveyPage extends Component {
 						   onPageSelect={(selectedPageIndex) => this.handlePageSelect(selectedPageIndex)}
 						   onQuestionListUpdate={updatedQuestionList => this.handleQuestionListUpdate(updatedQuestionList)}
 						   onTitleUpdate={updatedTitle => this.handleTitleUpdate(updatedTitle)}
+						   onQuestionUpdateFixed={actionToProcess => this.handleQuestionUpdatesFixed(actionToProcess)}
 				/>
 				<div className='new-survey__options-boards'>
 					<QuestionTypesPanel currentState={this.state}

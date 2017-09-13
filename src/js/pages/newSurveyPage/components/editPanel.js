@@ -8,7 +8,9 @@ import {
 import SurveyManageForm from './surveyManageForm';
 import 'react-tabs/style/react-tabs.css';
 import QuestionsList from './draggableQuestionList'
-import { DEFAULT_PAGE_TITLE } from '../../../types/types';
+import { 
+    DEFAULT_PAGE_TITLE,
+} from '../../../types/types';
 
 class EditPanel extends PureComponent {
     constructor(props) {
@@ -64,6 +66,7 @@ class EditPanel extends PureComponent {
                         <TabPanel key={page.id}>
                             <QuestionsList questions={questionsToDisplay}
                                            onQuestionListUpdate={this.props.onQuestionListUpdate}
+                                           onQuestionUpdateFixed={this.props.onQuestionUpdateFixed}
                             />
                         </TabPanel>
                     )}

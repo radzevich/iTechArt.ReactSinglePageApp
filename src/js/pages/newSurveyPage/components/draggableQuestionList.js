@@ -174,6 +174,7 @@ class QuestionsList extends PureComponent {
                             <QuestionFiniteStateMachine question={question}
                                                         activeQuestionIndex={activeQuestionId} 
                                                         onQuestionFocus={() => this.handleQuestionActiveClick(index)}
+                                                        onQuestionChangesFixed={this.props.onQuestionUpdateFixed}
                                                         onQuestionUpdate={(updatedQuestion) => this.handleQuestionUpdate(index, updatedQuestion)}
                                                         onDeleteButtonClick={() => this.handleQuestionDelete(index)}
                             />

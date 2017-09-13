@@ -5,12 +5,13 @@ import {
     QUESTION_CREATOR__EDIT_MODE_CHANGED,
     QUESTION_CREATOR__VIEW_MODE,
     QUESTION_CREATOR__VIEW_MODE_CHANGED,
+    QUESTION_CREATOR__QUESTION_WAS_UPDATED, 
+    QUESTION_CREATOR__QUESTION_WAS_COMMITED, 
 } from '../../../types/types';
 
 class QuestionFiniteStateMachine extends PureComponent {
     constructor(props) {
         super(props);
-
         this.state = {
             mode: QUESTION_CREATOR__EDIT_MODE,
             question: props.question,
@@ -22,25 +23,7 @@ class QuestionFiniteStateMachine extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        let questionDisplayMode = this.state.mode;
-        // if (this.props.isInEditMode !== nextProps.isInEditMode) {
-        //     if (nextProps.isInEditMode) {
-        //         if (this.state.mode === QUESTION_CREATOR__VIEW_MODE) {
-        //             questionDisplayMode = QUESTION_CREATOR__EDIT_MODE;
-        //         } else {
-        //             questionDisplayMode = QUESTION_CREATOR__EDIT_MODE_CHANGED;
-        //         }
-        //     } else {
-        //         if (this.state.mode === QUESTION_CREATOR__EDIT_MODE) {
-        //             questionDisplayMode = QUESTION_CREATOR__VIEW_MODE;
-        //         } else {
-        //             questionDisplayMode = QUESTION_CREATOR__VIEW_MODE_CHANGED;
-        //         }
-        //     }
-        // }
-        // this.setState({
-        //     mode: questionDisplayMode,
-        // })
+        let questionDisplayMode = QUESTION_CREATOR__VIEW_MODE;
         if ((this.props.activeQuestionIndex === this.state.question.id) ^ (nextProps.activeQuestionIndex === this.state.question.id)) {
             if (nextProps.activeQuestionIndex === null) {
                 questionDisplayMode = QUESTION_CREATOR__VIEW_MODE;
@@ -58,14 +41,23 @@ class QuestionFiniteStateMachine extends PureComponent {
                 }
             }
         }
+
+        let questionToDisplay = this.props.question;
+        if (this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED || this.state.mode === QUESTION_CREATOR__VIEW_MODE_CHANGED) {
+            questionToDisplay = this.state.question;
+        }
+
         this.setState({
             mode: questionDisplayMode,
+            question: questionToDisplay,
         })
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED && this.state.mode === QUESTION_CREATOR__VIEW_MODE) {
             this.props.onQuestionUpdate(this.state.question);
+        } else if (prevState.mode === QUESTION_CREATOR__EDIT_MODE && this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED) {
+            this.props.onQuestionChangesFixed(QUESTION_CREATOR__QUESTION_WAS_UPDATED);
         }
     }
 
@@ -77,23 +69,13 @@ class QuestionFiniteStateMachine extends PureComponent {
     }
 
     handleQuestionSave() {
-        if (this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED) {
-            this.commitState();
-        //* In case user try to save or cancel not updated question form 
-        //* we should first mark it as updated (switch to QUESTION_CREATOR__EDIT_MODE_CHANGED mode)
-        //* and then invoke commiting of our question state.
-        } else {
-            this.setState({
-                mode: QUESTION_CREATOR__EDIT_MODE_CHANGED,
-            }, this.commitState());
-        }
+        this.props.onQuestionUpdate(this.state.question);
+        this.props.onQuestionChangesFixed(QUESTION_CREATOR__QUESTION_WAS_COMMITED);
     }
 
     handleQuestionCancel() {
-        this.setState({
-            mode: QUESTION_CREATOR__VIEW_MODE,
-            question: this.props.question,
-        })
+        this.props.onQuestionUpdate(this.props.question);
+        this.props.onQuestionChangesFixed(QUESTION_CREATOR__QUESTION_WAS_COMMITED);
     }
 
     commitState() {
@@ -104,9 +86,7 @@ class QuestionFiniteStateMachine extends PureComponent {
 
     render() {
         // debugger;
-        const question = (this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED || this.state.mode === QUESTION_CREATOR__VIEW_MODE_CHANGED) 
-            ? this.state.question
-            : this.props.question;
+        const question = this.state.question;
         const isInEditMode = ((this.state.mode === QUESTION_CREATOR__EDIT_MODE || this.state.mode === QUESTION_CREATOR__EDIT_MODE_CHANGED) && this.props.activeQuestionIndex !== null) 
             ? true
             : false;

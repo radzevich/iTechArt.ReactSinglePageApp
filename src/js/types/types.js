@@ -28,6 +28,8 @@ export const DEFAULT_PAGE_TITLE = 'Страница';
 export const SURVEY_OPTIONS_PANEL_TITLE = 'Параметры опроса';
 export const QUESTION_TYPES_PANEL_TITLE = 'Тип вопроса';
 
+export const NEW_SURVEY_PAGE__QUESTIONS_WERE_UPDATED_MESSAGE = 'Все несохранённые изменения будут утеряны!'
+
 export const EDIT_QUESTION_WRAPPER__TRANSFER_TEXT = 'Переместить';
 export const EDIT_QUESTION_WRAPPER__IS_REQUIRED_TEXT = 'Обязательный';
 export const EDIT_QUESTION_WRAPPER__SUBMIT_QUESTION_TEXT = 'Сохранить';
@@ -39,6 +41,8 @@ export const QUESTION_CREATOR__EDIT_MODE = 0;
 export const QUESTION_CREATOR__EDIT_MODE_CHANGED = 1;
 export const QUESTION_CREATOR__VIEW_MODE = 2;
 export const QUESTION_CREATOR__VIEW_MODE_CHANGED = 3;
+export const QUESTION_CREATOR__QUESTION_WAS_UPDATED = 0;
+export const QUESTION_CREATOR__QUESTION_WAS_COMMITED = 1;
 
 export const RANGE_QUESTION__MIN_VALUE_ID = 0;
 export const RANGE_QUESTION__MAX_VALUE_ID = 1;
