@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import FlexBox from '../common/components/flexBox/flexBox'
-import NewSurveyPage from '../pages/newSurveyPage/components/newSurveyPage';
+import { BrowserRouter } from 'react-router-dom';
+import FlexBox from '../common/components/flexBox/flexBox';
+import NewSurveyPageContainer from '../pages/newSurveyPage/containers/newSurveyPageContainer';
 import MySurveysPage from '../pages/mySurveysPage/components/mySurveysPage';
 import SurveyTemplatesPage from '../pages/surveyTemplatesPage/components/surveyTemplatesPage';
+import { Get, Post, Put, Patch, withAxios } from 'react-axios';
+import axios from "axios";
+import { apiRoutes } from '../types/types';
 
 class Router extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {activePageId: 2};
-    }
+    render() {   
+		const axiosInstance = axios.create({
+			baseURL: apiRoutes.BASE,
+			timeout: 2000,
+			headers: { 'X-Custom-Header': 'foobar' }
+		  });
 
-    render() {
-        const navigationItemsMeta = [
+		const navigationItemsMeta = [
 			{
 				title: 'Новый опрос',
 				linkTo: '/newSurvey',
-				component: NewSurveyPage,
+				component: NewSurveyPageContainer,
 			},
 			{
 				title: 'Мои опросы',
@@ -28,14 +32,14 @@ class Router extends Component {
 				linkTo: '/surveyTemplates',
 				component: SurveyTemplatesPage,
 			},
-        ];
-        
+		];  
+		// debugger;  
         return (
             <BrowserRouter>
-                <FlexBox navigationItemsMeta={navigationItemsMeta}/>
+                <FlexBox navigationItemsMeta={navigationItemsMeta} />
             </BrowserRouter>
         );
     }
 }
 
-export default Router
+export default Router;

@@ -1,0 +1,13 @@
+.page_content_new-survey .edit-board {
+    float: left;
+    width: 500px;
+    height: 400px;
+}
+
+.page_content_new-survey .survey-params-board,
+.page_content_new-survey .question-types-board {
+    float: right;
+    width: 300px;
+    height: 200px;
+    border: 3px solid #000000;
+}
