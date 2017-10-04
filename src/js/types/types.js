@@ -1,3 +1,13 @@
+export const apiRoutes = {
+    BASE: "http://localhost:25570/api/survey",
+    GET_SURVEYS: "getall/false",
+    GET_TEMPLATES: "getall/true",
+    CREATE_SURVEY: "create",
+    UPDATE_SURVEY: "update",
+    DELETE_SURVEY: "delete",
+    SAVE_AS_TEMPLATE: "saveAsTemplate"
+}
+
 export const SAVE_CHANGES_IN_SURVEY = 'SAVE_CHANGES_IN_TEMPLATE';
 export const SAVE_AS_TEMPLATE = 'SAVE_AS_TEMPLATE';
 export const STATE_BACKUP = 'STATE_BACKUP';

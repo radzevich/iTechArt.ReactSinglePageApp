@@ -12,6 +12,8 @@ import {
 import {
     createQuestion
 } from '../../../actions/questionActions';
+import axios from "axios";
+import { apiRoutes } from '../../../types/types';
 
 const createNewSurvey = dispatch => {
     const surveyToCreate = {};
@@ -31,17 +33,41 @@ const createNewQuestion = (dispatch, questionType) => {
     return questionToCreate;
 }
 
+const saveNewSurvey = (surveyToCreate) => {
+    const url = apiRoutes.BASE + '/' + apiRoutes.CREATE_SURVEY;
+    axios.post(url, surveyToCreate)
+         .catch(() => alert('Something went wrong :('));
+}
+
+const saveSurveyAsTemplate = (surveyToSaveAsTemplate) => {
+    const url = apiRoutes.BASE + '/' + apiRoutes.SAVE_AS_TEMPLATE;
+    axios.post(url, surveyToSaveAsTemplate)
+         .catch(() => alert('Something went wrong :('));
+}
+
+const updateSurey = (surveyToUpdate) => {
+    const url = apiRoutes.BASE + '/' + apiRoutes.UPDATE_SURVEY;
+    axios.post(url, surveyToUpdate)
+         .catch(() => alert('Something went wrong :('));
+}
+
 const mapDispatchToProps = dispatch => ({
     onSaveAsClick: () =>
         dispatch(saveAsTemplate()),
     onSaveChangesClick: () => 
         dispatch(saveChangesInSurvey()),
-    createNewSurvey: () => 
-        createNewSurvey(dispatch),
     createNewPage: () =>
         createNewPage(dispatch),
     createNewQuestion: (typeOfQuestionToCreate) =>
         createNewQuestion(dispatch, typeOfQuestionToCreate),
+    createNewSurvey: () => 
+        createNewSurvey(dispatch),
+    saveNewSurvey: (createdSurvey) =>
+        saveNewSurvey(createdSurvey),
+    updateExistingSurey: (updatedSurvey) =>
+        updateSurey(updatedSurvey),
+    onSaveAsTemplateClick: (surveyToSaveAsTemplate) =>
+        saveSurveyAsTemplate(surveyToSaveAsTemplate),
 });
 
 

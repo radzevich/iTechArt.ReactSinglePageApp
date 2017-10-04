@@ -4,9 +4,18 @@ import FlexBox from '../common/components/flexBox/flexBox';
 import NewSurveyPageContainer from '../pages/newSurveyPage/containers/newSurveyPageContainer';
 import MySurveysPage from '../pages/mySurveysPage/components/mySurveysPage';
 import SurveyTemplatesPage from '../pages/surveyTemplatesPage/components/surveyTemplatesPage';
+import { Get, Post, Put, Patch, withAxios } from 'react-axios';
+import axios from "axios";
+import { apiRoutes } from '../types/types';
 
 class Router extends Component {
     render() {   
+		const axiosInstance = axios.create({
+			baseURL: apiRoutes.BASE,
+			timeout: 2000,
+			headers: { 'X-Custom-Header': 'foobar' }
+		  });
+
 		const navigationItemsMeta = [
 			{
 				title: 'Новый опрос',
@@ -23,10 +32,11 @@ class Router extends Component {
 				linkTo: '/surveyTemplates',
 				component: SurveyTemplatesPage,
 			},
-        ];    
+		];  
+		// debugger;  
         return (
             <BrowserRouter>
-                <FlexBox navigationItemsMeta={navigationItemsMeta}/>
+                <FlexBox navigationItemsMeta={navigationItemsMeta} />
             </BrowserRouter>
         );
     }

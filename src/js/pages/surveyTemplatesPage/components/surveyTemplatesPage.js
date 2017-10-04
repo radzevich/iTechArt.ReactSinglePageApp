@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PageHeader from '../../common/components/pageHeader';
 import TemplateItem from '../components/templateItem';
+import { Get } from 'react-axios';
+import axios from "axios";
+import { apiRoutes } from '../../../types/types';
 
 class SurveyTemplatesPage extends Component {
 	constructor(props) {
@@ -13,9 +16,15 @@ class SurveyTemplatesPage extends Component {
 		this.setState({selectedItemIndex: clickedItemIndex});
 	}
 
-	render() {
-		const templateItems = this.props.templateItems.slice();
-			
+	get AxiosInstance() {
+		return axios.create({
+			baseURL: apiRoutes.BASE,
+			timeout: 2000,
+			headers: { 'X-Custom-Header': 'foobar' }
+		});
+	}
+
+	renderSurveyTemplatesPage(templateItems) {
 		return (			
 			<div className="page page_content_survey-templates">
 				<PageHeader pageTitle="Шаблоны"
@@ -30,6 +39,24 @@ class SurveyTemplatesPage extends Component {
 				)}
 			</div>
 		);
+	}
+
+	render() {
+		return (
+			<Get url={apiRoutes.GET_TEMPLATES}
+				 instance={this.AxiosInstance}
+		  	>
+		  		{(error, response, isLoading) => {
+				  	if (error) {
+					  	return (<div>Something bad happened: {error.message}</div>)
+			   		} else if(isLoading) {
+				   		return (<div>Loading...</div>)
+				 	} else if(response !== null) {
+				   		return this.renderSurveyTemplatesPage(response.data);
+				 	}	
+				}}
+		  	</Get>
+		)
 	}
 }
 

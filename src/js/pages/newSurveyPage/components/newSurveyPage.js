@@ -84,7 +84,12 @@ class NewSurveyPage extends Component {
 	}
 
 	handleSaveCLick() {
-		this.props.onSaveChangesClick(this.getSurveyCurrentState());
+		var surveyCurrentState = this.getSurveyCurrentState();
+		if (surveyCurrentState.id) {
+			this.props.updateExistingSurey(surveyCurrentState);
+		} else {
+			this.props.saveNewSurvey(surveyCurrentState);
+		}
 	}
 
 	handleSaveAsTemplateClick() {
